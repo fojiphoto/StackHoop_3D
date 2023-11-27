@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "880221599869",
+    "project_id": "stackhoopcolor3d",
+	"firebase_url": "https://stackhoopcolor3d-default-rtdb.asia-southeast1.firebasedatabase.app/",
+    "storage_bucket": "stackhoopcolor3d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:880221599869:android:1eb230eb3b9389b1e55914",
+        "android_client_info": {
+          "package_name": "com.DefaultCompany.StackHoopColor_3D"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "880221599869-l2ba1q0utrqq3mbpk24vj4sg6d7u38i3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbH3sO-hVjQm1_cNOxCvG11G4IIDh7Tn4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "880221599869-l2ba1q0utrqq3mbpk24vj4sg6d7u38i3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

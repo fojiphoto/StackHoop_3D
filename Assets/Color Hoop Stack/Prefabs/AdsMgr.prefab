@@ -1,0 +1,220 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &634145054621038670
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 634145054621038665}
+  - component: {fileID: 3238215952888773532}
+  - component: {fileID: 2646286973729232042}
+  m_Layer: 0
+  m_Name: AdsMgr
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &634145054621038665
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 634145054621038670}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3238215952888773532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 634145054621038670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 157eb8e56800dff4fafcfb3c012014de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnabled: 1
+  isDoneAdmobInit: 0
+  OnAdLoadedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3238215952888773532}
+        m_TargetAssemblyTypeName: GoogleAdMobController, Assembly-CSharp
+        m_MethodName: EnableAdRewaredButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnAdFailedToLoadEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3238215952888773532}
+        m_TargetAssemblyTypeName: GoogleAdMobController, Assembly-CSharp
+        m_MethodName: DisableAdRewaredButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnAdOpeningEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnAdFailedToShowEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnUserEarnedRewardEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: GameplayMgr, Assembly-CSharp
+        m_MethodName: EarnReward
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnAdClosedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3238215952888773532}
+        m_TargetAssemblyTypeName: GoogleAdMobController, Assembly-CSharp
+        m_MethodName: ReloadRewardedAd
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnBannerAdLoadEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3238215952888773532}
+        m_TargetAssemblyTypeName: GoogleAdMobController, Assembly-CSharp
+        m_MethodName: EnableBannerAdWarpper
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnBannerAdFailedToLoadEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnBannerAdOpenedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3238215952888773532}
+        m_TargetAssemblyTypeName: GoogleAdMobController, Assembly-CSharp
+        m_MethodName: EnableBannerAdWarpper
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnBannerAdClosedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3238215952888773532}
+        m_TargetAssemblyTypeName: GoogleAdMobController, Assembly-CSharp
+        m_MethodName: DisableBannerAdWarpper
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnRewaredAdLoadedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3238215952888773532}
+        m_TargetAssemblyTypeName: GoogleAdMobController, Assembly-CSharp
+        m_MethodName: EnableAdRewaredButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnRewardedAdFailedToLoadEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnRewaredAdOpeningEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnRewardedAdFailedToShowEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnRewardedAdClosedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3238215952888773532}
+        m_TargetAssemblyTypeName: GoogleAdMobController, Assembly-CSharp
+        m_MethodName: ReloadRewardedAd
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  showFpsMeter: 1
+  fpsMeter: {fileID: 0}
+  statusText: {fileID: 0}
+  rewardedTypeAd: 0
+--- !u!114 &2646286973729232042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 634145054621038670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6aba626e25ff776449632628007c6b0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statusRemoteText: {fileID: 0}
+  test: 0
+  isDoneInitRemoteConfig: 0
