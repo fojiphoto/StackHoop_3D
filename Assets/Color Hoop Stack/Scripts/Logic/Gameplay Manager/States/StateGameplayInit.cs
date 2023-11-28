@@ -84,6 +84,7 @@ public class StateGameplayInit : StateGameplay
         int ringStackPerRow = gameplayMgr.stackRowListConfig.stackRowList[ringStackNumber].maxStackInRow;
         gameplayMgr.stackCompleteNumber = 0;
         gameplayMgr.GetRingTypeNumber(gameplayMgr.currentLevel);
+        
 
         for (int i = 0; i < ringStackNumber; i++)
         {

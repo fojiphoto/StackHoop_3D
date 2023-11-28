@@ -12,10 +12,18 @@ public class RingStack : MonoBehaviour, IPointerClickHandler
     [HideInInspector] public bool canControl = true;
     public BoxCollider boxCol;
     [HideInInspector] public int number;
+    public static RingStack ringStacks;
+
+   
 
     private void Awake()
     {
+       
         ringStack = new Stack<Ring>();
+        if (ringStacks==null)
+        {
+            ringStacks=this;
+        }
     }
 
     private void OnEnable()
@@ -27,7 +35,7 @@ public class RingStack : MonoBehaviour, IPointerClickHandler
     // Start is called before the first frame update
     private void Start()
     {
-        
+       
     }
 
     // Update is called once per frame

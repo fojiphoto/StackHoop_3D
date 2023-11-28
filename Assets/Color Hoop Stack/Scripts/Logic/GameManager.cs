@@ -1,4 +1,4 @@
-using Firebase.Extensions;
+//using Firebase.Extensions;
 #if UNITY_EDITOR
 using Sirenix.OdinInspector;
 #endif
@@ -34,11 +34,19 @@ public class GameManager : Singleton<GameManager>
     }
 
     private void CheckServicesLoad()
-    {
-        if (RemoteConfigMgr.Instance.isDoneInitRemoteConfig &&
-            CASAds.instance.isDoneCASInit)
-        {
-            GameplayMgr.Instance.Init();
-        }
+    {   //nadeem
+        // if (RemoteConfigMgr.Instance.isDoneInitRemoteConfig &&
+        //     CASAds.instance.isDoneCASInit)
+        // {
+        //     GameplayMgr.Instance.Init();
+        // }
+    }
+
+    private void Start() {
+        Invoke(nameof(ShowBannerAd),2.5f);
+    }
+
+    public void ShowBannerAd(){
+        AdsManager.instance.ShowBanner();
     }
 }

@@ -27,6 +27,11 @@ public class StateGameplayRingUp : StateGameplay
             ringMove.boxCol.size.z / 2;
         Sequence ringUpSeq = DOTween.Sequence();
         ringUpSeq.Append(ringMove.transform.DOMoveY(newRingYPos, (newRingYPos - ringMove.transform.position.y) / gameplayMgr.ringUpSpeed).SetEase(Ease.Linear));
+         ringUpSeq.AppendCallback(
+                () => ringMove.transform.GetComponent<Animator>().enabled=false
+                );
+
+
 
         if (ringReady != null)
         {
@@ -39,6 +44,7 @@ public class StateGameplayRingUp : StateGameplay
             ringDownSeq.AppendCallback(
                 () => SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.DROP], false)
                 );
+               
             Vector3 newPos = new Vector3(ringReady.transform.position.x, newY, ringReady.transform.position.z);
             ringDownSeq.Append(
                 ringReady.transform.DOJump(newPos, gameplayMgr.ringJumpPower, 2, gameplayMgr.ringJumpTime)

@@ -26,6 +26,10 @@ public class StateGameplayRingDown : StateGameplay
         seqRingDown.AppendCallback(
             () => SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.DROP], false)
             );
+             seqRingDown.AppendCallback(
+            () => ringMove.transform.GetComponent<Animator>().enabled=false
+                
+            );
         Vector3 newPos = new Vector3(ringMove.transform.position.x, newY, ringMove.transform.position.z);
         seqRingDown.Append(
             ringMove.transform.DOJump(newPos, gameplayMgr.ringJumpPower, 2, gameplayMgr.ringJumpTime)

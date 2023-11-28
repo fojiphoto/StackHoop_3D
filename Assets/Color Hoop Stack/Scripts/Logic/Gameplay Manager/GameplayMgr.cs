@@ -14,7 +14,7 @@ public class GameplayMgr : Singleton<GameplayMgr>
     public int stackNumberMax = 4;
 
     [Header("Ring Speed")]
-    public float ringUpSpeed = 0.2f;
+    public float ringUpSpeed = 0.002f;
     public float ringMoveSpeed = 0.5f;
     public float ringDownSpeed = 0.2f;
     public float ringJumpTime = 0.05f;
@@ -50,6 +50,7 @@ public class GameplayMgr : Singleton<GameplayMgr>
 
     [HideInInspector] public int undoTime = 5;
     [HideInInspector] public bool enabledTutorial = true;
+    bool isCapActivated;
 
     private void Awake()
     {
@@ -68,6 +69,17 @@ public class GameplayMgr : Singleton<GameplayMgr>
         stateGameplayCompleteLevel = new StateGameplayCompleteLevel(this, stateMachine);
         stateGameplayEnd = new StateGameplayEnd(this, stateMachine);
         stateGameplayAddStack = new StateGameplayAddStack(this, stateMachine);
+    }
+    private void Start() {
+        DeactivateCapForAllRingStacks();
+        //  foreach (RingStack ringStack in ringStackList)
+        // {
+            
+        //         Transform cap= ringStack.transform.GetChild(2);
+        //         cap.gameObject.SetActive(false);
+               
+            
+        // }
     }
 
     public void Init()
@@ -161,15 +173,16 @@ public class GameplayMgr : Singleton<GameplayMgr>
 
     public void EarnReward()
     {
-        if (CASAds.instance.rewardedTypeAd == CASAds.RewardType.RING_STACK)
-        {
-            stateMachine.StateChange(stateGameplayAddStack);
-        }  
-        else if (CASAds.instance.rewardedTypeAd == CASAds.RewardType.UNDO)
-        {
-            UndoLevel();
-            undoTime--;
-        }
+        //nadeem
+        // if (CASAds.instance.rewardedTypeAd == CASAds.RewardType.RING_STACK)
+        // {
+        //     stateMachine.StateChange(stateGameplayAddStack);
+        // }  
+        // else if (CASAds.instance.rewardedTypeAd == CASAds.RewardType.UNDO)
+        // {
+        //     UndoLevel();
+        //     undoTime--;
+        // }
     }
 
 #if UNITY_EDITOR
@@ -177,6 +190,7 @@ public class GameplayMgr : Singleton<GameplayMgr>
 #endif
     public void GoToLevel(int level)
     {
+         DeactivateCapForAllRingStacks();
         currentLevel = level;
         stateMachine.StateChange(stateGameplayEnd);
         stateMachine.StateChange(stateGameplayInit);
@@ -198,9 +212,11 @@ public class GameplayMgr : Singleton<GameplayMgr>
 #endif
     public void GoNextLevel()
     {
+      isCapActivated=false;
         currentLevel++;
         stateMachine.StateChange(stateGameplayEnd);
         stateMachine.StateChange(stateGameplayInit);
+       
     }
 
 #if UNITY_EDITOR
@@ -213,6 +229,19 @@ public class GameplayMgr : Singleton<GameplayMgr>
         stateMachine.StateChange(stateGameplayInit);
     }
 
+     private void DeactivateCapForAllRingStacks()
+    {
+        if (isCapActivated)  // Check if the cap is activated before deactivating
+        {
+            foreach (RingStack ringStack in ringStackList)
+            {
+                Transform cap = ringStack.transform.GetChild(2);
+                cap.gameObject.SetActive(false);
+            }
+        }
+    }
+    
+    
     public void TriggerCompleteLevelEffect()
     {
         float effectYPos = ringStackList[0].transform.position.y +
@@ -222,11 +251,15 @@ public class GameplayMgr : Singleton<GameplayMgr>
         {
             if (ringStack.ringStack.Count == stackNumberMax)
             {
+                Transform cap= ringStack.transform.GetChild(2);
+                cap.gameObject.SetActive(true);
+                isCapActivated=true;
                 GameObject particleGO = PoolerMgr.Instance.VFXCompletePooler.GetNextPS();
                 particleGO.transform.position = new Vector3(ringStack.transform.position.x, effectYPos, ringStack.transform.position.z);
             }
         }
         SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.FULL_ALL], false);
+         
     }
 
     public void TriggerCompleteLevelEffect(float afterSeconds)
@@ -285,7 +318,8 @@ public class GameplayMgr : Singleton<GameplayMgr>
     public IEnumerator LoadAdsAfter(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        CASAds.instance.ShowBanner(CAS.AdPosition.BottomCenter);
+        //nadeem
+       // CASAds.instance.ShowBanner(CAS.AdPosition.BottomCenter);
         //GoogleAdMobController.Instance.RequestBannerAd();
         //GoogleAdMobController.Instance.RequestAndLoadInterstitialAd();
         //GoogleAdMobController.Instance.RequestAndLoadRewardedAd();

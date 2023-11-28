@@ -46,6 +46,7 @@ public class StateGameplayEnd : StateGameplay
         base.OnExit();
         //GoogleAdMobController.Instance.DisableBannerAdWarpper();
         //GoogleAdMobController.Instance.DestroyBannerAd();
-        CASAds.instance.ShowInterstitial();
+        //nadeem
+        //CASAds.instance.ShowInterstitial();
     }
 }

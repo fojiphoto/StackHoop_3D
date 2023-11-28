@@ -13,5 +13,6 @@ public class NextLevelDebugButton : MonoBehaviour
     public void OnClick()
     {
         GameplayMgr.Instance.GoNextLevel();
+        
     }
 }

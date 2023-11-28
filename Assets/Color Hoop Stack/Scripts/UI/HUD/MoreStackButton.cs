@@ -47,8 +47,8 @@ public class MoreStackButton : MonoBehaviour
         }
         else
         {
-            
-            CASAds.instance.ShowRewarded(()=> { CASAds.instance.rewardedTypeAd = CASAds.RewardType.RING_STACK; });
+            //nadeem
+            //CASAds.instance.ShowRewarded(()=> { CASAds.instance.rewardedTypeAd = CASAds.RewardType.RING_STACK; });
             canUse = false;
             SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.BUTTON], false);
             DisableButton();

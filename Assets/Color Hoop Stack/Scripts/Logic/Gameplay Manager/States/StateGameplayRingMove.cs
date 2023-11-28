@@ -67,6 +67,9 @@ public class StateGameplayRingMove : StateGameplay
                 ringMove.transform.DOMoveY(newRingYPos, (newRingYPos - ringMove.transform.position.y) / gameplayMgr.ringUpSpeed)
                 .SetEase(Ease.Linear)
                 );
+             ringMoveSeq.AppendCallback(
+                () => ringMove.transform.GetComponent<Animator>().enabled=true
+            );
 
             //move to another stack
             ringMoveSeq.Append(
@@ -77,6 +80,9 @@ public class StateGameplayRingMove : StateGameplay
             ringMoveSeq.Append(
                 ringMove.transform.DOMoveY(newY, (newRingYPos - newY) / gameplayMgr.ringDownSpeed).SetEase(Ease.Linear)
                 );
+            ringMoveSeq.AppendCallback(
+                () => ringMove.transform.GetComponent<Animator>().enabled=false
+            );
 
             ringMoveSeq.AppendCallback(() => SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.DROP], false));
 
@@ -114,7 +120,9 @@ public class StateGameplayRingMove : StateGameplay
             if (gameplayMgr.CheckWinState())
             {
                 gameplayMgr.TriggerCompleteLevelEffect(0f);
+                                
                 stateMachine.StateChange(gameplayMgr.stateGameplayCompleteLevel);
+
             }
             else
             {
@@ -123,11 +131,15 @@ public class StateGameplayRingMove : StateGameplay
                 SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.FULL_STACK], false);
                 GameObject particleGO = PoolerMgr.Instance.VFXCompletePooler.GetNextPS();
                 particleGO.transform.position = newPos;
+                 Transform cap= ringStack.transform.GetChild(2);
+                cap.gameObject.SetActive(true);
             }
         }
         else
         {
             ringStack.canControl = true;
+            Transform cap= ringStack.transform.GetChild(2);
+                cap.gameObject.SetActive(false);
         }
     }
 }

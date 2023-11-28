@@ -15,7 +15,7 @@ public class CommandRingUp : Command
         this.ringStackStart = ringStackStart;
         this.ringReady = ringReady;
         this.ringStackReady = ringStackReady;
-
+        this.ring.GetComponent<Animator>().enabled=true;
         Vibration.Vibrate(50);
     }
 

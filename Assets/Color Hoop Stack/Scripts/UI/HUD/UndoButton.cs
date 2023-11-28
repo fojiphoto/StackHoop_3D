@@ -48,10 +48,11 @@ public class UndoButton : MonoBehaviour
                 if (GameplayMgr.Instance.undoTime == 0)
                 {
                     watchAd.SetActive(false);
-                    CASAds.instance.ShowRewarded(()=> 
-                    {
-                        CASAds.instance.rewardedTypeAd = CASAds.RewardType.UNDO;
-                    });
+                    //nadeem
+                    // CASAds.instance.ShowRewarded(()=> 
+                    // {
+                    //     CASAds.instance.rewardedTypeAd = CASAds.RewardType.UNDO;
+                    // });
                 }
 
                 GameplayMgr.Instance.UndoLevel();

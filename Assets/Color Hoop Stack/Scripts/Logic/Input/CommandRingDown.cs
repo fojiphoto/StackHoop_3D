@@ -11,6 +11,7 @@ public class CommandRingDown : Command
     {
         this.ringStackEnd = ringStackEnd;
         this.ring = ringMove;
+        this.ring.GetComponent<Animator>().enabled=true;
     }
 
     public override void Execute()
