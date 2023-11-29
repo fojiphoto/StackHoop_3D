@@ -129,10 +129,12 @@ public class StateGameplayRingMove : StateGameplay
                 float newRingYPos = ringStack.transform.position.y + ringStack.boxCol.size.y / 2 + ringStack.boxCol.size.z / 2;
                 Vector3 newPos = new Vector3(ringStack.transform.position.x, newRingYPos, ringStack.transform.position.z);
                 SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.FULL_STACK], false);
-                GameObject particleGO = PoolerMgr.Instance.VFXCompletePooler.GetNextPS();
-                particleGO.transform.position = newPos;
-                 Transform cap= ringStack.transform.GetChild(2);
-                cap.gameObject.SetActive(true);
+            //     GameObject particleGO = PoolerMgr.Instance.VFXCompletePooler.GetNextPS();
+            //    particleGO.transform.position = newPos;
+                gameplayMgr.CapEnabled(ringStack);
+                gameplayMgr.PlayConfetti(ringStack);
+                //  Transform cap= ringStack.transform.GetChild(2);
+                // cap.gameObject.SetActive(true);
             }
         }
         else
@@ -142,4 +144,5 @@ public class StateGameplayRingMove : StateGameplay
                 cap.gameObject.SetActive(false);
         }
     }
+   
 }

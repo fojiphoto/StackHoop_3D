@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using DG.Tweening;
 using Sirenix.OdinInspector;
 #endif
 using System.Collections;
@@ -51,6 +52,7 @@ public class GameplayMgr : Singleton<GameplayMgr>
     [HideInInspector] public int undoTime = 5;
     [HideInInspector] public bool enabledTutorial = true;
     bool isCapActivated;
+    //public ParticleSystem dustParticle;
 
     private void Awake()
     {
@@ -240,7 +242,19 @@ public class GameplayMgr : Singleton<GameplayMgr>
             }
         }
     }
-    
+    public void CapEnabled(RingStack ringStack){
+        float targetPos=0.58f;
+         Transform cap= ringStack.transform.GetChild(2);
+                cap.gameObject.SetActive(true);
+        cap.DOMoveY(targetPos,.2f).SetEase(Ease.InCirc);
+        PlayDustParticle(ringStack);
+
+    }
+    public void PlayDustParticle(RingStack ringStack){
+          Transform particle= ringStack.transform.GetChild(11).GetChild(0);
+          particle.gameObject.GetComponent<ParticleSystem>().Play();
+       // dustParticle.Play();
+    }
     
     public void TriggerCompleteLevelEffect()
     {
@@ -251,8 +265,13 @@ public class GameplayMgr : Singleton<GameplayMgr>
         {
             if (ringStack.ringStack.Count == stackNumberMax)
             {
+                // Transform cap= ringStack.transform.GetChild(2);
+                // cap.gameObject.SetActive(true);
+                //CapEnabled(ringStack);
+                float targetPos=0.58f;
                 Transform cap= ringStack.transform.GetChild(2);
-                cap.gameObject.SetActive(true);
+                        cap.gameObject.SetActive(true);
+                cap.DOMoveY(targetPos,.2f).SetEase(Ease.InCirc);
                 isCapActivated=true;
                 GameObject particleGO = PoolerMgr.Instance.VFXCompletePooler.GetNextPS();
                 particleGO.transform.position = new Vector3(ringStack.transform.position.x, effectYPos, ringStack.transform.position.z);
@@ -260,6 +279,17 @@ public class GameplayMgr : Singleton<GameplayMgr>
         }
         SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.FULL_ALL], false);
          
+    }
+    public void PlayConfetti(RingStack ringStack){
+       StartCoroutine(ConfettiWait(ringStack));
+    }
+    public IEnumerator ConfettiWait(RingStack ringStack){
+       yield return new WaitForSeconds(.5f);
+        float newRingYPos = ringStack.transform.position.y + ringStack.boxCol.size.y / 2 + ringStack.boxCol.size.z / 2;
+                Vector3 newPos = new Vector3(ringStack.transform.position.x, newRingYPos, ringStack.transform.position.z);
+        GameObject particleGO = PoolerMgr.Instance.VFXCompletePooler.GetNextPS();
+         particleGO.transform.position = newPos;
+        
     }
 
     public void TriggerCompleteLevelEffect(float afterSeconds)

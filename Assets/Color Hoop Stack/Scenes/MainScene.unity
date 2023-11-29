@@ -784,6 +784,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8945599271463635285, guid: 84ab0c762a3a3054d9816165cf2f65fa, type: 3}
+      propertyPath: dustParticle
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8945599271463635285, guid: 84ab0c762a3a3054d9816165cf2f65fa, type: 3}
       propertyPath: ringDownSpeed
       value: 3
       objectReference: {fileID: 0}
