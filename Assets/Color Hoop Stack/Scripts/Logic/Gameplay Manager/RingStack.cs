@@ -30,6 +30,7 @@ public class RingStack : MonoBehaviour, IPointerClickHandler
     {
         ringStack.Clear();
         canControl = true;
+        GameplayMgr.Instance.DeactivateCapForAllRingStacks();
     }
 
     // Start is called before the first frame update
@@ -41,7 +42,8 @@ public class RingStack : MonoBehaviour, IPointerClickHandler
     // Update is called once per frame
     private void Update()
     {
-        
+        if(!IsStackFullSameColor())
+        transform.GetChild(2).gameObject.SetActive(false);
     }
 
     public void AddNewRing(Ring newRing)
@@ -60,6 +62,7 @@ public class RingStack : MonoBehaviour, IPointerClickHandler
 
     public bool IsStackFullSameColor()
     {
+        if(ringStack!=null & ringStack.Peek().ringType != RingType.NONE){
         RingType firstRingType = ringStack.Peek().ringType;
         foreach (Ring ring in ringStack)
         {
@@ -69,7 +72,7 @@ public class RingStack : MonoBehaviour, IPointerClickHandler
 
         if (ringStack.Count < GameplayMgr.Instance.stackNumberMax)
             return false;
-
+        }
         return true;
     }
 }

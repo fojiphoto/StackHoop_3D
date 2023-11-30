@@ -18,11 +18,11 @@ public class AdsManager : MonoBehaviour
     private const string MaxSdkKey = "TecxGz9HeSi_iQ5CGuTRWRFTDHtMM_TKk19s1icUkcuQLyS1FNVZ8Kp_McP2XmsoOIqrW7KHyl1Q5itk7RJVnT";//FS
 
 
-    [SerializeField] private string InterstitialAdUnitIdGeneric = "b6866454f627d18e";
-    [SerializeField] private string RewardedAdUnitIdGeneric = "86df2950bf225c7f";
-    [SerializeField] private string BannerAdUnitId = "1284f4a9f5ae9582";
-    [SerializeField] private string AppOpenAdUnitId = "e6374c8ca4c6e8ef";
-    [SerializeField] private string RecID = "75d0b566987375bd";
+    [SerializeField] private string InterstitialAdUnitIdGeneric = "e8032db0cb2c0198";
+    [SerializeField] private string RewardedAdUnitIdGeneric = "8ce1308b5383db1b";
+    [SerializeField] private string BannerAdUnitId = "92739b05f312f4dd";
+    [SerializeField] private string AppOpenAdUnitId = "842a145266b2772c";
+    [SerializeField] private string RecID = "feab6c731156a470";
 
     
 
@@ -48,6 +48,7 @@ public class AdsManager : MonoBehaviour
             Destroy(this.gameObject);
         }
         DontDestroyOnLoad(this.gameObject);
+        GameAnalyticsSDK.GameAnalytics.Initialize();
 #if UNITY_ANDROID
      //InterstitialAdUnitIdGeneric = "3ba99e62b535dff0";
      //RewardedAdUnitIdGeneric = "ebc4fb00ea91c721";
@@ -509,7 +510,7 @@ public class AdsManager : MonoBehaviour
     }
     
     
-    public void ShowInterstitialWithoutConditions(string placement)
+    public void ShowInterstitialWithoutConditions()
     {
         //if (!_isAdRemoved)
         //{
@@ -519,7 +520,7 @@ public class AdsManager : MonoBehaviour
         //        return;
         //    }
         //}
-        Debug.Log("Showing...Inter "+placement);
+        Debug.Log("Showing...Inter ");
         
         if (MaxSdk.IsInterstitialReady(InterstitialAdUnitIdGeneric))
         {

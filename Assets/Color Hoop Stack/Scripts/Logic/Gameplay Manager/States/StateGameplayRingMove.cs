@@ -52,7 +52,7 @@ public class StateGameplayRingMove : StateGameplay
 
             float newRingYPos = ringStackStart.transform.position.y +
                 ringStackStart.boxCol.size.y / 2 +
-                ringMove.boxCol.size.z / 2;
+                ringMove.boxCol.size.z / 2+.5f;
 
             Vector3 newPos = new Vector3(ringStackEnd.transform.position.x, newRingYPos, ringStackEnd.transform.position.z);
             float distance = Vector3.Distance(ringMove.transform.position, newPos);
@@ -68,7 +68,8 @@ public class StateGameplayRingMove : StateGameplay
                 .SetEase(Ease.Linear)
                 );
              ringMoveSeq.AppendCallback(
-                () => ringMove.transform.GetComponent<Animator>().enabled=true
+                () =>ringMove.transform.GetComponent<Animator>().enabled=true
+                    
             );
 
             //move to another stack
@@ -81,7 +82,10 @@ public class StateGameplayRingMove : StateGameplay
                 ringMove.transform.DOMoveY(newY, (newRingYPos - newY) / gameplayMgr.ringDownSpeed).SetEase(Ease.Linear)
                 );
             ringMoveSeq.AppendCallback(
-                () => ringMove.transform.GetComponent<Animator>().enabled=false
+                () =>{
+                 //ringMove.transform.GetComponent<Animator>().enabled=false;
+                  gameplayMgr.CloseRingAnimator(ringMove);
+                }
             );
 
             ringMoveSeq.AppendCallback(() => SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.DROP], false));
@@ -114,6 +118,7 @@ public class StateGameplayRingMove : StateGameplay
 
     public void ActiveControlStack(RingStack ringStack)
     {
+        Debug.LogError("Check Ring stack");
         if (ringStack.IsStackFullSameColor())
         {
             gameplayMgr.stackCompleteNumber++;
@@ -131,7 +136,9 @@ public class StateGameplayRingMove : StateGameplay
                 SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.FULL_STACK], false);
             //     GameObject particleGO = PoolerMgr.Instance.VFXCompletePooler.GetNextPS();
             //    particleGO.transform.position = newPos;
-                gameplayMgr.CapEnabled(ringStack);
+               
+                    gameplayMgr.CapEnabled(ringStack);
+                
                 gameplayMgr.PlayConfetti(ringStack);
                 //  Transform cap= ringStack.transform.GetChild(2);
                 // cap.gameObject.SetActive(true);

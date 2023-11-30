@@ -73,6 +73,7 @@ public class GameplayMgr : Singleton<GameplayMgr>
         stateGameplayAddStack = new StateGameplayAddStack(this, stateMachine);
     }
     private void Start() {
+        currentLevel=PlayerPrefs.GetInt("Levelnumber");
         DeactivateCapForAllRingStacks();
         //  foreach (RingStack ringStack in ringStackList)
         // {
@@ -176,15 +177,15 @@ public class GameplayMgr : Singleton<GameplayMgr>
     public void EarnReward()
     {
         //nadeem
-        // if (CASAds.instance.rewardedTypeAd == CASAds.RewardType.RING_STACK)
-        // {
-        //     stateMachine.StateChange(stateGameplayAddStack);
-        // }  
-        // else if (CASAds.instance.rewardedTypeAd == CASAds.RewardType.UNDO)
-        // {
-        //     UndoLevel();
-        //     undoTime--;
-        // }
+        if (AdsManager.instance.rewardedTypeAd == AdsManager.RewardType.RING_STACK)
+        {
+            stateMachine.StateChange(stateGameplayAddStack);
+        }  
+        else if (AdsManager.instance.rewardedTypeAd == AdsManager.RewardType.UNDO)
+        {
+            UndoLevel();
+            undoTime--;
+        }
     }
 
 #if UNITY_EDITOR
@@ -196,10 +197,15 @@ public class GameplayMgr : Singleton<GameplayMgr>
         currentLevel = level;
         stateMachine.StateChange(stateGameplayEnd);
         stateMachine.StateChange(stateGameplayInit);
+        PlayerPrefs.SetInt("Levelnumber",currentLevel);
     }
-
+    public void LevelGo(){
+         DeactivateCapForAllRingStacks();
+        GoToLevel( PlayerPrefs.GetInt("Levelnumber"));
+    }
     public void GoToLevel(int level, float goAfterSeconds)
     {
+         DeactivateCapForAllRingStacks();
         StartCoroutine(GoToLevelAfter(level, goAfterSeconds));
     }
 
@@ -218,6 +224,8 @@ public class GameplayMgr : Singleton<GameplayMgr>
         currentLevel++;
         stateMachine.StateChange(stateGameplayEnd);
         stateMachine.StateChange(stateGameplayInit);
+         Debug.Log("Interstitial Ad is runnig ");
+       
        
     }
 
@@ -231,16 +239,22 @@ public class GameplayMgr : Singleton<GameplayMgr>
         stateMachine.StateChange(stateGameplayInit);
     }
 
-     private void DeactivateCapForAllRingStacks()
+     public void DeactivateCapForAllRingStacks()
     {
+        PlayerPrefs.SetInt("Cap",0);
         if (isCapActivated)  // Check if the cap is activated before deactivating
         {
             foreach (RingStack ringStack in ringStackList)
             {
                 Transform cap = ringStack.transform.GetChild(2);
                 cap.gameObject.SetActive(false);
+                isCapActivated=false;
+                 PlayerPrefs.SetInt("Cap",0);
             }
         }
+    }
+    public void disabledCap(){
+        
     }
     public void CapEnabled(RingStack ringStack){
         float targetPos=0.58f;
@@ -248,6 +262,8 @@ public class GameplayMgr : Singleton<GameplayMgr>
                 cap.gameObject.SetActive(true);
         cap.DOMoveY(targetPos,.2f).SetEase(Ease.InCirc);
         PlayDustParticle(ringStack);
+         PlayerPrefs.SetInt("Cap",1);
+         Debug.Log("Cap bool is :"+ PlayerPrefs.GetInt("Cap"));
 
     }
     public void PlayDustParticle(RingStack ringStack){
@@ -279,6 +295,14 @@ public class GameplayMgr : Singleton<GameplayMgr>
         }
         SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.FULL_ALL], false);
          
+    }
+    public void CloseRingAnimator(Ring ring){
+      StartCoroutine(CloseAnimatorWait(ring));
+    }
+    public IEnumerator CloseAnimatorWait(Ring ring){
+        yield return new WaitForSeconds(.02f);
+        ring.GetComponent<Animator>().enabled=false;
+        ring.transform.rotation=Quaternion.Euler(90,0,0);
     }
     public void PlayConfetti(RingStack ringStack){
        StartCoroutine(ConfettiWait(ringStack));

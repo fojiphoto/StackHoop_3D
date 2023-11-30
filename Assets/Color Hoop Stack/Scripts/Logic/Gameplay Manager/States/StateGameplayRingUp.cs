@@ -24,11 +24,17 @@ public class StateGameplayRingUp : StateGameplay
 
         float newRingYPos = ringStackStart.transform.position.y + 
             ringStackStart.boxCol.size.y / 2 + 
-            ringMove.boxCol.size.z / 2;
+            ringMove.boxCol.size.z / 2+.5f;
         Sequence ringUpSeq = DOTween.Sequence();
         ringUpSeq.Append(ringMove.transform.DOMoveY(newRingYPos, (newRingYPos - ringMove.transform.position.y) / gameplayMgr.ringUpSpeed).SetEase(Ease.Linear));
          ringUpSeq.AppendCallback(
-                () => ringMove.transform.GetComponent<Animator>().enabled=false
+                () =>{
+                    //ringMove.transform.GetComponent<Animator>().enabled=false;
+                    gameplayMgr.CloseRingAnimator(ringMove);
+                   
+                
+                }
+                    
                 );
 
 

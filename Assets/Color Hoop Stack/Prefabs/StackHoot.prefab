@@ -528,6 +528,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6498935060378595063}
     m_Modifications:
+    - target: {fileID: 2251404833537670213, guid: e1dd11e55eb598c4c9c6e8eb7170f412, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 365a9a2e196d0a740afac81a2ed72a0c, type: 2}
     - target: {fileID: 3143500415077395531, guid: e1dd11e55eb598c4c9c6e8eb7170f412, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -680,6 +684,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6498935060378595063}
     m_Modifications:
+    - target: {fileID: 674491454512087904, guid: b33c247d3f6ceb64c95899a04099be0d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 365a9a2e196d0a740afac81a2ed72a0c, type: 2}
     - target: {fileID: 2030675544659321275, guid: b33c247d3f6ceb64c95899a04099be0d, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -744,6 +752,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7296900488731309164, guid: b33c247d3f6ceb64c95899a04099be0d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 365a9a2e196d0a740afac81a2ed72a0c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b33c247d3f6ceb64c95899a04099be0d, type: 3}
 --- !u!4 &533104647558674256 stripped
@@ -758,6 +770,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6498935060378595063}
     m_Modifications:
+    - target: {fileID: 1180916829622677990, guid: f67b381f089cc6b469c3afbdce61dcd8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 365a9a2e196d0a740afac81a2ed72a0c, type: 2}
     - target: {fileID: 2840027066661175522, guid: f67b381f089cc6b469c3afbdce61dcd8, type: 3}
       propertyPath: m_Name
       value: Bolt 2.001

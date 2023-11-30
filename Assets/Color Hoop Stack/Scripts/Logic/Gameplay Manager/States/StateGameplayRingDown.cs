@@ -27,7 +27,13 @@ public class StateGameplayRingDown : StateGameplay
             () => SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.DROP], false)
             );
              seqRingDown.AppendCallback(
-            () => ringMove.transform.GetComponent<Animator>().enabled=false
+            ()=> {
+                //ringMove.transform.GetComponent<Animator>().enabled=false;
+                gameplayMgr.CloseRingAnimator(ringMove);
+                }
+                 
+            
+           
                 
             );
         Vector3 newPos = new Vector3(ringMove.transform.position.x, newY, ringMove.transform.position.z);

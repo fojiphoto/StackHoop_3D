@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class CommandRingUp : Command
@@ -16,6 +17,7 @@ public class CommandRingUp : Command
         this.ringReady = ringReady;
         this.ringStackReady = ringStackReady;
         this.ring.GetComponent<Animator>().enabled=true;
+      
         Vibration.Vibrate(50);
     }
 

@@ -5,6 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 0
+    path: Assets/Color Hoop Stack/Scenes/Splash.unity
+    guid: 1350859caa1affc4d88986f910d31a7b
   - enabled: 1
     path: Assets/Color Hoop Stack/Scenes/MainScene.unity
     guid: 475281ae7ec39234e9c2a9a520601cb4

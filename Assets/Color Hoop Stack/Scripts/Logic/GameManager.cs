@@ -19,6 +19,7 @@ public class GameManager : Singleton<GameManager>
 
     private void Awake()
     {
+        GameplayMgr.Instance.DeactivateCapForAllRingStacks();
         EventDispatcher.Instance.RegisterListener(EventID.ON_LOAD_SERVICE_DONE, param => CheckServicesLoad());
 #if !UNITY_EDITOR
         Application.targetFrameRate = framerate;

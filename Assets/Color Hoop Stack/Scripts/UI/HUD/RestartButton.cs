@@ -8,5 +8,6 @@ public class RestartButton : MonoBehaviour
     {
         GameplayMgr.Instance.GoToLevel(GameplayMgr.Instance.currentLevel);
         SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.BUTTON], false);
+        GameplayMgr.Instance.DeactivateCapForAllRingStacks();
     }
 }

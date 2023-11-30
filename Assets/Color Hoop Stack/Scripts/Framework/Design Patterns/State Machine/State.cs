@@ -15,6 +15,7 @@ public class State
     {
         //DisplayOnUI(UIManager.Alignment.Left);
         Utils.Common.Log("enter state: " + GetType().Name);
+          GameplayMgr.Instance.DeactivateCapForAllRingStacks();
     }
 
     public virtual void OnHandleInput()
@@ -35,5 +36,6 @@ public class State
     public virtual void OnExit()
     {
         Utils.Common.Log("exit state: " + GetType().Name);
+          GameplayMgr.Instance.DeactivateCapForAllRingStacks();
     }
 }
