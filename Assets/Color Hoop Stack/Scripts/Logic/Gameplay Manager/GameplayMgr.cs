@@ -71,6 +71,7 @@ public class GameplayMgr : Singleton<GameplayMgr>
         stateGameplayCompleteLevel = new StateGameplayCompleteLevel(this, stateMachine);
         stateGameplayEnd = new StateGameplayEnd(this, stateMachine);
         stateGameplayAddStack = new StateGameplayAddStack(this, stateMachine);
+        EarnReward();
     }
     private void Start() {
         currentLevel=PlayerPrefs.GetInt("Levelnumber");
@@ -257,10 +258,12 @@ public class GameplayMgr : Singleton<GameplayMgr>
         
     }
     public void CapEnabled(RingStack ringStack){
+       
         float targetPos=0.58f;
          Transform cap= ringStack.transform.GetChild(2);
-                cap.gameObject.SetActive(true);
-        cap.DOMoveY(targetPos,.2f).SetEase(Ease.InCirc);
+         cap.gameObject.SetActive(true);
+        //cap.DOMoveY(targetPos,.2f).SetEase(Ease.InCirc);
+        
         PlayDustParticle(ringStack);
          PlayerPrefs.SetInt("Cap",1);
          Debug.Log("Cap bool is :"+ PlayerPrefs.GetInt("Cap"));
@@ -287,7 +290,7 @@ public class GameplayMgr : Singleton<GameplayMgr>
                 float targetPos=0.58f;
                 Transform cap= ringStack.transform.GetChild(2);
                         cap.gameObject.SetActive(true);
-                cap.DOMoveY(targetPos,.2f).SetEase(Ease.InCirc);
+                //cap.DOMoveY(targetPos,0.2f).SetEase(Ease.InCirc);
                 isCapActivated=true;
                 GameObject particleGO = PoolerMgr.Instance.VFXCompletePooler.GetNextPS();
                 particleGO.transform.position = new Vector3(ringStack.transform.position.x, effectYPos, ringStack.transform.position.z);
@@ -300,7 +303,7 @@ public class GameplayMgr : Singleton<GameplayMgr>
       StartCoroutine(CloseAnimatorWait(ring));
     }
     public IEnumerator CloseAnimatorWait(Ring ring){
-        yield return new WaitForSeconds(.02f);
+        yield return new WaitForSeconds(0.02f);
         ring.GetComponent<Animator>().enabled=false;
         ring.transform.rotation=Quaternion.Euler(90,0,0);
     }
@@ -308,7 +311,7 @@ public class GameplayMgr : Singleton<GameplayMgr>
        StartCoroutine(ConfettiWait(ringStack));
     }
     public IEnumerator ConfettiWait(RingStack ringStack){
-       yield return new WaitForSeconds(.5f);
+       yield return new WaitForSeconds(0.5f);
         float newRingYPos = ringStack.transform.position.y + ringStack.boxCol.size.y / 2 + ringStack.boxCol.size.z / 2;
                 Vector3 newPos = new Vector3(ringStack.transform.position.x, newRingYPos, ringStack.transform.position.z);
         GameObject particleGO = PoolerMgr.Instance.VFXCompletePooler.GetNextPS();
