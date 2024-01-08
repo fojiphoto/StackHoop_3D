@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dependencies>
+  <androidPackages>
+    <androidPackage spec="com.cleveradssolutions:unity:4.9.2.2" version="4.9.2.2"/>
+  </androidPackages>
+</dependencies>

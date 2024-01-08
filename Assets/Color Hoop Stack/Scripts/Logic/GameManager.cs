@@ -36,11 +36,11 @@ public class GameManager : Singleton<GameManager>
 
     private void CheckServicesLoad()
     {   //nadeem
-        // if (RemoteConfigMgr.Instance.isDoneInitRemoteConfig &&
-        //     CASAds.instance.isDoneCASInit)
-        // {
-        //     GameplayMgr.Instance.Init();
-        // }
+        //if (RemoteConfigMgr.Instance.isDoneInitRemoteConfig &&
+        //    CASAds.instance.isDoneCASInit)
+        //{
+        //    GameplayMgr.Instance.Init();
+        //}
     }
 
     private void Start() {
@@ -48,6 +48,15 @@ public class GameManager : Singleton<GameManager>
     }
 
     public void ShowBannerAd(){
-        AdsManager.instance.ShowBanner();
+        //abdul Rehman
+        //AdsManager.instance.ShowBanner();
+        CASAds.instance.ShowBanner(CAS.AdPosition.BottomCenter);
+    }
+    public void RevokeConcent()
+    {
+        CASAds.instance?.HideBanner();
+        CASAds.instance?.HideMrecBanner();
+        PlayerPrefs.SetInt("GDPR", 0);
+        Application.LoadLevel("GDPR");
     }
 }

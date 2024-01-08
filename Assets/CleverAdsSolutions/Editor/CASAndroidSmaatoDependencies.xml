@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dependencies>
+  <androidPackages>
+    <repositories>
+      <repository>https://s3.amazonaws.com/smaato-sdk-releases/</repository>
+    </repositories>
+    <androidPackage spec="com.cleveradssolutions:smaato:22.0.2.1" version="22.0.2.1"/>
+  </androidPackages>
+</dependencies>

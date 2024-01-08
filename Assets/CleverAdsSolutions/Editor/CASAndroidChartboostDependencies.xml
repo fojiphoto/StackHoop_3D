@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dependencies>
+  <androidPackages>
+    <repositories>
+      <repository>https://cboost.jfrog.io/artifactory/chartboost-ads/</repository>
+    </repositories>
+    <androidPackage spec="com.cleveradssolutions:chartboost:9.6.0.0" version="9.6.0.0"/>
+  </androidPackages>
+</dependencies>

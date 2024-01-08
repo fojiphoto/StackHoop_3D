@@ -60,10 +60,11 @@ public class GameCanvas : MonoBehaviour
     private void CheckServicesLoad()
     {
         //nadeem
-        // if (RemoteConfigMgr.Instance.isDoneInitRemoteConfig &&
-        //     CASAds.instance.isDoneCASInit)
-        // {
-        //     loadingScreen.SetActive(false);
-        // }
+        //abdulrehman
+        //if (RemoteConfigMgr.Instance.isDoneInitRemoteConfig &&
+        //    CASAds.instance.isDoneCASInit)
+        //{
+        //    loadingScreen.SetActive(false);
+        //}
     }
 }

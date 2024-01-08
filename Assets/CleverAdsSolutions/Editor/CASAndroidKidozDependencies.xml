@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dependencies>
+  <androidPackages>
+    <androidPackage spec="com.cleveradssolutions:kidoz:9.0.1.0" version="9.0.1.0"/>
+  </androidPackages>
+</dependencies>

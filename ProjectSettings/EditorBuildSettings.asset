@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
+    path: Assets/GDPR/GDPR.unity
+    guid: 088a15e144b3aad47ab154b3f5726db5
+  - enabled: 1
     path: Assets/Color Hoop Stack/Scenes/Splash.unity
     guid: 1350859caa1affc4d88986f910d31a7b
   - enabled: 1

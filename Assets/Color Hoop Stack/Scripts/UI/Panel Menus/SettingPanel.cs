@@ -20,7 +20,10 @@ public class SettingPanel : MenuPanel
         gameObject.SetActive(false);
         SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.BUTTON], false);
     }
-
+    public void openUrl()
+    {
+        Application.OpenURL("https://orbitgamesglobal-privacy-policy.blogspot.com/");
+    }
     public void SaveSetting()
     {
         FileHandler fileHandler = new FileHandler();

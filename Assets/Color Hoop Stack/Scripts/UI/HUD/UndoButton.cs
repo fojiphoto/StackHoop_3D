@@ -57,13 +57,12 @@ public GameObject RingStackObj;
                 {
                     watchAd.SetActive(false);
 
-                    //nadeem
-
-                     AdsManager.instance.ShowRewardedAd(()=>{AdsManager.instance.rewardedTypeAd=AdsManager.RewardType.UNDO;});
-                    // CASAds.instance.ShowRewarded(()=> 
-                    // {
-                    //     CASAds.instance.rewardedTypeAd = CASAds.RewardType.UNDO;
-                    // });
+                    //Abdul rehman
+                     //AdsManager.instance.ShowRewardedAd(()=>{AdsManager.instance.rewardedTypeAd=AdsManager.RewardType.UNDO;});
+                    CASAds.instance.ShowRewarded(() =>
+                    {
+                        CASAds.instance.rewardedTypeAd = CASAds.RewardType.UNDO;
+                    });
                 }
 
                 GameplayMgr.Instance.UndoLevel();

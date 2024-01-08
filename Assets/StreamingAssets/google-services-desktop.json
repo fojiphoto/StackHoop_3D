@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "779460315706",
+    "project_id": "nuts-and-bolts-puzzle-sorting",
+    "storage_bucket": "nuts-and-bolts-puzzle-sorting.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:779460315706:android:ebbdf83e0b82114af1c303",
+        "android_client_info": {
+          "package_name": "com.og.nutsbolts.games"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBD76_FOpcqONI--TUSu7jKIM7pyT-e6dI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
