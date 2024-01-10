@@ -1,18 +1,18 @@
 <dependencies>
   <packages>
     <package>com.cleveradssolutions:applovin:12.1.0.0</package>
-    <package>com.cleveradssolutions:bigo:4.3.2.0</package>
-    <package>com.cleveradssolutions:cas-promo:3.5.1</package>
-    <package>com.cleveradssolutions:cas-sdk:3.5.1</package>
+    <package>com.cleveradssolutions:bigo:4.4.0.0</package>
+    <package>com.cleveradssolutions:cas-promo:3.5.2</package>
+    <package>com.cleveradssolutions:cas-sdk:3.5.2</package>
     <package>com.cleveradssolutions:chartboost:9.6.0.0</package>
     <package>com.cleveradssolutions:facebook:6.16.0.1</package>
     <package>com.cleveradssolutions:google:22.6.0.0</package>
-    <package>com.cleveradssolutions:hyprmx:6.2.0.0</package>
+    <package>com.cleveradssolutions:hyprmx:6.2.3.0</package>
     <package>com.cleveradssolutions:inmobi:10.6.2.1</package>
-    <package>com.cleveradssolutions:ironsource:7.6.1.0</package>
-    <package>com.cleveradssolutions:kidoz:9.0.1.0</package>
+    <package>com.cleveradssolutions:ironsource:7.7.0.0</package>
+    <package>com.cleveradssolutions:kidoz:9.0.2.0</package>
     <package>com.cleveradssolutions:mintegral:16.5.91.0</package>
-    <package>com.cleveradssolutions:pangle:5.6.0.4</package>
+    <package>com.cleveradssolutions:pangle:5.7.0.2</package>
     <package>com.cleveradssolutions:smaato:22.0.2.1</package>
     <package>com.cleveradssolutions:superawesome:9.3.0.0</package>
     <package>com.cleveradssolutions:unity:4.9.2.2</package>

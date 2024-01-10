@@ -4,6 +4,6 @@
     <repositories>
       <repository>https://android-sdk.is.com/</repository>
     </repositories>
-    <androidPackage spec="com.cleveradssolutions:ironsource:7.6.1.0" version="7.6.1.0"/>
+    <androidPackage spec="com.cleveradssolutions:ironsource:7.7.0.0" version="7.7.0.0"/>
   </androidPackages>
 </dependencies>
