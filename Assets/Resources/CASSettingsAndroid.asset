@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   testAdMode: 0
   managerIds:
-  - com.og.nutsbolts.games
+  - com.fsa.hope
   allowedAdFlags: 7
   audienceTagged: 0
   bannerSize: 0
