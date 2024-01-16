@@ -25,12 +25,12 @@ public class Cursor : MonoBehaviour
         {
             if (GameplayMgr.Instance.currentLevel == 0)
             {
-                Vector2 cursorScreenPos = GetScreenPosFromWorldPos(GameplayMgr.Instance.ringStackList[0].transform.position) - new Vector2(400f, 1100f);
+                Vector2 cursorScreenPos = GetScreenPosFromWorldPos(GameplayMgr.Instance.ringStackList[0].transform.position) - new Vector2(0, 400f);
                 cursorRect.anchoredPosition = cursorScreenPos;
             }
-            else if (GameplayMgr.Instance.currentLevel == 9)
+            else if (GameplayMgr.Instance.currentLevel == 2)
             {
-                Vector2 cursorScreenPos = moreStackButton.anchoredPosition + new Vector2(0f, canvasRect.sizeDelta.y * 0.5f - 932f);
+                Vector2 cursorScreenPos = moreStackButton.anchoredPosition + new Vector2(450f, canvasRect.sizeDelta.y * 0.5f - 300f);
                 cursorRect.anchoredPosition = cursorScreenPos;
             }
             PlayIdleCursorAnimation(cursorRect.anchoredPosition);
