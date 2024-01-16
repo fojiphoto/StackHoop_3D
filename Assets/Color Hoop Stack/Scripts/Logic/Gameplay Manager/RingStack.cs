@@ -44,6 +44,7 @@ public class RingStack : MonoBehaviour, IPointerClickHandler
     {
         if(!IsStackFullSameColor())
         transform.GetChild(2).gameObject.SetActive(false);
+        
     }
 
     public void AddNewRing(Ring newRing)
@@ -58,6 +59,7 @@ public class RingStack : MonoBehaviour, IPointerClickHandler
         {
             InputMgr.Instance.HandleTap(this);
         }
+
     }
 
     public bool IsStackFullSameColor()

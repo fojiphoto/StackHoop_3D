@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class TutorialMgr : MonoBehaviour
 {
@@ -15,9 +17,18 @@ public class TutorialMgr : MonoBehaviour
         EventDispatcher.Instance.RegisterListener(EventID.ON_ENABLED_TUTORIAL, param => EnableTutorial());
         EventDispatcher.Instance.RegisterListener(EventID.ON_DISABLED_TUTORIAL, param => DisableTutorial());
     }
+    public void OnEnable()
+    {
+        this.gameObject.AddComponent<Button>();
+        this.gameObject.GetComponent<Button>().onClick.AddListener(buttonfnc);
+    }
 
     public void EnableTutorial()
     {
+        
+
+
+
         if (GameplayMgr.Instance.currentLevel == 0)
         {
             tutorialText.SetActive(true);
@@ -34,7 +45,10 @@ public class TutorialMgr : MonoBehaviour
             tutorialCursor.SetActive(true);
         }
     }
-
+    private void buttonfnc()
+    {
+        this.gameObject.SetActive(false);
+    }
     public void DisableTutorial()
     {
         if (tutorialText.activeSelf)
@@ -54,4 +68,7 @@ public class TutorialMgr : MonoBehaviour
             tutorialMoreStack.SetActive(false);
         }
     }
+   
+
+
 }

@@ -35,4 +35,15 @@ public class SplashScene : MonoBehaviour
     public void MainMenuOpen(){
          loadScreen.SetActive(true);
     }
+
+    public void RateUs()
+    {  
+       string rateus = "Playstore k lye";
+       Application.OpenURL(rateus);
+    }
+    public void MoreGames()
+    {
+        string moreGames = "Playstore k lye";
+        Application.OpenURL(moreGames);
+    }
 }

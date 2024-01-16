@@ -2,6 +2,7 @@
 using DG.Tweening;
 using Sirenix.OdinInspector;
 #endif
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -73,16 +74,17 @@ public class GameplayMgr : Singleton<GameplayMgr>
         stateGameplayAddStack = new StateGameplayAddStack(this, stateMachine);
         EarnReward();
     }
-    private void Start() {
+    public void Start() {
         currentLevel=PlayerPrefs.GetInt("Levelnumber");
         DeactivateCapForAllRingStacks();
+        DOTween.Init();
         //  foreach (RingStack ringStack in ringStackList)
         // {
-            
+
         //         Transform cap= ringStack.transform.GetChild(2);
         //         cap.gameObject.SetActive(false);
-               
-            
+
+
         // }
     }
 
@@ -262,7 +264,8 @@ public class GameplayMgr : Singleton<GameplayMgr>
         float targetPos=0.58f;
          Transform cap= ringStack.transform.GetChild(2);
          cap.gameObject.SetActive(true);
-        //cap.DOMoveY(targetPos,.2f).SetEase(Ease.InCirc);
+        //abdulrehman
+        cap.DOMoveY(targetPos, .2f).SetEase(Ease.InCirc);
         
         PlayDustParticle(ringStack);
          PlayerPrefs.SetInt("Cap",1);
@@ -290,7 +293,8 @@ public class GameplayMgr : Singleton<GameplayMgr>
                 float targetPos=0.58f;
                 Transform cap= ringStack.transform.GetChild(2);
                         cap.gameObject.SetActive(true);
-                //cap.DOMoveY(targetPos,0.2f).SetEase(Ease.InCirc);
+                //abdulrehman
+                cap.DOMoveY(targetPos,0.2f).SetEase(Ease.InCirc);
                 isCapActivated=true;
                 GameObject particleGO = PoolerMgr.Instance.VFXCompletePooler.GetNextPS();
                 particleGO.transform.position = new Vector3(ringStack.transform.position.x, effectYPos, ringStack.transform.position.z);
@@ -399,6 +403,8 @@ public class GameplayMgr : Singleton<GameplayMgr>
             else
             {
                 undoTime = 5;
+                UndoButton.instance.watchAd.SetActive(false);
+                UndoButton.instance.UndoImage.SetActive(true);
                 EventDispatcher.Instance.PostEvent(EventID.ON_CHANGED_UNDO_TIME);
                 return;
             }

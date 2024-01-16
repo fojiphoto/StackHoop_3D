@@ -6,17 +6,20 @@ using UnityEngine.UI;
 
 public class UndoButton : MonoBehaviour
 {
+    public static UndoButton instance { get; set; }
     [SerializeField]
     private Button button;
     public TextMeshProUGUI undoNumberText;
     [SerializeField]
-    private GameObject watchAd; 
-    private bool riseEnableButtonFlag = false;
-    private bool riseDisableButtonFlag = false;
+    public GameObject watchAd;
+    [SerializeField]
+    public GameObject UndoImage;
+    public bool riseEnableButtonFlag = false;
+    public bool riseDisableButtonFlag = false;
 
     private void Awake()
     {
-      
+        instance = this;
         EventDispatcher.Instance.RegisterListener(EventID.ON_LOADED_REWARDED_AD, param => EnableButtonAd());
         EventDispatcher.Instance.RegisterListener(EventID.ON_FAILED_LOAD_REWARDED_AD, param => DisableButtonAd());
         EventDispatcher.Instance.RegisterListener(EventID.ON_CHANGED_UNDO_TIME, param => OnChangedUndoTime());
@@ -41,24 +44,29 @@ public class UndoButton : MonoBehaviour
 public GameObject RingStackObj;
     public void UndoMove()
     {
-        if ( PlayerPrefs.GetInt("Cap")>0)
-        { 
+        if (PlayerPrefs.GetInt("Cap") > 0)
+        {
             RingStackObj = RingStack.ringStacks.gameObject;
-           RingStack.ringStacks.transform.GetChild(2).gameObject.SetActive(false);
-            PlayerPrefs.SetInt("Cap",0);
-            Debug.Log("Cap bool is :"+PlayerPrefs.GetInt("Cap"));
+            RingStack.ringStacks.transform.GetChild(2).gameObject.SetActive(false);
+            PlayerPrefs.SetInt("Cap", 0);
+            Debug.Log("Cap bool is :" + PlayerPrefs.GetInt("Cap"));
         }
         if ((GameplayMgr.Instance.stateMachine.CurrentState == GameplayMgr.Instance.stateGameplayIdle) ||
             (GameplayMgr.Instance.stateMachine.CurrentState == GameplayMgr.Instance.stateGameplayRingReady))
         {
             if (GameplayMgr.Instance.mapDataStack.Count > 0)
             {
-                if (GameplayMgr.Instance.undoTime == 0)
+                Debug.Log("Check me" + GameplayMgr.Instance.undoTime);
+                if (GameplayMgr.Instance.undoTime == 1)
                 {
-                    watchAd.SetActive(false);
-
+                    UndoImage.SetActive(false);
+                    watchAd.SetActive(true);
                     //Abdul rehman
-                     //AdsManager.instance.ShowRewardedAd(()=>{AdsManager.instance.rewardedTypeAd=AdsManager.RewardType.UNDO;});
+                    //AdsManager.instance.ShowRewardedAd(()=>{AdsManager.instance.rewardedTypeAd=AdsManager.RewardType.UNDO;});
+
+                }
+                else if (GameplayMgr.Instance.undoTime < 1)
+                {
                     CASAds.instance.ShowRewarded(() =>
                     {
                         CASAds.instance.rewardedTypeAd = CASAds.RewardType.UNDO;
@@ -68,12 +76,13 @@ public GameObject RingStackObj;
                 GameplayMgr.Instance.UndoLevel();
                 SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.BUTTON], false);
             }
+
         }
     }
 
     public void EnableButtonAd()
     {
-        if (GameplayMgr.Instance.undoTime == 0)
+        if (GameplayMgr.Instance.undoTime < 1)
         {
             EnableButton();
             Debug.Log("He he me go active OwO !");
@@ -82,7 +91,7 @@ public GameObject RingStackObj;
 
     public void DisableButtonAd()
     {
-        if (GameplayMgr.Instance.undoTime == 0)
+        if (GameplayMgr.Instance.undoTime < 0)
         {
             DisableButton();
             Debug.Log("He he me go deactive OwO !");
@@ -104,7 +113,7 @@ public GameObject RingStackObj;
 
     public void OnChangedUndoTime()
     {
-          GameplayMgr.Instance.DeactivateCapForAllRingStacks();
+        GameplayMgr.Instance.DeactivateCapForAllRingStacks();
         undoNumberText.text = "<sprite index=" + GameplayMgr.Instance.undoTime + ">";
         if (GameplayMgr.Instance.undoTime == 0)
         {

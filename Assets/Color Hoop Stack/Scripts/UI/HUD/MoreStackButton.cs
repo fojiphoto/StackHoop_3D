@@ -7,8 +7,8 @@ public class MoreStackButton : MonoBehaviour
 {
     [SerializeField]
     private Button button;
-    private bool riseEnableButtonFlag = false;
-    private bool riseDisableButtonFlag = false;
+    public bool riseEnableButtonFlag = false;
+    public bool riseDisableButtonFlag = false;
     private bool canUse = true;
 
     private void Awake()

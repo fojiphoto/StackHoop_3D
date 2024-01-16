@@ -12,6 +12,7 @@ public class WinMenu : MonoBehaviour
 
     private void OnEnable()
     {
+        CASAds.instance.ShowMrecBanner(CAS.AdPosition.TopCenter);
         StartCoroutine(PlayFireWorkAfter(lFirework, 0f));
         StartCoroutine(PlayFireWorkAfter(rFirework, 0f));
         StartCoroutine(ResetFireWorkAfter(rFirework, fireworkTime));
@@ -24,6 +25,7 @@ public class WinMenu : MonoBehaviour
     {
         backgroundPanel.gameObject.SetActive(false);
         GameplayMgr.Instance.GoToLevel(GameplayMgr.Instance.currentLevel);
+        CASAds.instance.HideMrecBanner();
     }
 
     public void PlayEndAnimation()
