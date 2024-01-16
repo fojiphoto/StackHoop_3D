@@ -38,12 +38,12 @@ public class SplashScene : MonoBehaviour
 
     public void RateUs()
     {  
-       string rateus = "Playstore k lye";
+       string rateus = "https://play.google.com/store/apps/details?id=com.og.nutsbolts.games&hl=en_US&gl=CN";
        Application.OpenURL(rateus);
     }
     public void MoreGames()
     {
-        string moreGames = "Playstore k lye";
+        string moreGames = "https://play.google.com/store/apps/developer?id=Orbit+Games+Global&hl=en_US&gl=CN";
         Application.OpenURL(moreGames);
     }
 }

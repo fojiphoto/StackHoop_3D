@@ -26,11 +26,11 @@ MonoBehaviour:
   UserMessagesFailed: 0
   CustomArea: 
   gameKey:
-  - b3b4ad6276436d84df48bafa17a913ab
+  - 7abeffccf21a62955ce4cd4dba54a0e5
   secretKey:
-  - b48e12813b4bce67b2cc2757d7cbabff706434db
+  - decae913e548711ffb4f24e6c729d0687dedeec7
   Build:
-  - 1.1
+  - 1.3
   SelectedPlatformOrganization:
   - 
   SelectedPlatformStudio:
