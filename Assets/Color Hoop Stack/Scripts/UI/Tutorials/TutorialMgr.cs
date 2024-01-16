@@ -17,18 +17,10 @@ public class TutorialMgr : MonoBehaviour
         EventDispatcher.Instance.RegisterListener(EventID.ON_ENABLED_TUTORIAL, param => EnableTutorial());
         EventDispatcher.Instance.RegisterListener(EventID.ON_DISABLED_TUTORIAL, param => DisableTutorial());
     }
-    public void OnEnable()
-    {
-        this.gameObject.AddComponent<Button>();
-        this.gameObject.GetComponent<Button>().onClick.AddListener(buttonfnc);
-    }
+   
 
     public void EnableTutorial()
-    {
-        
-
-
-
+    {   
         if (GameplayMgr.Instance.currentLevel == 0)
         {
             tutorialText.SetActive(true);
@@ -39,11 +31,16 @@ public class TutorialMgr : MonoBehaviour
             tutorialText.SetActive(true);
             tutorialCorrect.SetActive(true);
         }
-        else if (GameplayMgr.Instance.currentLevel == 9)
+        else if (GameplayMgr.Instance.currentLevel == 3)
         {
             tutorialMoreStack.SetActive(true);
             tutorialCursor.SetActive(true);
         }
+    }
+    public void OnEnable()
+    {
+        this.gameObject.AddComponent<Button>();
+        this.gameObject.GetComponent<Button>().onClick.AddListener(buttonfnc);
     }
     private void buttonfnc()
     {
