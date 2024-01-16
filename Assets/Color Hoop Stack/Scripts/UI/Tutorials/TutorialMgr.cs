@@ -17,10 +17,14 @@ public class TutorialMgr : MonoBehaviour
         EventDispatcher.Instance.RegisterListener(EventID.ON_ENABLED_TUTORIAL, param => EnableTutorial());
         EventDispatcher.Instance.RegisterListener(EventID.ON_DISABLED_TUTORIAL, param => DisableTutorial());
     }
-   
+    public void Update()
+    {
+        Debug.Log(GameplayMgr.Instance.currentLevel);
+    }
 
     public void EnableTutorial()
-    {   
+    {
+        Debug.Log("Level No"+GameplayMgr.Instance.currentLevel);
         if (GameplayMgr.Instance.currentLevel == 0)
         {
             tutorialText.SetActive(true);
@@ -31,8 +35,9 @@ public class TutorialMgr : MonoBehaviour
             tutorialText.SetActive(true);
             tutorialCorrect.SetActive(true);
         }
-        else if (GameplayMgr.Instance.currentLevel == 3)
+        else if (GameplayMgr.Instance.currentLevel == 2)
         {
+            
             tutorialMoreStack.SetActive(true);
             tutorialCursor.SetActive(true);
         }

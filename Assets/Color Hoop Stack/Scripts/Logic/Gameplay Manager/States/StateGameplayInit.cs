@@ -43,7 +43,7 @@ public class StateGameplayInit : StateGameplay
             InitLevelDefault();
         }
 
-        if ((gameplayMgr.currentLevel > 1) && (gameplayMgr.currentLevel != 9))
+        if ((gameplayMgr.currentLevel > 2) /*&& (gameplayMgr.currentLevel != 9)*/)
         {
             if (gameplayMgr.enabledTutorial)
             {

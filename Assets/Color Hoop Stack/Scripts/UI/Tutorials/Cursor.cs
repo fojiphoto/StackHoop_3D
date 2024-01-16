@@ -25,7 +25,7 @@ public class Cursor : MonoBehaviour
         {
             if (GameplayMgr.Instance.currentLevel == 0)
             {
-                Vector2 cursorScreenPos = GetScreenPosFromWorldPos(GameplayMgr.Instance.ringStackList[0].transform.position) - new Vector2(0f, 400f);
+                Vector2 cursorScreenPos = GetScreenPosFromWorldPos(GameplayMgr.Instance.ringStackList[0].transform.position) - new Vector2(400f, 1100f);
                 cursorRect.anchoredPosition = cursorScreenPos;
             }
             else if (GameplayMgr.Instance.currentLevel == 9)
