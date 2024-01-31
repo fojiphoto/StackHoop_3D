@@ -108,7 +108,7 @@ public class StateGameplayInit : StateGameplay
                     Ring newRingComp = newRing.GetComponent<Ring>();
                     newRing.transform.position = new Vector3(
                         ringStack.transform.position.x,
-                        -1.123066f + ringStack.boxCol.size.z/2 + newRingComp.boxCol.size.z/2 + newRingComp.boxCol.size.z * j,
+                        -1.3f + ringStack.boxCol.size.z/2 + newRingComp.boxCol.size.z/2 + newRingComp.boxCol.size.z * j,
                         ringStack.transform.position.z
                         );
 

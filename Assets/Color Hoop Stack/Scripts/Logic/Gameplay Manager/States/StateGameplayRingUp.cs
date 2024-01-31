@@ -43,9 +43,9 @@ public class StateGameplayRingUp : StateGameplay
         {
             Sequence ringDownSeq = DOTween.Sequence();
             ringReady.isMoving = false;
-            float newY = -1.123066f + ringStackReady.boxCol.size.z / 2 + ringReady.boxCol.size.z / 2 + ringReady.boxCol.size.z * (ringStackReady.ringStack.Count - 1);
+            float newY = -1.3f + ringStackReady.boxCol.size.z / 2 + ringReady.boxCol.size.z / 2 + ringReady.boxCol.size.z * (ringStackReady.ringStack.Count - 1);
             ringDownSeq.Append(
-                ringReady.transform.DOMoveY(newY, (ringMove.transform.position.y - newY) / gameplayMgr.ringDownSpeed).SetEase(Ease.Linear)
+                ringReady.transform.DOMoveY(newY, (ringMove.transform.position.y - newY ) / gameplayMgr.ringDownSpeed).SetEase(Ease.Linear)
                 );
             ringDownSeq.AppendCallback(
                 () => SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.DROP], false)

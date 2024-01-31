@@ -50,8 +50,8 @@ public class StateGameplayRingMove : StateGameplay
             ringMove.transform.SetParent(ringStackEnd.transform);
             ringStackEnd.ringStack.Push(ringMove);
 
-            float newRingYPos = ringStackStart.transform.position.y +
-                ringStackStart.boxCol.size.y / 2 +
+            float newRingYPos =  ringStackStart.transform.position.y +
+                  ringStackStart.boxCol.size.y / 2 +
                 ringMove.boxCol.size.z / 2+.5f;
 
             Vector3 newPos = new Vector3(ringStackEnd.transform.position.x, newRingYPos, ringStackEnd.transform.position.z);
@@ -60,7 +60,7 @@ public class StateGameplayRingMove : StateGameplay
             Sequence ringMoveSeq = DOTween.Sequence();
             ringMoveSeq.PrependInterval(gameplayMgr.waitTime * (ringNumber));
 
-            float newY = -1.123066f + ringStackEnd.boxCol.size.z / 2 + ringMove.boxCol.size.z / 2 + ringMove.boxCol.size.z * (ringStackEnd.ringStack.Count - 1);
+            float newY = -1.3f + ringStackEnd.boxCol.size.z / 2 + ringMove.boxCol.size.z / 2 + ringMove.boxCol.size.z * (ringStackEnd.ringStack.Count - 1);
 
             //move up
             ringMoveSeq.Append(

@@ -457,7 +457,7 @@ public class GameplayMgr : Singleton<GameplayMgr>
                     Ring newRingComp = newRing.GetComponent<Ring>();
                     newRing.transform.position = new Vector3(
                         ringStack.transform.position.x,
-                        -1.123066f + ringStack.boxCol.size.z / 2 + newRingComp.boxCol.size.z / 2 + newRingComp.boxCol.size.z * (mapData.ListRingStack[i].ringList.Count - 1 - j),
+                        -1.3f + ringStack.boxCol.size.z / 2 + newRingComp.boxCol.size.z / 2 + newRingComp.boxCol.size.z * (mapData.ListRingStack[i].ringList.Count - 1 - j),
                         ringStack.transform.position.z
                         );
 
