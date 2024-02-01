@@ -50,13 +50,17 @@ public class MoreStackButton : MonoBehaviour
         }
         else
         {
-            //nadeem
-            // abdul Rehman
-            CASAds.instance.ShowRewarded(() => { CASAds.instance.rewardedTypeAd = CASAds.RewardType.RING_STACK; });
+            
+            
             //AdsManager.instance.ShowRewardedAd(() => { AdsManager.instance.rewardedTypeAd = AdsManager.RewardType.RING_STACK; });
             canUse = false;
             SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.BUTTON], false);
             DisableButton();
+            //nadeem
+            // abdul Rehman
+            CASAds.instance.ShowRewarded(() => {
+            CASAds.instance.rewardedTypeAd = CASAds.RewardType.RING_STACK;
+            });
         }
     }
 

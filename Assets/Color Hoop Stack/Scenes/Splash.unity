@@ -1055,10 +1055,10 @@ MonoBehaviour:
   - {fileID: 1944690600}
   ObjectsToDisable: []
   timeToEnable:
-  - 2
-  - 5
-  - 8
-  - 10
+  - 0
+  - 0
+  - 0
+  - 0
   timeToDisable: []
 --- !u!1 &975959934
 GameObject:

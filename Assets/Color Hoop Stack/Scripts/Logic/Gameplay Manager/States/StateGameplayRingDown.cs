@@ -18,7 +18,7 @@ public class StateGameplayRingDown : StateGameplay
         Ring ringMove = InputMgr.Instance.ringMove;
         RingStack ringStackEnd = InputMgr.Instance.ringStackEnd;
         Utils.Common.Log("place order = " + (ringStackEnd.ringStack.Count - 1));
-        float newY = -1.3f + ringStackEnd.boxCol.size.z / 2 + ringMove.boxCol.size.z / 2 + ringMove.boxCol.size.z * (ringStackEnd.ringStack.Count - 1);
+        float newY = -1.123066f + ringStackEnd.boxCol.size.z / 2 + ringMove.boxCol.size.z / 2 + ringMove.boxCol.size.z * (ringStackEnd.ringStack.Count - 1);
         Sequence seqRingDown = DOTween.Sequence();
         seqRingDown.Append(
             ringMove.transform.DOMoveY(newY, (ringMove.transform.position.y - newY) / gameplayMgr.ringDownSpeed).SetEase(Ease.Linear)
@@ -37,7 +37,7 @@ public class StateGameplayRingDown : StateGameplay
                 
             );
         //change
-        Vector3 newPos = new Vector3(ringMove.transform.position.x, newY-.14f, ringMove.transform.position.z);
+        Vector3 newPos = new Vector3(ringMove.transform.position.x, newY, ringMove.transform.position.z);
         seqRingDown.Append(
             ringMove.transform.DOJump(newPos, gameplayMgr.ringJumpPower, 2, gameplayMgr.ringJumpTime)
             );
