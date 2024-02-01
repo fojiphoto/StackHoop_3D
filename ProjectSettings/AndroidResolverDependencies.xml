@@ -34,7 +34,7 @@
   </files>
   <settings>
     <setting name="androidAbis" value="arm64-v8a,armeabi-v7a" />
-    <setting name="bundleId" value="com.og.nutsbolts.games" />
+    <setting name="bundleId" value="com.ogg.sortslinky.games" />
     <setting name="explodeAars" value="True" />
     <setting name="gradleBuildEnabled" value="True" />
     <setting name="gradlePropertiesTemplateEnabled" value="True" />

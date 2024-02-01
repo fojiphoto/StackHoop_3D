@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "779460315706",
-    "project_id": "nuts-and-bolts-puzzle-sorting",
-    "storage_bucket": "nuts-and-bolts-puzzle-sorting.appspot.com"
+    "project_number": "613712235260",
+    "project_id": "slinky-ring-sort-puzzle-games",
+    "storage_bucket": "slinky-ring-sort-puzzle-games.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:779460315706:android:ebbdf83e0b82114af1c303",
+        "mobilesdk_app_id": "1:613712235260:android:050515d0f307add28f6579",
         "android_client_info": {
-          "package_name": "com.og.nutsbolts.games"
+          "package_name": "com.ogg.sortslinky.games"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBD76_FOpcqONI--TUSu7jKIM7pyT-e6dI"
+          "current_key": "AIzaSyBaYFGTRsqrTY6fXP2AjSlob3DbivVfMBQ"
         }
       ],
       "services": {
