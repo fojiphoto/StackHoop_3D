@@ -7,11 +7,13 @@ public class StateGameplayRingMove : StateGameplay
 {
     private Ring ringMove;
 
+   
     public StateGameplayRingMove(GameplayMgr _gameplayMgr, StateMachine _stateMachine) : base(_gameplayMgr, _stateMachine)
     {
         stateMachine = _stateMachine;
         gameplayMgr = _gameplayMgr;
     }
+
 
     public override void OnEnter()
     {
@@ -50,11 +52,12 @@ public class StateGameplayRingMove : StateGameplay
             ringMove.transform.SetParent(ringStackEnd.transform);
             ringStackEnd.ringStack.Push(ringMove);
 
-            float newRingYPos =  ringStackStart.transform.position.y +
+            float newRingYPos = ringStackStart.transform.position.y +
                   ringStackStart.boxCol.size.y / 2 +
                 ringMove.boxCol.size.z / 2+.5f;
 
             Vector3 newPos = new Vector3(ringStackEnd.transform.position.x, newRingYPos, ringStackEnd.transform.position.z);
+            
             float distance = Vector3.Distance(ringMove.transform.position, newPos);
 
             Sequence ringMoveSeq = DOTween.Sequence();
@@ -72,19 +75,24 @@ public class StateGameplayRingMove : StateGameplay
                     
             );
 
+            ringMoveSeq.AppendCallback(
+                 () => ringMove.transform.GetComponent<Animator>().enabled = true
+
+             );
             //move to another stack
             ringMoveSeq.Append(
                 ringMove.transform.DOMove(newPos, distance / gameplayMgr.ringMoveSpeed).SetEase(Ease.Linear)
                 );
 
-            //move down
+            // move down
             ringMoveSeq.Append(
                 ringMove.transform.DOMoveY(newY, (newRingYPos - newY) / gameplayMgr.ringDownSpeed).SetEase(Ease.Linear)
                 );
             ringMoveSeq.AppendCallback(
-                () =>{
-                 //ringMove.transform.GetComponent<Animator>().enabled=false;
-                  gameplayMgr.CloseRingAnimator(ringMove);
+                () =>
+                {
+                    //ringMove.transform.GetComponent<Animator>().enabled=false;
+                    gameplayMgr.CloseRingAnimator(ringMove);
                 }
             );
 
@@ -100,6 +108,7 @@ public class StateGameplayRingMove : StateGameplay
             {
                 ringMoveSeq.AppendCallback(() => ActiveControlStack(ringStackEnd));
                 break;
+
             }
             if (ringStackStart.ringStack.Count == 0)
             {
@@ -127,7 +136,7 @@ public class StateGameplayRingMove : StateGameplay
                 gameplayMgr.TriggerCompleteLevelEffect(0f);
                                 
                 stateMachine.StateChange(gameplayMgr.stateGameplayCompleteLevel);
-
+                
             }
             else
             {

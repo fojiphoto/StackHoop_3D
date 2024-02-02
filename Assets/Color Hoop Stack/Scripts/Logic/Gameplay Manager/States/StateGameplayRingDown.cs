@@ -36,7 +36,7 @@ public class StateGameplayRingDown : StateGameplay
            
                 
             );
-        //change
+        
         Vector3 newPos = new Vector3(ringMove.transform.position.x, newY, ringMove.transform.position.z);
         seqRingDown.Append(
             ringMove.transform.DOJump(newPos, gameplayMgr.ringJumpPower, 2, gameplayMgr.ringJumpTime)

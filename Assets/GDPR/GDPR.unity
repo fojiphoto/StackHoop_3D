@@ -497,7 +497,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5331995032278557664, guid: 2be727fa351ce444b97616aac7147248, type: 3}
       propertyPath: PrivacyPolicy
-      value: https://cbgprivacypolicy.blogspot.com/2023/02/privacy-policy.html
+      value: https://orbitgamesglobal-privacy-policy.blogspot.com/
       objectReference: {fileID: 0}
     - target: {fileID: 5331995032278557665, guid: 2be727fa351ce444b97616aac7147248, type: 3}
       propertyPath: m_Pivot.x
@@ -605,35 +605,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5331995032344716721, guid: 2be727fa351ce444b97616aac7147248, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 1.03289
       objectReference: {fileID: 0}
     - target: {fileID: 5331995032344716721, guid: 2be727fa351ce444b97616aac7147248, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 1.0103551
       objectReference: {fileID: 0}
     - target: {fileID: 5331995032344716721, guid: 2be727fa351ce444b97616aac7147248, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: -0.040198866
       objectReference: {fileID: 0}
     - target: {fileID: 5331995032344716721, guid: 2be727fa351ce444b97616aac7147248, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: -0.0072843907
       objectReference: {fileID: 0}
     - target: {fileID: 5331995032344716721, guid: 2be727fa351ce444b97616aac7147248, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 78.936
-      objectReference: {fileID: 0}
-    - target: {fileID: 5331995032344716721, guid: 2be727fa351ce444b97616aac7147248, type: 3}
-      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5331995032344716721, guid: 2be727fa351ce444b97616aac7147248, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -0.000026226044
+      objectReference: {fileID: 0}
+    - target: {fileID: 5331995032344716721, guid: 2be727fa351ce444b97616aac7147248, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -3.9468
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5331995032344716721, guid: 2be727fa351ce444b97616aac7147248, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5331995032393305464, guid: 2be727fa351ce444b97616aac7147248, type: 3}
+      propertyPath: m_FontData.m_Alignment
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5331995032393305465, guid: 2be727fa351ce444b97616aac7147248, type: 3}
       propertyPath: m_AnchoredPosition.x

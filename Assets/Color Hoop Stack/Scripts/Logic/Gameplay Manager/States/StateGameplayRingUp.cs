@@ -25,14 +25,15 @@ public class StateGameplayRingUp : StateGameplay
         float newRingYPos = ringStackStart.transform.position.y + 
             ringStackStart.boxCol.size.y / 2 + 
             ringMove.boxCol.size.z / 2+.5f;
+        
+
         Sequence ringUpSeq = DOTween.Sequence();
+        
         ringUpSeq.Append(ringMove.transform.DOMoveY(newRingYPos, (newRingYPos - ringMove.transform.position.y) / gameplayMgr.ringUpSpeed).SetEase(Ease.Linear));
          ringUpSeq.AppendCallback(
                 () =>{
                     //ringMove.transform.GetComponent<Animator>().enabled=false;
                     gameplayMgr.CloseRingAnimator(ringMove);
-                   
-                
                 }
                     
                 );
@@ -45,12 +46,13 @@ public class StateGameplayRingUp : StateGameplay
             ringReady.isMoving = false;
             float newY = -1.123066f + ringStackReady.boxCol.size.z / 2 + ringReady.boxCol.size.z / 2 + ringReady.boxCol.size.z * (ringStackReady.ringStack.Count - 1);
             ringDownSeq.Append(
-                ringReady.transform.DOMoveY(newY, (ringMove.transform.position.y - newY ) / gameplayMgr.ringDownSpeed).SetEase(Ease.Linear)
+                ringReady.transform.DOMoveY(newY, (ringMove.transform.position.y - newY) / gameplayMgr.ringDownSpeed).SetEase(Ease.Linear)
                 );
+            
             ringDownSeq.AppendCallback(
                 () => SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.DROP], false)
                 );
-               
+
             Vector3 newPos = new Vector3(ringReady.transform.position.x, newY, ringReady.transform.position.z);
             ringDownSeq.Append(
                 ringReady.transform.DOJump(newPos, gameplayMgr.ringJumpPower, 2, gameplayMgr.ringJumpTime)
@@ -80,6 +82,7 @@ public class StateGameplayRingUp : StateGameplay
     public void ChangeToNextState()
     {
         stateMachine.StateChange(gameplayMgr.stateGameplayRingReady);
+
     }
 
     public void GetRingReady(Ring ring, RingStack ringStackReady)

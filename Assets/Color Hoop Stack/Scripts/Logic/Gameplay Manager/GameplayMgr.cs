@@ -22,6 +22,7 @@ public class GameplayMgr : Singleton<GameplayMgr>
     public float ringJumpTime = 0.05f;
     public float ringJumpPower = 0.05f;
     public float waitTime = 0.05f;
+    public float ringRotationSpeed = 0.5f;
 
     [Header("Positions")]
     public Vector2 ringStackDistance;

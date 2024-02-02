@@ -26,7 +26,7 @@ public class SplashScene : MonoBehaviour
     }
     public IEnumerator SplashWait(){
         splashScreen.SetActive(true);
-        yield return new WaitForSeconds(3.5f);//yield return new WaitForSeconds(3.5f);
+        yield return new WaitForSeconds(0f);//yield return new WaitForSeconds(3.5f);
         splashScreen.SetActive(false);
         loadScreen.SetActive(false);
         GameplayMgr.Instance.LevelGo();
@@ -38,7 +38,7 @@ public class SplashScene : MonoBehaviour
 
     public void RateUs()
     {  
-       string rateus = "https://play.google.com/store/apps/details?id=com.og.nutsbolts.games&hl=en_US&gl=CN";
+       string rateus = "https://play.google.com/store/apps/details?id" + Application.identifier;
        Application.OpenURL(rateus);
     }
     public void MoreGames()

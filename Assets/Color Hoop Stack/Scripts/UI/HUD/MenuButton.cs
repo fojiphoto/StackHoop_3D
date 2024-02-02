@@ -12,6 +12,7 @@ public class MenuButton : MonoBehaviour
 
         settingMenuPanel.SetActive(true);
         panelBackground.SetActive(true);
+
         SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.BUTTON], false);
     }
 }

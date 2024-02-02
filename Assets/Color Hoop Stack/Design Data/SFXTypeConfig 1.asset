@@ -15,8 +15,8 @@ MonoBehaviour:
   sfxConfigDic:
     keys: 0000000001000000020000000400000003000000
     values:
-    - {fileID: 8300000, guid: fda059df021dce94e8129717f948426b, type: 3}
-    - {fileID: 8300000, guid: b274545bf2590974bac383dc571262a0, type: 3}
+    - {fileID: 8300000, guid: 67af504e9d2b5fb439a0e4cf96211124, type: 3}
+    - {fileID: 8300000, guid: dc7b1a4861347d24fb54cd5a9542a91c, type: 3}
     - {fileID: 8300000, guid: 766b83535b36bc647be49cbfb1965be6, type: 3}
-    - {fileID: 8300000, guid: eae01b3d1ddaa0d4d81e5cd887a6322c, type: 3}
-    - {fileID: 8300000, guid: c24d9b65493baec4db95688cf2c95ba3, type: 3}
+    - {fileID: 8300000, guid: f4d01eecdd89d444abd2e782e6be6903, type: 3}
+    - {fileID: 8300000, guid: 0883900aaa26b934f9e305b6243e09cc, type: 3}
