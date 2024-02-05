@@ -42,9 +42,9 @@ public class RingStack : MonoBehaviour, IPointerClickHandler
     // Update is called once per frame
     private void Update()
     {
-        if(!IsStackFullSameColor())
-        transform.GetChild(2).gameObject.SetActive(false);
-        
+        if (!IsStackFullSameColor())
+            transform.GetChild(2).gameObject.SetActive(false);
+
     }
 
     public void AddNewRing(Ring newRing)

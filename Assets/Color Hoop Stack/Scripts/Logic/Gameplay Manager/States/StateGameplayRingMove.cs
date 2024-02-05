@@ -70,20 +70,27 @@ public class StateGameplayRingMove : StateGameplay
                 ringMove.transform.DOMoveY(newRingYPos, (newRingYPos - ringMove.transform.position.y) / gameplayMgr.ringUpSpeed)
                 .SetEase(Ease.Linear)
                 );
-             ringMoveSeq.AppendCallback(
-                () =>ringMove.transform.GetComponent<Animator>().enabled=true
-                    
-            );
-
             ringMoveSeq.AppendCallback(
-                 () => ringMove.transform.GetComponent<Animator>().enabled = true
+               () => ringMove.transform.GetComponent<Animator>().enabled = true
 
-             );
+           );
+
             //move to another stack
+            //ringMoveSeq.Append(
+            //    ringMove.transform.DOMove(newPos, distance / gameplayMgr.ringMoveSpeed).SetEase(Ease.Linear)
+            //    );
             ringMoveSeq.Append(
-                ringMove.transform.DOMove(newPos, distance / gameplayMgr.ringMoveSpeed).SetEase(Ease.Linear)
+                ringMove.transform.DOJump(newPos, newRingYPos, 1, .3f, false)
+
                 );
 
+            ringMoveSeq.Join(
+                ringMove.transform.DORotate(new Vector3(450f, 0, 0f), 0.3f, RotateMode.FastBeyond360)
+            );
+
+            //ringMoveSeq.Join(
+            //    ringMove.transform//Animation of spring type Ring
+            //    );
             // move down
             ringMoveSeq.Append(
                 ringMove.transform.DOMoveY(newY, (newRingYPos - newY) / gameplayMgr.ringDownSpeed).SetEase(Ease.Linear)
