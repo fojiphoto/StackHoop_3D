@@ -20,7 +20,7 @@ public class StateGameplayRingMove : StateGameplay
         base.OnEnter();
 
         gameplayMgr.PushMapLevel();
-
+        
         MoveRings(InputMgr.Instance.ringStackStart, InputMgr.Instance.ringStackEnd);
     }
 
@@ -45,10 +45,11 @@ public class StateGameplayRingMove : StateGameplay
         int blankSlots = gameplayMgr.stackNumberMax - ringStackEnd.ringStack.Count;
         int ringNumber = 0;
         RingType moveRingType = InputMgr.Instance.ringMove.ringType;
-
-        while(ringStackStart.ringStack.Count > 0)
+        
+        while (ringStackStart.ringStack.Count > 0)
         {
             ringMove = ringStackStart.ringStack.Pop();
+            ringMove.ringAnimOff();
             ringMove.transform.SetParent(ringStackEnd.transform);
             ringStackEnd.ringStack.Push(ringMove);
 
@@ -77,6 +78,7 @@ public class StateGameplayRingMove : StateGameplay
 
            );
 
+            
             //move to another stack
             //ringMoveSeq.Append(
             //    ringMove.transform.DOMove(newPos, distance / gameplayMgr.ringMoveSpeed).SetEase(Ease.Linear)
@@ -89,7 +91,6 @@ public class StateGameplayRingMove : StateGameplay
             ringMoveSeq.Join(
                 ringMove.transform.DORotate(new Vector3(450f, 0, 0f), 0.3f, RotateMode.FastBeyond360)
             );
-
             //ringMoveSeq.Join(
             //    ringMove.transform//Animation of spring type Ring
             //    );
@@ -100,7 +101,7 @@ public class StateGameplayRingMove : StateGameplay
             ringMoveSeq.AppendCallback(
                 () =>
                 {
-                    //ringMove.transform.GetComponent<Animator>().enabled=false;
+                    //ringMove.transform.GetComponent<Animator>().enabled=false;s
                     gameplayMgr.CloseRingAnimator(ringMove);
                 }
             );

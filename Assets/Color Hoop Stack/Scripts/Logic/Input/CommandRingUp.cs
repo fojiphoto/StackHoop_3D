@@ -37,6 +37,7 @@ public class CommandRingUp : Command
         {
             EventDispatcher.Instance.PostEvent(EventID.ON_ENABLED_CORRECTOR, ringStackStart);
         }
+
     }
 
     public override void Undo()

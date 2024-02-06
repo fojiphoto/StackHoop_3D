@@ -30,7 +30,8 @@ public class StateGameplayRingDown : StateGameplay
             ()=> {
                 //ringMove.transform.GetComponent<Animator>().enabled=false;
                 gameplayMgr.CloseRingAnimator(ringMove);
-                }
+                ringMove.transform.GetChild(1).gameObject.SetActive(false);
+            }
                  
             
            
