@@ -69,7 +69,9 @@ public class StateGameplayRingMove : StateGameplay
             ringMoveSeq.Append(
                 ringMove.transform.DOMoveY(newRingYPos, (newRingYPos - ringMove.transform.position.y) / gameplayMgr.ringUpSpeed)
                 .SetEase(Ease.Linear)
-                );
+                ); 
+            
+
             ringMoveSeq.AppendCallback(
                () => ringMove.transform.GetComponent<Animator>().enabled = true
 

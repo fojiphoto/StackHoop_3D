@@ -22,21 +22,22 @@ public class StateGameplayRingUp : StateGameplay
         Ring ringMove = InputMgr.Instance.ringMove;
         ringMove.isMoving = true;
 
-        float newRingYPos = ringStackStart.transform.position.y + 
-            ringStackStart.boxCol.size.y / 2 + 
-            ringMove.boxCol.size.z / 2+.5f;
-        
+        float newRingYPos = ringStackStart.transform.position.y +
+            ringStackStart.boxCol.size.y / 2 +
+            ringMove.boxCol.size.z / 2 + .5f;
+
 
         Sequence ringUpSeq = DOTween.Sequence();
-        
+
         ringUpSeq.Append(ringMove.transform.DOMoveY(newRingYPos, (newRingYPos - ringMove.transform.position.y) / gameplayMgr.ringUpSpeed).SetEase(Ease.Linear));
-         ringUpSeq.AppendCallback(
-                () =>{
+        ringUpSeq.AppendCallback(
+               () =>
+               {
                     //ringMove.transform.GetComponent<Animator>().enabled=false;
                     gameplayMgr.CloseRingAnimator(ringMove);
-                }
-                    
-                );
+               }
+
+               );
 
 
 
@@ -48,7 +49,7 @@ public class StateGameplayRingUp : StateGameplay
             ringDownSeq.Append(
                 ringReady.transform.DOMoveY(newY, (ringMove.transform.position.y - newY) / gameplayMgr.ringDownSpeed).SetEase(Ease.Linear)
                 );
-            
+
             ringDownSeq.AppendCallback(
                 () => SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.DROP], false)
                 );

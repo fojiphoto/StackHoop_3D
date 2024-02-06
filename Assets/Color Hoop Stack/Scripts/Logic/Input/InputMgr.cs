@@ -17,9 +17,9 @@ public class InputMgr : Singleton<InputMgr>
     {
         Instance = this;
     }
-
     public void HandleTap(RingStack ringStackTap)
     {
+
         if (GameplayMgr.Instance.stateMachine.CurrentState == GameplayMgr.Instance.stateGameplayIdle)
         {
             ringStackStart = ringStackTap;
@@ -96,5 +96,7 @@ public class InputMgr : Singleton<InputMgr>
 
             return;
         }
+
     }
+
 }

@@ -956,8 +956,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8945599271463635285, guid: 84ab0c762a3a3054d9816165cf2f65fa, type: 3}
+      propertyPath: ringJumpTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8945599271463635285, guid: 84ab0c762a3a3054d9816165cf2f65fa, type: 3}
       propertyPath: ringDownSpeed
       value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8945599271463635285, guid: 84ab0c762a3a3054d9816165cf2f65fa, type: 3}
+      propertyPath: ringJumpPower
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 8945599271463635285, guid: 84ab0c762a3a3054d9816165cf2f65fa, type: 3}
       propertyPath: stackNumberMax

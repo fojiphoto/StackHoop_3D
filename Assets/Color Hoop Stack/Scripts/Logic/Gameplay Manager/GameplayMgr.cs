@@ -13,14 +13,14 @@ public class GameplayMgr : Singleton<GameplayMgr>
     public RingColorConfig ringColorConfig;
     public LevelListConfig levelListConfig;
     public StackRowListConfig stackRowListConfig;
-    public int stackNumberMax = 4;
+    public int stackNumberMax = 10;
 
     [Header("Ring Speed")]
     public float ringUpSpeed = 0.002f;
     public float ringMoveSpeed = 0.5f;
     public float ringDownSpeed = 0.2f;
-    public float ringJumpTime = 0.05f;
-    public float ringJumpPower = 0.05f;
+    public float ringJumpTime = 1f;//0.05
+    public float ringJumpPower = 0.3f;//0.05
     public float waitTime = 0.05f;
     public float ringRotationSpeed = 0.5f;
 

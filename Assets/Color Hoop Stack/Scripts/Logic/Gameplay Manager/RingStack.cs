@@ -11,7 +11,7 @@ public class RingStack : MonoBehaviour, IPointerClickHandler
     [HideInInspector] public Stack<Ring> ringStack;
     [HideInInspector] public bool canControl = true;
     public BoxCollider boxCol;
-    [HideInInspector] public int number;
+    [HideInInspector] public int number;//2
     public static RingStack ringStacks;
 
    
@@ -20,9 +20,9 @@ public class RingStack : MonoBehaviour, IPointerClickHandler
     {
        
         ringStack = new Stack<Ring>();
-        if (ringStacks==null)
+        if (ringStacks == null)
         {
-            ringStacks=this;
+            ringStacks = this;
         }
     }
 
