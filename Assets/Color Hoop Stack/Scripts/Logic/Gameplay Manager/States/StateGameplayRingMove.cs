@@ -73,9 +73,13 @@ public class StateGameplayRingMove : StateGameplay
             );
 
             //move to another stack
+            //ringMoveSeq.Append(
+            //    ringMove.transform.DOMove(newPos, distance / gameplayMgr.ringMoveSpeed).SetEase(Ease.Linear)
+            //    );
             ringMoveSeq.Append(
-                ringMove.transform.DOMove(newPos, distance / gameplayMgr.ringMoveSpeed).SetEase(Ease.Linear)
+                ringMove.transform.DOJump(newPos, 1, 1, distance / gameplayMgr.ringMoveSpeed, false).SetEase(Ease.Linear)
                 );
+
 
             //move down
             ringMoveSeq.Append(
@@ -121,28 +125,33 @@ public class StateGameplayRingMove : StateGameplay
         Debug.LogError("Check Ring stack");
         if (ringStack.IsStackFullSameColor())
         {
-            gameplayMgr.stackCompleteNumber++;
-            if (gameplayMgr.CheckWinState())
-            {
-                gameplayMgr.TriggerCompleteLevelEffect(0f);
-                                
-                stateMachine.StateChange(gameplayMgr.stateGameplayCompleteLevel);
+            RingType stackRingType = ringStack.ringStack.Peek().ringType;
+            gameplayMgr.StartCoroutine(RemoveRingsWithDelay(ringStack, stackRingType));
+            
+            //gameplayMgr.stackCompleteNumber++;
+            //if (gameplayMgr.CheckWinState())
+            //{
+            //    gameplayMgr.TriggerCompleteLevelEffect(0f);
 
-            }
-            else
-            {
-                float newRingYPos = ringStack.transform.position.y + ringStack.boxCol.size.y / 2 + ringStack.boxCol.size.z / 2;
-                Vector3 newPos = new Vector3(ringStack.transform.position.x, newRingYPos, ringStack.transform.position.z);
-                SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.FULL_STACK], false);
-            //     GameObject particleGO = PoolerMgr.Instance.VFXCompletePooler.GetNextPS();
-            //    particleGO.transform.position = newPos;
-               
-                    gameplayMgr.CapEnabled(ringStack);
-                
-                gameplayMgr.PlayConfetti(ringStack);
-                //  Transform cap= ringStack.transform.GetChild(2);
-                // cap.gameObject.SetActive(true);
-            }
+            //    stateMachine.StateChange(gameplayMgr.stateGameplayCompleteLevel);
+
+            //}
+            //else
+            //{
+            //    float newRingYPos = ringStack.transform.position.y + ringStack.boxCol.size.y / 2 + ringStack.boxCol.size.z / 2;
+            //    Vector3 newPos = new Vector3(ringStack.transform.position.x, newRingYPos, ringStack.transform.position.z);
+            //    SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.FULL_STACK], false);
+
+
+            //    //     GameObject particleGO = PoolerMgr.Instance.VFXCompletePooler.GetNextPS();
+            //    //    particleGO.transform.position = newPos;
+            //    //capenabled
+            //    //gameplayMgr.CapEnabled(ringStack);
+            //    //gameplayMgr.PlayDustParticle(ringStack);
+            //    gameplayMgr.PlayConfetti(ringStack);
+            //    //  Transform cap= ringStack.transform.GetChild(2);
+            //    // cap.gameObject.SetActive(true);
+            //}
         }
         else
         {
@@ -151,5 +160,65 @@ public class StateGameplayRingMove : StateGameplay
                 cap.gameObject.SetActive(false);
         }
     }
-   
+
+    private IEnumerator RemoveRingsWithDelay(RingStack ringStack, RingType stackRingType)
+    {
+        List<Ring> ringsToRemove = new List<Ring>(ringStack.ringStack);
+        ringsToRemove.Reverse();  // Reverse the order to start removing from the bottom
+
+        int ringCount = ringsToRemove.Count;
+        
+        for (int i = 0; i < ringCount; i++)
+        {
+            Ring removedRing = ringsToRemove[i];
+            ringStack.ringStack.Pop();
+
+            // Deactivate or destroy the removed ring object if needed
+            // For example: Destroy(removedRing.gameObject);
+            DeactivateRing(removedRing);
+
+            // Move the rings above the removed ring down to fill the gap
+            for (int j = i + 1; j < ringCount; j++)
+            {
+                Ring ringAbove = ringsToRemove[j];
+                float newY = ringAbove.transform.position.y - ringAbove.boxCol.size.z; // Adjust as needed
+                Vector3 newPosition = new Vector3(ringAbove.transform.position.x, newY, ringAbove.transform.position.z);
+                ringAbove.transform.DOMoveY(newY, 0.1f);  // Adjust the duration as needed
+            }
+            
+            yield return new WaitForSeconds(0.1f); // Adjust the delay as needed
+           
+        }
+
+        ringStack.ClearStack();
+        ringStack.isStackFull = false;
+        gameplayMgr.stackCompleteNumber++;
+        if (gameplayMgr.CheckWinState())
+        {
+            gameplayMgr.TriggerCompleteLevelEffect(0f);
+            stateMachine.StateChange(gameplayMgr.stateGameplayCompleteLevel);
+        }
+        else
+        {
+            float newRingYPos = ringStack.transform.position.y + ringStack.boxCol.size.y / 2 + ringStack.boxCol.size.z / 2;
+            Vector3 newPos = new Vector3(ringStack.transform.position.x, newRingYPos, ringStack.transform.position.z);
+            SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.FULL_STACK], false);
+            gameplayMgr.PlayConfetti(ringStack);
+           
+           
+        }
+    }
+
+
+
+
+
+    private void DeactivateRing(Ring ring)
+    {
+        // Deactivate or set the ring to inactive state
+        ring.gameObject.SetActive(false);
+       // ring.transform.SetParent(null);
+       
+    }
+
 }

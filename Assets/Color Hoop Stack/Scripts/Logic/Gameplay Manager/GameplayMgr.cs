@@ -291,10 +291,11 @@ public class GameplayMgr : Singleton<GameplayMgr>
                 // cap.gameObject.SetActive(true);
                 //CapEnabled(ringStack);
                 float targetPos=0.58f;
-                Transform cap= ringStack.transform.GetChild(2);
-                        cap.gameObject.SetActive(true);
+                //capenable
+                //Transform cap= ringStack.transform.GetChild(2);
+                //        cap.gameObject.SetActive(true);
                 //abdulrehman
-                cap.DOMoveY(targetPos,0.2f).SetEase(Ease.InCirc);
+                //cap.DOMoveY(targetPos,0.2f).SetEase(Ease.InCirc);
                 isCapActivated=true;
                 GameObject particleGO = PoolerMgr.Instance.VFXCompletePooler.GetNextPS();
                 particleGO.transform.position = new Vector3(ringStack.transform.position.x, effectYPos, ringStack.transform.position.z);
@@ -309,7 +310,7 @@ public class GameplayMgr : Singleton<GameplayMgr>
     public IEnumerator CloseAnimatorWait(Ring ring){
         yield return new WaitForSeconds(0.02f);
         ring.GetComponent<Animator>().enabled=false;
-        ring.transform.rotation=Quaternion.Euler(90,0,0);
+       // ring.transform.rotation=Quaternion.Euler(90,0,0);
     }
     public void PlayConfetti(RingStack ringStack){
        StartCoroutine(ConfettiWait(ringStack));

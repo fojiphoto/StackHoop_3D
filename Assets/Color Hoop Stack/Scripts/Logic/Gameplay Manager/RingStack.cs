@@ -14,7 +14,7 @@ public class RingStack : MonoBehaviour, IPointerClickHandler
     [HideInInspector] public int number;
     public static RingStack ringStacks;
 
-   
+    public bool isStackFull;
 
     private void Awake()
     {
@@ -60,6 +60,12 @@ public class RingStack : MonoBehaviour, IPointerClickHandler
             InputMgr.Instance.HandleTap(this);
         }
 
+    }
+
+    public void ClearStack()
+    {
+        ringStack.Clear();
+        isStackFull = true;
     }
 
     public bool IsStackFullSameColor()
