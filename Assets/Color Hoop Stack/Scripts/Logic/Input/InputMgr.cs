@@ -22,9 +22,12 @@ public class InputMgr : Singleton<InputMgr>
 
         if (GameplayMgr.Instance.stateMachine.CurrentState == GameplayMgr.Instance.stateGameplayIdle)
         {
+
             ringStackStart = ringStackTap;
+
             if (ringStackStart.ringStack.Count > 0)
             {
+
                 ringMove = ringStackStart.ringStack.Peek();
                 //command up
                 Command newMove = new CommandRingUp(ringStackStart, ringMove, null, null);
@@ -59,7 +62,7 @@ public class InputMgr : Singleton<InputMgr>
                             ringMove = ringStackStart.ringStack.Peek();
 
                             Command newMove = new CommandRingUp(ringStackStart, ringMove, ringReady, ringStackReady);
-
+                           
                             newMove.Execute();
                             return;
                         }

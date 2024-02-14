@@ -21,7 +21,7 @@ public class StateGameplayRingUp : StateGameplay
         RingStack ringStackStart = InputMgr.Instance.ringStackStart;
         Ring ringMove = InputMgr.Instance.ringMove;
         ringMove.isMoving = true;
-
+      
         float newRingYPos = ringStackStart.transform.position.y +
             ringStackStart.boxCol.size.y / 2 +
             ringMove.boxCol.size.z / 2 + .5f;
@@ -32,14 +32,12 @@ public class StateGameplayRingUp : StateGameplay
         ringUpSeq.Append(ringMove.transform.DOMoveY(newRingYPos, (newRingYPos - ringMove.transform.position.y) / gameplayMgr.ringUpSpeed).SetEase(Ease.Linear));
         ringUpSeq.AppendCallback(
                () =>
-               {
-                    //ringMove.transform.GetComponent<Animator>().enabled=false;
+               {    
+                    ringMove.transform.GetComponent<Animator>().enabled=false;
                     gameplayMgr.CloseRingAnimator(ringMove);
+                   ringMove.transform.GetChild(1).gameObject.SetActive(true);
                }
-
                );
-
-
 
         if (ringReady != null)
         {
@@ -61,6 +59,7 @@ public class StateGameplayRingUp : StateGameplay
         }
         ChangeToNextState();
     }
+    
 
     public override void OnHandleInput()
     {
@@ -91,4 +90,6 @@ public class StateGameplayRingUp : StateGameplay
         this.ringReady = ring;
         this.ringStackReady = ringStackReady;
     }
+    
+
 }

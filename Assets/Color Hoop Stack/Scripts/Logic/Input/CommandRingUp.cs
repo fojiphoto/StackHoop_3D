@@ -46,4 +46,8 @@ public class CommandRingUp : Command
         InputMgr.Instance.ringMove = ring;
         GameplayMgr.Instance.stateMachine.StateChange(GameplayMgr.Instance.stateGameplayRingDown);
     }
+
+
+
+
 }
