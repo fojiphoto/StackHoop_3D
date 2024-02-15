@@ -19,7 +19,7 @@ public class TutorialMgr : MonoBehaviour
     }
     public void Update()
     {
-        Debug.Log(GameplayMgr.Instance.currentLevel);
+       // Debug.Log(GameplayMgr.Instance.currentLevel);
     }
 
     public void EnableTutorial()
