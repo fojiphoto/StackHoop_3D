@@ -13,8 +13,8 @@ public class RingStack : MonoBehaviour, IPointerClickHandler
     public BoxCollider boxCol;
     [HideInInspector] public int number;
     public static RingStack ringStacks;
-
-    public bool isStackFull;
+    public bool isStackDeactive;
+   
 
     private void Awake()
     {
@@ -39,11 +39,30 @@ public class RingStack : MonoBehaviour, IPointerClickHandler
        
     }
 
+    public void ClearAndReactivateStack()
+    {
+        // Deactivate each ring in the stack
+        foreach (Ring ring in ringStack)
+        {
+            ring.gameObject.SetActive(false);
+        }
+
+        // Clear the stack
+        ringStack.Clear();
+
+        // Reactivate the ring stack for future use
+        isStackDeactive = false;
+    }
+
+
+
     // Update is called once per frame
     private void Update()
     {
         if(!IsStackFullSameColor())
         transform.GetChild(2).gameObject.SetActive(false);
+
+        
         
     }
 
@@ -62,11 +81,7 @@ public class RingStack : MonoBehaviour, IPointerClickHandler
 
     }
 
-    public void ClearStack()
-    {
-        ringStack.Clear();
-        isStackFull = true;
-    }
+    
 
     public bool IsStackFullSameColor()
     {

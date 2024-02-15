@@ -12,12 +12,13 @@ public class InputMgr : Singleton<InputMgr>
     [HideInInspector] public RingStack ringStackStart;
     [HideInInspector] public RingStack ringStackEnd;
     [HideInInspector] public bool isUndoMove = false;
+    public bool isStackDeactivate;
 
     private void Awake()
     {
         Instance = this;
     }
-
+    
     public void HandleTap(RingStack ringStackTap)
     {
         if (GameplayMgr.Instance.stateMachine.CurrentState == GameplayMgr.Instance.stateGameplayIdle)

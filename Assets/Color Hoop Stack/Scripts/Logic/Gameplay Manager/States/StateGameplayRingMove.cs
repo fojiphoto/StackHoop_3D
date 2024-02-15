@@ -6,7 +6,7 @@ using UnityEngine;
 public class StateGameplayRingMove : StateGameplay
 {
     private Ring ringMove;
-
+   
     public StateGameplayRingMove(GameplayMgr _gameplayMgr, StateMachine _stateMachine) : base(_gameplayMgr, _stateMachine)
     {
         stateMachine = _stateMachine;
@@ -30,6 +30,7 @@ public class StateGameplayRingMove : StateGameplay
     public override void OnLogicUpdate()
     {
         base.OnLogicUpdate();
+        Debug.Log("ring stack    >>>>>>");
     }
 
     public override void OnExit()
@@ -103,18 +104,29 @@ public class StateGameplayRingMove : StateGameplay
             if (blankSlots <= ringNumber)
             {
                 ringMoveSeq.AppendCallback(() => ActiveControlStack(ringStackEnd));
+                Debug.Log("blankSlots " + blankSlots);
+                Debug.Log("ringnumber " + ringNumber);
+                Debug.Log("ringstack end count_ " + ringStackEnd.ringStack.Count);
+              
+                
                 break;
             }
             if (ringStackStart.ringStack.Count == 0)
             {
                 ringMoveSeq.AppendCallback(() => ActiveControlStack(ringStackEnd));
+                Debug.Log("ringstack start count " + ringStackStart.ringStack.Count);
                 break;
             }
             if (ringStackStart.ringStack.Peek().ringType != moveRingType)
             {
                 ringMoveSeq.AppendCallback(() => ActiveControlStack(ringStackEnd));
+                Debug.Log("ringstackstartpeek type " + ringStackStart.ringStack.Peek().ringType);
+                Debug.Log("ringstack end peektype " + ringStackEnd.ringStack.Peek().ringType);
                 break;
             }
+           
+            
+            
         }
 
         stateMachine.StateChange(gameplayMgr.stateGameplayIdle);
@@ -125,9 +137,10 @@ public class StateGameplayRingMove : StateGameplay
         Debug.LogError("Check Ring stack");
         if (ringStack.IsStackFullSameColor())
         {
+            Debug.LogError("Check  stack full "+ringStack.IsStackFullSameColor());
             RingType stackRingType = ringStack.ringStack.Peek().ringType;
+           
             gameplayMgr.StartCoroutine(RemoveRingsWithDelay(ringStack, stackRingType));
-            
             //gameplayMgr.stackCompleteNumber++;
             //if (gameplayMgr.CheckWinState())
             //{
@@ -172,26 +185,26 @@ public class StateGameplayRingMove : StateGameplay
         {
             Ring removedRing = ringsToRemove[i];
             ringStack.ringStack.Pop();
-
-            // Deactivate or destroy the removed ring object if needed
-            // For example: Destroy(removedRing.gameObject);
             DeactivateRing(removedRing);
-
             // Move the rings above the removed ring down to fill the gap
             for (int j = i + 1; j < ringCount; j++)
             {
                 Ring ringAbove = ringsToRemove[j];
+                Transform particle = ringAbove.transform.GetChild(2).GetChild(0);
+                particle.gameObject.GetComponent<ParticleSystem>().Play();
                 float newY = ringAbove.transform.position.y - ringAbove.boxCol.size.z; // Adjust as needed
                 Vector3 newPosition = new Vector3(ringAbove.transform.position.x, newY, ringAbove.transform.position.z);
-                ringAbove.transform.DOMoveY(newY, 0.1f);  // Adjust the duration as needed
+                ringAbove.transform.DOMoveY(newY, 0.3f);  // Adjust the duration as needed
             }
             
-            yield return new WaitForSeconds(0.1f); // Adjust the delay as needed
+            yield return new WaitForSeconds(0.3f); // Adjust the delay as needed
+            ringStack.canControl = true;
+          
            
         }
 
-        ringStack.ClearStack();
-        ringStack.isStackFull = false;
+
+       
         gameplayMgr.stackCompleteNumber++;
         if (gameplayMgr.CheckWinState())
         {
@@ -200,12 +213,13 @@ public class StateGameplayRingMove : StateGameplay
         }
         else
         {
+            
             float newRingYPos = ringStack.transform.position.y + ringStack.boxCol.size.y / 2 + ringStack.boxCol.size.z / 2;
             Vector3 newPos = new Vector3(ringStack.transform.position.x, newRingYPos, ringStack.transform.position.z);
             SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.FULL_STACK], false);
             gameplayMgr.PlayConfetti(ringStack);
            
-           
+
         }
     }
 
@@ -216,9 +230,12 @@ public class StateGameplayRingMove : StateGameplay
     private void DeactivateRing(Ring ring)
     {
         // Deactivate or set the ring to inactive state
+        Transform particle = ring.transform.GetChild(2).GetChild(0);
+        particle.gameObject.GetComponent<ParticleSystem>().Play();
         ring.gameObject.SetActive(false);
-       // ring.transform.SetParent(null);
-       
+        
+        //ring.transform.SetParent(null);
+        
     }
 
 }
