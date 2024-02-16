@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using Sirenix.OdinInspector;
+using System;
 #endif
 using System.Collections;
 using System.Collections.Generic;
@@ -14,11 +15,16 @@ public class RingStack : MonoBehaviour, IPointerClickHandler
     [HideInInspector] public int number;
     public static RingStack ringStacks;
     public bool isStackDeactive;
-   
+    
+    
+    
+
 
     private void Awake()
     {
        
+        
+
         ringStack = new Stack<Ring>();
         if (ringStacks==null)
         {
@@ -81,7 +87,10 @@ public class RingStack : MonoBehaviour, IPointerClickHandler
 
     }
 
-    
+    internal object Peek()
+    {
+        throw new NotImplementedException();
+    }
 
     public bool IsStackFullSameColor()
     {

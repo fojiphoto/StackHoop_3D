@@ -47,7 +47,7 @@ public class StateGameplayInit : StateGameplay
         {
             if (gameplayMgr.enabledTutorial)
             {
-                gameplayMgr.enabledTutorial = false;
+                //gameplayMgr.enabledTutorial = false;
             }
         }
         else

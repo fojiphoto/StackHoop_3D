@@ -38,24 +38,7 @@ public class StateGameplayRingUp : StateGameplay
                 }
                     
                 );
-        if (ringStackStart.ringStack.Count > 1)
-        {
-            Ring ringBelow = ringStackStart.ringStack.Pop(); // Pop to get the ring below
-
-            if (ringBelow.ringType == RingType.RED && ringMove.ringType == RingType.RED)
-            {
-                float newYBelow = newRingYPos + ringBelow.boxCol.size.z;
-                Sequence ringBelowUpSeq = DOTween.Sequence();
-                ringBelowUpSeq.Append(ringBelow.transform.DOMoveY(newYBelow, (newYBelow - ringBelow.transform.position.y) / gameplayMgr.ringUpSpeed).SetEase(Ease.Linear));
-                ringBelowUpSeq.AppendCallback(() =>
-                {
-                    gameplayMgr.CloseRingAnimator(ringBelow);
-                });
-            }
-
-            // Add the ring back to the stack
-            ringStackStart.ringStack.Push(ringBelow);
-        }
+       
 
 
 

@@ -28,7 +28,7 @@ public class CommandRingUp : Command
         GameplayMgr.Instance.stateMachine.StateChange(GameplayMgr.Instance.stateGameplayRingUp);
         ringReady = null;
         ringStackReady = null;
-
+       
         if (GameplayMgr.Instance.currentLevel == 0)
         {
             EventDispatcher.Instance.PostEvent(EventID.ON_MOVE_TUTORIAL_CURSOR);
@@ -37,6 +37,8 @@ public class CommandRingUp : Command
         {
             EventDispatcher.Instance.PostEvent(EventID.ON_ENABLED_CORRECTOR, ringStackStart);
         }
+       // CheckAndMoveUp(ringStackStart, ring);
+       
     }
 
     public override void Undo()
@@ -46,4 +48,22 @@ public class CommandRingUp : Command
         InputMgr.Instance.ringMove = ring;
         GameplayMgr.Instance.stateMachine.StateChange(GameplayMgr.Instance.stateGameplayRingDown);
     }
+    
+
+    //private void CheckAndMoveUp(RingStack ringStack, Ring currentRing)
+    //{
+    //    // Check if there's a ring below with the same color and move it up if needed
+    //    List<Ring> ringList = new List<Ring>(ringStack.ringStack);
+    //    if (ringList.Count > 1)
+    //    {
+    //        Ring ringBelow = ringList[ringList.Count - 2];  // Get the ring below the clicked ring
+    //        if (ringBelow.ringType == currentRing.ringType)
+    //        {
+    //            float newY = currentRing.transform.position.y + currentRing.boxCol.size.z;  // Adjust as needed
+    //            ringBelow.transform.DOMoveY(newY, (newY - ringBelow.transform.position.y) / GameplayMgr.Instance.ringUpSpeed)
+    //                .SetEase(Ease.Linear)
+    //                .OnComplete(() => CheckAndMoveUp(ringStack, ringBelow));  // Recursive call to check the next ring below
+    //        }
+    //    }
+    //}
 }

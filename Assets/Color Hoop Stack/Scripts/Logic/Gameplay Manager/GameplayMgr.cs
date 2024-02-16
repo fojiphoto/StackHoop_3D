@@ -46,13 +46,14 @@ public class GameplayMgr : Singleton<GameplayMgr>
     [HideInInspector] public bool readyToTouch = false;
     [HideInInspector] public bool firstLoad = true;
     [HideInInspector] public Stack<MapData> mapDataStack;
-    
+
     public int ringTypeNumber = 0;
     public int stackCompleteNumber = 0;
 
     [HideInInspector] public int undoTime = 5;
     [HideInInspector] public bool enabledTutorial = true;
     bool isCapActivated;
+    bool IsActive = false;
     //public ParticleSystem dustParticle;
 
     private void Awake()
@@ -75,7 +76,7 @@ public class GameplayMgr : Singleton<GameplayMgr>
         EarnReward();
     }
     public void Start() {
-        currentLevel=PlayerPrefs.GetInt("Levelnumber");
+        currentLevel = PlayerPrefs.GetInt("Levelnumber");
         DeactivateCapForAllRingStacks();
         DOTween.Init();
         //  foreach (RingStack ringStack in ringStackList)
@@ -104,13 +105,13 @@ public class GameplayMgr : Singleton<GameplayMgr>
         {
             fileHandler.SaveLevelDataDefault();
         }
-       
+
         stateMachine.StateChange(stateGameplayInit);
     }
 
     private void Update()
     {
-        stateMachine.StateHandleInput(); 
+        stateMachine.StateHandleInput();
         stateMachine.StateLogicUpdate();
     }
 
@@ -128,6 +129,49 @@ public class GameplayMgr : Singleton<GameplayMgr>
         {
             ringStackDistance.x *= 1.5f;
         }
+
+
+        int currentLevel = PlayerPrefs.GetInt("Levelnumber");
+
+        //if (currentLevel == 5 || currentLevel == 10 || currentLevel == 15 || currentLevel == 20 || currentLevel == 25 || currentLevel == 30 || currentLevel == 35 || currentLevel == 40 || currentLevel == 45 || currentLevel == 50)
+        //{
+        //    IsActive = true;
+        //}
+        ////if (currentLevel % 5 == 0 && currentLevel >= 5 && currentLevel <= 50)
+        ////{
+        ////    IsActive = true;
+        ////}
+        //else
+        //{
+        //    IsActive = false;
+        //}
+        // Check if the current level is greater than or equal to 5
+        
+        if ((currentLevel %5== 0) )
+        {
+            // Activate the child object in each ring stack
+            foreach (RingStack ringStack in ringStackList)
+            {
+                Transform childObject = ringStack.transform.GetChild(13);
+                childObject.gameObject.SetActive(true);
+            }
+
+            // Set maxStackInRow to 8
+            stackNumberMax = 8;
+        }
+        else
+        {
+            // Otherwise, use the original calculation based on the level
+            ringStackPerRow = stackRowListConfig.stackRowList[ringStackNumber].maxStackInRow;
+            foreach (RingStack ringStack in ringStackList)
+            {
+                Transform childObject = ringStack.transform.GetChild(13);
+                childObject.gameObject.SetActive(false);
+            }
+            stackNumberMax = 4;
+        }
+
+
         int ringStackPerColumn = (int)Mathf.Ceil((float)ringStackNumber/(float)ringStackPerRow);
         int stackLeft = ringStackNumber;
         Vector3 startPos = new Vector3(
@@ -151,6 +195,8 @@ public class GameplayMgr : Singleton<GameplayMgr>
             }
             if (ringStackListCurrent >= ringStackList.Count)
                 break;
+            //float stackSpacing = 1.2f;
+            //startPos.x -= stackSpacing;
         }
 
         EventDispatcher.Instance.PostEvent(EventID.ON_RING_STACK_NUMBER_CHANGE);
@@ -175,6 +221,15 @@ public class GameplayMgr : Singleton<GameplayMgr>
         {
             Utils.Common.Log("Reached ring stack number limit!");
         }
+    }
+
+    public void ReArrangeStack()
+    {
+       
+        int ringStackNumber = ringStackList.Count;
+        int ringStackPerRow = stackRowListConfig.stackRowList[ringStackList.Count].maxStackInRow;
+        SetUpRingStacksPosition(ringStackPerRow, ringStackNumber);
+
     }
 
     public void EarnReward()
@@ -441,6 +496,9 @@ public class GameplayMgr : Singleton<GameplayMgr>
             RingStack newRingStackComp = newRingStack.GetComponent<RingStack>();
             ringStackList.Add(newRingStackComp);
         }
+        
+
+
 
         SetUpRingStacksPosition(ringStackPerRow, ringStackNumber);
 
@@ -463,6 +521,7 @@ public class GameplayMgr : Singleton<GameplayMgr>
                         );
 
                     ringStack.AddNewRing(newRingComp);
+                    
                 }
             }
         }
@@ -487,5 +546,21 @@ public class GameplayMgr : Singleton<GameplayMgr>
         }
 
         return false;
+    }
+    public void RearrangeActiveRingStacks()
+    {
+        List<RingStack> activeRingStacks = ringStackList.FindAll(stack => stack.gameObject.activeSelf);
+        for (int i = ringStackList.Count - 1; i >= 0; i--)
+        {
+            if (!ringStackList[i].gameObject.activeSelf)
+            {
+                ringStackList.RemoveAt(i);
+            }
+        }
+
+        int ringStackPerRow = stackRowListConfig.stackRowList[activeRingStacks.Count].maxStackInRow;
+        SetUpRingStacksPosition(ringStackPerRow, activeRingStacks.Count);
+
+        Utils.Common.Log("This is working");
     }
 }

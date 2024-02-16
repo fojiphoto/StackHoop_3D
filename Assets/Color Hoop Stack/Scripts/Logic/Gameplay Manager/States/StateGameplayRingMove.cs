@@ -3,16 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateGameplayRingMove : StateGameplay
+public class StateGameplayRingMove : StateGameplay 
 {
     private Ring ringMove;
-   
+
+
+    public List<RingStack> ringStackList;
+    public StackRowListConfig stackRowListConfig;
+
     public StateGameplayRingMove(GameplayMgr _gameplayMgr, StateMachine _stateMachine) : base(_gameplayMgr, _stateMachine)
     {
         stateMachine = _stateMachine;
         gameplayMgr = _gameplayMgr;
+        
+        
     }
 
+    
     public override void OnEnter()
     {
         base.OnEnter();
@@ -172,15 +179,30 @@ public class StateGameplayRingMove : StateGameplay
             Transform cap= ringStack.transform.GetChild(2);
                 cap.gameObject.SetActive(false);
         }
+        if (!ringStack.gameObject.activeSelf)
+        {
+            // Rearrange the positions of the remaining active ring stacks
+            gameplayMgr.RearrangeActiveRingStacks();
+        }
+
     }
 
     private IEnumerator RemoveRingsWithDelay(RingStack ringStack, RingType stackRingType)
     {
         List<Ring> ringsToRemove = new List<Ring>(ringStack.ringStack);
+        
+
+
         ringsToRemove.Reverse();  // Reverse the order to start removing from the bottom
 
         int ringCount = ringsToRemove.Count;
-        
+
+        //ringStackList = new List<RingStack>();
+        //
+
+
+
+
         for (int i = 0; i < ringCount; i++)
         {
             Ring removedRing = ringsToRemove[i];
@@ -194,17 +216,18 @@ public class StateGameplayRingMove : StateGameplay
                 particle.gameObject.GetComponent<ParticleSystem>().Play();
                 float newY = ringAbove.transform.position.y - ringAbove.boxCol.size.z; // Adjust as needed
                 Vector3 newPosition = new Vector3(ringAbove.transform.position.x, newY, ringAbove.transform.position.z);
-                ringAbove.transform.DOMoveY(newY, 0.3f);  // Adjust the duration as needed
+                ringAbove.transform.DOMoveY(newY, 0.15f);  // Adjust the duration as needed
             }
             
-            yield return new WaitForSeconds(0.3f); // Adjust the delay as needed
+            yield return new WaitForSeconds(0.15f); // Adjust the delay as needed
             ringStack.canControl = true;
-          
-           
+            
+
         }
-
-
        
+       
+       
+
         gameplayMgr.stackCompleteNumber++;
         if (gameplayMgr.CheckWinState())
         {
@@ -218,9 +241,13 @@ public class StateGameplayRingMove : StateGameplay
             Vector3 newPos = new Vector3(ringStack.transform.position.x, newRingYPos, ringStack.transform.position.z);
             SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.FULL_STACK], false);
             gameplayMgr.PlayConfetti(ringStack);
-           
+            ringStack.transform.gameObject.SetActive(false);
+
+            gameplayMgr.RearrangeActiveRingStacks();
+
 
         }
+
     }
 
 
@@ -237,5 +264,5 @@ public class StateGameplayRingMove : StateGameplay
         //ring.transform.SetParent(null);
         
     }
-
+            
 }
