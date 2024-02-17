@@ -211,6 +211,51 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &5398482722686633119
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4172450132198627981}
+  - component: {fileID: 8384520868171012518}
+  m_Layer: 3
+  m_Name: TouchHitbox (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 0
+--- !u!4 &4172450132198627981
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5398482722686633119}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6498935060378595063}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8384520868171012518
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5398482722686633119}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2.902711, z: 1}
+  m_Center: {x: 0, y: 0.20424837, z: 0}
 --- !u!1 &6325264129461256272
 GameObject:
   m_ObjectHideFlags: 0
@@ -337,6 +382,7 @@ Transform:
   - {fileID: 6438187382322837377}
   - {fileID: 7506191129140265538}
   - {fileID: 3452892594716798670}
+  - {fileID: 4172450132198627981}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -976,7 +1022,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3b83e4a2d10be2e49a1522041c846101, type: 3}
       propertyPath: m_LocalScale.z
-      value: 17.561972
+      value: 19.598282
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3b83e4a2d10be2e49a1522041c846101, type: 3}
       propertyPath: m_LocalPosition.x
@@ -984,7 +1030,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3b83e4a2d10be2e49a1522041c846101, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.3919
+      value: 1.7171
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3b83e4a2d10be2e49a1522041c846101, type: 3}
       propertyPath: m_LocalPosition.z

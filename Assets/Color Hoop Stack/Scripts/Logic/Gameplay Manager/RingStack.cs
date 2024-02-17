@@ -42,8 +42,11 @@ public class RingStack : MonoBehaviour, IPointerClickHandler
     // Start is called before the first frame update
     private void Start()
     {
-       
+        
     }
+    
+
+
 
     public void ClearAndReactivateStack()
     {

@@ -18,6 +18,7 @@ public class StateGameplayIdle : StateGameplay
 
         FileHandler fileHandler = new FileHandler();
         fileHandler.SaveLevelData();
+        //gameplayMgr.EnableLockINRing();
     }
 
     public override void OnHandleInput()

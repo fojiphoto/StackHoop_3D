@@ -108,6 +108,23 @@ public class StateGameplayRingMove : StateGameplay
                 );
 
             ringNumber++;
+
+            if (ringStackStart.ringStack.Count > 1)
+            {
+                Ring topRing = ringStackStart.ringStack.Peek();
+
+                // Convert the stack to a list
+                List<Ring> ringList = new List<Ring>(ringStackStart.ringStack);
+
+                // Check if there is a ring below the top ring
+                if (ringList.Count > 1)
+                {
+                    Ring ringBelowTop = ringList[0]; // Get the ring below the top ring
+                    ringBelowTop.transform.GetChild(3).gameObject.SetActive(false); // Disable Child 3 for the ring below the top ring
+                    ringBelowTop.transform.GetChild(0).gameObject.SetActive(true);
+                }
+            }
+
             if (blankSlots <= ringNumber)
             {
                 ringMoveSeq.AppendCallback(() => ActiveControlStack(ringStackEnd));

@@ -74,7 +74,9 @@ public class GameplayMgr : Singleton<GameplayMgr>
         stateGameplayEnd = new StateGameplayEnd(this, stateMachine);
         stateGameplayAddStack = new StateGameplayAddStack(this, stateMachine);
         EarnReward();
+       
     }
+    
     public void Start() {
         currentLevel = PlayerPrefs.GetInt("Levelnumber");
         DeactivateCapForAllRingStacks();
@@ -84,9 +86,8 @@ public class GameplayMgr : Singleton<GameplayMgr>
 
         //         Transform cap= ringStack.transform.GetChild(2);
         //         cap.gameObject.SetActive(false);
-
-
         // }
+       
     }
 
     public void Init()
@@ -107,12 +108,85 @@ public class GameplayMgr : Singleton<GameplayMgr>
         }
 
         stateMachine.StateChange(stateGameplayInit);
+        
     }
 
     private void Update()
     {
         stateMachine.StateHandleInput();
         stateMachine.StateLogicUpdate();
+        EnableStackChildNail();
+        //EnableLockINRing();
+    }
+
+    public void EnableLockINRing()
+    {
+        foreach (RingStack ringStack in ringStackList)
+        {
+            int ringCount = ringStack.ringStack.Count;
+
+            if (ringCount > 0)
+            {
+                Ring topRing = ringStack.ringStack.Peek();
+                foreach (Ring ring in ringStack.ringStack)
+                {
+                    if (ring == topRing)
+                    {
+                        // Skip enabling Child 3 for the top ring
+                        continue;
+                    }
+
+                    Transform childObject3 = ring.transform.GetChild(3);
+                    Transform child0 = ring.transform.GetChild(0);
+                    childObject3.gameObject.SetActive(true);
+                    child0.gameObject.SetActive(false);
+                }
+
+            }
+            else
+            {
+                Debug.Log($"Ring Stack {ringStack.number} is empty.");
+            }
+        }
+
+    }
+
+
+
+    public void EnableStackChildNail()
+    {
+
+        int currentLevel = PlayerPrefs.GetInt("Levelnumber");
+        if (currentLevel != 0 && currentLevel % 5 == 0)
+        {
+            // Activate the child object in each ring stack
+            foreach (RingStack ringStack in ringStackList)
+            {
+                //int ringCount = ringStack.ringStack.Count;
+                //Debug.Log($"Ring Stack {ringStack.number} has {ringCount} rings.");
+                Transform childObject = ringStack.transform.GetChild(13);
+                childObject.gameObject.SetActive(true);
+                Transform childObject1 = ringStack.transform.GetChild(14);
+                childObject1.gameObject.SetActive(true);
+            }
+
+            // Set maxStackInRow to 8
+            stackNumberMax = 8;
+            
+        }
+        else
+        {
+            // Otherwise, use the original calculation based on the level
+           int ringStackPerRow = stackRowListConfig.stackRowList[ringStackList.Count].maxStackInRow;
+            foreach (RingStack ringStack in ringStackList)
+            {
+                Transform childObject = ringStack.transform.GetChild(13);
+                childObject.gameObject.SetActive(false);
+                Transform childObject1 = ringStack.transform.GetChild(14);
+                childObject1.gameObject.SetActive(false);
+            }
+            stackNumberMax = 4;
+        }
     }
 
 #if UNITY_EDITOR
@@ -128,47 +202,6 @@ public class GameplayMgr : Singleton<GameplayMgr>
         else if (ringStackNumber == 3)
         {
             ringStackDistance.x *= 1.5f;
-        }
-
-
-        int currentLevel = PlayerPrefs.GetInt("Levelnumber");
-
-        //if (currentLevel == 5 || currentLevel == 10 || currentLevel == 15 || currentLevel == 20 || currentLevel == 25 || currentLevel == 30 || currentLevel == 35 || currentLevel == 40 || currentLevel == 45 || currentLevel == 50)
-        //{
-        //    IsActive = true;
-        //}
-        ////if (currentLevel % 5 == 0 && currentLevel >= 5 && currentLevel <= 50)
-        ////{
-        ////    IsActive = true;
-        ////}
-        //else
-        //{
-        //    IsActive = false;
-        //}
-        // Check if the current level is greater than or equal to 5
-        
-        if ((currentLevel %5== 0) )
-        {
-            // Activate the child object in each ring stack
-            foreach (RingStack ringStack in ringStackList)
-            {
-                Transform childObject = ringStack.transform.GetChild(13);
-                childObject.gameObject.SetActive(true);
-            }
-
-            // Set maxStackInRow to 8
-            stackNumberMax = 8;
-        }
-        else
-        {
-            // Otherwise, use the original calculation based on the level
-            ringStackPerRow = stackRowListConfig.stackRowList[ringStackNumber].maxStackInRow;
-            foreach (RingStack ringStack in ringStackList)
-            {
-                Transform childObject = ringStack.transform.GetChild(13);
-                childObject.gameObject.SetActive(false);
-            }
-            stackNumberMax = 4;
         }
 
 

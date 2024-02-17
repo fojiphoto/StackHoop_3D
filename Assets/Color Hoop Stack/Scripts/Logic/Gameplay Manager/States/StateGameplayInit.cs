@@ -17,6 +17,7 @@ public class StateGameplayInit : StateGameplay
 
         gameplayMgr.LoadAds(0.5f);
         InitLevel();
+        gameplayMgr.EnableLockINRing();
     }
 
     public override void OnHandleInput()
