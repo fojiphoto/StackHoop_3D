@@ -55,7 +55,8 @@ public class GameplayMgr : Singleton<GameplayMgr>
     bool isCapActivated;
     bool IsActive = false;
     //public ParticleSystem dustParticle;
-
+    public GameObject simpleLevel;
+    public GameObject specialLevel;
     private void Awake()
     {
 
@@ -79,7 +80,8 @@ public class GameplayMgr : Singleton<GameplayMgr>
     
     public void Start() {
         currentLevel = PlayerPrefs.GetInt("Levelnumber");
-        DeactivateCapForAllRingStacks();
+         
+    DeactivateCapForAllRingStacks();
         DOTween.Init();
         //  foreach (RingStack ringStack in ringStackList)
         // {
@@ -117,8 +119,20 @@ public class GameplayMgr : Singleton<GameplayMgr>
         stateMachine.StateLogicUpdate();
         EnableStackChildNail();
         //EnableLockINRing();
-    }
+        int currentLevel = GameplayMgr.Instance.currentLevel;
+        if (currentLevel!=0 && currentLevel%5==0 && currentLevel<52)
+        {
+            simpleLevel.SetActive(false);
+            specialLevel.SetActive(true);
+        }
+        else
+        {
+            simpleLevel.SetActive(true);
+            specialLevel.SetActive(false);
+        }
 
+    }
+    public bool isLock;
     public void EnableLockINRing()
     {
         foreach (RingStack ringStack in ringStackList)
@@ -127,6 +141,7 @@ public class GameplayMgr : Singleton<GameplayMgr>
 
             if (ringCount > 0)
             {
+                Debug.Log("Ring Stack count is.... " + ringCount);
                 Ring topRing = ringStack.ringStack.Peek();
                 foreach (Ring ring in ringStack.ringStack)
                 {
@@ -139,14 +154,19 @@ public class GameplayMgr : Singleton<GameplayMgr>
                     Transform childObject3 = ring.transform.GetChild(3);
                     Transform child0 = ring.transform.GetChild(0);
                     childObject3.gameObject.SetActive(true);
+                    isLock = true;
                     child0.gameObject.SetActive(false);
+
                 }
 
             }
             else
             {
                 Debug.Log($"Ring Stack {ringStack.number} is empty.");
+                Debug.Log("Ring Stack count is "+ ringCount);
+                
             }
+            
         }
 
     }
@@ -157,7 +177,7 @@ public class GameplayMgr : Singleton<GameplayMgr>
     {
 
         int currentLevel = PlayerPrefs.GetInt("Levelnumber");
-        if (currentLevel != 0 && currentLevel % 5 == 0)
+        if (currentLevel != 0 && currentLevel % 5 == 0 && currentLevel<52)
         {
             // Activate the child object in each ring stack
             foreach (RingStack ringStack in ringStackList)

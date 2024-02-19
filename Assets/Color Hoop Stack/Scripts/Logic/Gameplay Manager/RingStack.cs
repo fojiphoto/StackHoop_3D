@@ -39,32 +39,6 @@ public class RingStack : MonoBehaviour, IPointerClickHandler
         GameplayMgr.Instance.DeactivateCapForAllRingStacks();
     }
 
-    // Start is called before the first frame update
-    private void Start()
-    {
-        
-    }
-    
-
-
-
-    public void ClearAndReactivateStack()
-    {
-        // Deactivate each ring in the stack
-        foreach (Ring ring in ringStack)
-        {
-            ring.gameObject.SetActive(false);
-        }
-
-        // Clear the stack
-        ringStack.Clear();
-
-        // Reactivate the ring stack for future use
-        isStackDeactive = false;
-    }
-
-
-
     // Update is called once per frame
     private void Update()
     {

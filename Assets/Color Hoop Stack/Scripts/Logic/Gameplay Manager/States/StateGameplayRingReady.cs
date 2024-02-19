@@ -24,6 +24,7 @@ public class StateGameplayRingReady : StateGameplay
         {
             EventDispatcher.Instance.PostEvent(EventID.ON_CHANGE_TUTORIAL_TEXT);
         }
+        
     }
 
     public override void OnHandleInput()

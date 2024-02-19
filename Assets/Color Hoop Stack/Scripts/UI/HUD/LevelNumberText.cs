@@ -14,14 +14,17 @@ public class LevelNumberText : MonoBehaviour
 
     public void UpdateLevelNumber()
     {
+        
         text.text = "";
         int currentLevel = GameplayMgr.Instance.currentLevel + 1;
-        while (currentLevel != 0)
-        {
-            text.text = UpdateLevelNumberDigit(currentLevel % 10) + text.text;
-            currentLevel /= 10;
-        }
-        text.ForceMeshUpdate(true);
+        
+            while (currentLevel != 0)
+            {
+                text.text = UpdateLevelNumberDigit(currentLevel % 10) + text.text;
+                currentLevel /= 10;
+            }
+            text.ForceMeshUpdate(true);
+        
     }
 
     private string UpdateLevelNumberDigit(int digit)

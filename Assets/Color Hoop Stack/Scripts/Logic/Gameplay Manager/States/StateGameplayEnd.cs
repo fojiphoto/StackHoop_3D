@@ -27,7 +27,7 @@ public class StateGameplayEnd : StateGameplay
 
         gameplayMgr.ringStackList.Clear();
         gameplayMgr.mapDataStack.Clear();
-
+        //gameplayMgr.EnableLockINRing();
         EventDispatcher.Instance.PostEvent(EventID.ON_DISABLED_TUTORIAL);
     }
 
@@ -39,6 +39,7 @@ public class StateGameplayEnd : StateGameplay
     public override void OnLogicUpdate()
     {
         base.OnLogicUpdate();
+       
     }
 
     public override void OnExit()
@@ -47,7 +48,7 @@ public class StateGameplayEnd : StateGameplay
         //GoogleAdMobController.Instance.DisableBannerAdWarpper();
         //GoogleAdMobController.Instance.DestroyBannerAd();
 
-
+        //gameplayMgr.EnableLockINRing();
         //Abdul Rehman
         //AdsManager.instance.ShowInterstitialWithoutConditions();
         CASAds.instance.ShowInterstitial();
