@@ -2,7 +2,7 @@
 //  CASUSettings.h
 //  CASUnityPlugin
 //
-//  Copyright © 2024 CAS.AI. All rights reserved.
+//  Copyright © 2023 Clever Ads Solutions. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -44,14 +44,6 @@ void CASUSetTestDeviceWithIds(const char **testDeviceIDs, int testDeviceIDLength
     }
 
     [CAS.settings setTestDeviceWithIds:testDeviceIDsArray];
-}
-
-void CASUSetTrialAdFreeInterval(int interval) {
-    CAS.settings.trialAdFreeInterval = interval;
-}
-
-int CASUGetTrialAdFreeInterval(void) {
-    return (int)CAS.settings.trialAdFreeInterval;
 }
 
 void CASUSetBannerRefreshRate(int interval) {
@@ -102,16 +94,8 @@ void CASUSetDebugMode(BOOL mode) {
     CAS.settings.debugMode = mode;
 }
 
-BOOL CASUGetDebugMode(void) {
-    return CAS.settings.debugMode;
-}
-
-void CASUSetMuteAdSounds(BOOL muted) {
+void CASUSetMuteAdSoundsTo(BOOL muted) {
     CAS.settings.mutedAdSounds = muted;
-}
-
-BOOL CASUGetMuteAdSounds(void) {
-    return CAS.settings.mutedAdSounds;
 }
 
 void CASUSetLoadingWithMode(int mode) {
@@ -126,10 +110,6 @@ void CASUSetInterstitialAdsWhenVideoCostAreLower(BOOL allow) {
     [CAS.settings setInterstitialAdsWhenVideoCostAreLowerWithAllow:allow];
 }
 
-BOOL CASUGetInterstitialAdsWhenVideoCostAreLower(void) {
-    return [CAS.settings isInterstitialAdsWhenVideoCostAreLowerAllowed];
-}
-
 void CASUSetiOSAppPauseOnBackground(BOOL pause) {
     [CASUPluginUtil setPauseOnBackground:pause];
 }
@@ -142,44 +122,14 @@ void CASUSetTrackLocationEnabled(BOOL enabled) {
     [CAS.settings setTrackLocationWithEnabled:enabled];
 }
 
-BOOL CASUGetTrackLocationEnabled(void) {
-    return [CAS.settings isTrackLocationEnabled];
-}
-
 #pragma mark - User targeting options
 
 void CASUSetUserGender(int gender) {
     [[CAS targetingOptions] setGender:(Gender)gender];
 }
 
-int CASUGetUserGender(void) {
-    return (int)[[CAS targetingOptions] getGender];
-}
-
 void CASUSetUserAge(int age) {
     [[CAS targetingOptions] setAge:age];
-}
-
-int CASUGetUserAge(void) {
-    return (int)[[CAS targetingOptions] getAge];
-}
-
-void CASUSetContentURL(const char *contentURL) {
-    [CAS.targetingOptions setContentUrl:CASUStringFromUnity(contentURL)];
-}
-
-const char * CASUGetContentURL(void) {
-    return CASUStringToUnity([CAS.targetingOptions getContentUrl]);
-}
-
-void CASUSetKeywords(const char **keywords, int keywordsLength) {
-    NSMutableArray *keywordsArray = [[NSMutableArray alloc] init];
-
-    for (int i = 0; i < keywordsLength; i++) {
-        [keywordsArray addObject:CASUStringFromUnity(keywords[i])];
-    }
-
-    [CAS.targetingOptions setKeywords:keywordsArray];
 }
 
 #pragma mark - Utils
@@ -579,7 +529,7 @@ int CASUGetImpressionNetwork(CASImpressionRef impression) {
         NSString *network = internalImp.network;
 
         if ([network isEqualToString:CASNetwork.casExchange]) {
-            return CASNetworkIdDSPExchange;
+            return CASNetworkIdCASExchange;
         }
 
         if ([network isEqualToString:CASNetwork.lastPageAd]) {
@@ -686,7 +636,7 @@ void CASURequestATT(CASUATTCompletion completion) {
 NSUInteger CASUGetATTStatus(void) {
     NSUInteger status = [CASInternalUtils adTrackingStatus];
 
-    if (status > 3) {
+    if (status == 4) {
         return 0;
     }
 

@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: SFXTypeConfig 1
   m_EditorClassIdentifier: 
   sfxConfigDic:
-    keys: 0000000001000000020000000400000003000000
+    keys: 0000000001000000020000000400000003000000050000000700000006000000
     values:
-    - {fileID: 8300000, guid: fda059df021dce94e8129717f948426b, type: 3}
+    - {fileID: 8300000, guid: a8a6d7344e7146c4086fc63fd00386e6, type: 3}
     - {fileID: 8300000, guid: b274545bf2590974bac383dc571262a0, type: 3}
     - {fileID: 8300000, guid: 766b83535b36bc647be49cbfb1965be6, type: 3}
     - {fileID: 8300000, guid: eae01b3d1ddaa0d4d81e5cd887a6322c, type: 3}
-    - {fileID: 8300000, guid: c24d9b65493baec4db95688cf2c95ba3, type: 3}
+    - {fileID: 8300000, guid: 19fd7cc137ff4f44e9f453b5a5edc605, type: 3}
+    - {fileID: 8300000, guid: 7d76ea838e0ade743a548fe2b30689a2, type: 3}
+    - {fileID: 8300000, guid: 301fe49f6d2c63b41a2e443d81e082f7, type: 3}
+    - {fileID: 8300000, guid: 759042fed98e70d42ba1cf75273421ff, type: 3}

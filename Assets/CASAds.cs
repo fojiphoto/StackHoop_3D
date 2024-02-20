@@ -72,7 +72,7 @@ public class CASAds : MonoBehaviour
 
     private void CreateAdView(bool success, string error)
     {
-        _lastAdView = _manager.GetAdView(AdSize.Banner);
+        _lastAdView = _manager.GetAdView(AdSize.AdaptiveBanner);
         _lastMrecAdView = _manager.GetAdView(AdSize.MediumRectangle);
         _lastAdView.SetActive(false);
         _lastMrecAdView.SetActive(false);

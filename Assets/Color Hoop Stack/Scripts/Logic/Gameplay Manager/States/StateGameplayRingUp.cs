@@ -17,31 +17,38 @@ public class StateGameplayRingUp : StateGameplay
     public override void OnEnter()
     {
         base.OnEnter();
-
+        SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.UP], false);
         RingStack ringStackStart = InputMgr.Instance.ringStackStart;
         Ring ringMove = InputMgr.Instance.ringMove;
         ringMove.isMoving = true;
-        
-
-
-        float newRingYPos = ringStackStart.transform.position.y + 
-            ringStackStart.boxCol.size.y / 2 + 
-            ringMove.boxCol.size.z / 2+.5f;
-        Sequence ringUpSeq = DOTween.Sequence();
-        ringUpSeq.Append(ringMove.transform.DOMoveY(newRingYPos, (newRingYPos - ringMove.transform.position.y) / gameplayMgr.ringUpSpeed).SetEase(Ease.Linear));
-         ringUpSeq.AppendCallback(
-                () =>{
+        if (gameplayMgr.currentLevel != 0 && gameplayMgr.currentLevel % 5 == 0 && gameplayMgr.currentLevel < 52)
+        {
+            float newRingYPos1 = ringStackStart.transform.position.y +
+            ringStackStart.boxCol.size.y / 2 +
+            ringMove.boxCol.size.z / 2 + 1.8f;
+            Sequence ringUpSeq1 = DOTween.Sequence();
+            ringUpSeq1.Append(ringMove.transform.DOMoveY(newRingYPos1, (newRingYPos1 - ringMove.transform.position.y) / gameplayMgr.ringUpSpeed).SetEase(Ease.Linear));
+            ringUpSeq1.AppendCallback(
+                   () => {
                     //ringMove.transform.GetComponent<Animator>().enabled=false;
                     gameplayMgr.CloseRingAnimator(ringMove);
-                   
-                
-                }
-                    
-                );
-       
-
-
-
+                   }
+                   );
+        }
+        else
+        {
+            float newRingYPos = ringStackStart.transform.position.y +
+            ringStackStart.boxCol.size.y / 2 +
+            ringMove.boxCol.size.z / 2 + .5f;
+            Sequence ringUpSeq = DOTween.Sequence();
+            ringUpSeq.Append(ringMove.transform.DOMoveY(newRingYPos, (newRingYPos - ringMove.transform.position.y) / gameplayMgr.ringUpSpeed).SetEase(Ease.Linear));
+            ringUpSeq.AppendCallback(
+                   () => {
+                    //ringMove.transform.GetComponent<Animator>().enabled=false;
+                    gameplayMgr.CloseRingAnimator(ringMove);
+                   }
+                   );
+        }
 
         if (ringReady != null)
         {

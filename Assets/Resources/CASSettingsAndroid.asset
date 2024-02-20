@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   testAdMode: 1
   managerIds:
-  - com.og.nutsbolts.games
+  - com.og.horseshoe
   allowedAdFlags: 7
   audienceTagged: 0
   bannerSize: 0

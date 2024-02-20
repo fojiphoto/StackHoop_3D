@@ -37,24 +37,25 @@ apply plugin: 'com.android.library'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 // Android Resolver Dependencies Start
-    implementation 'com.cleveradssolutions:applovin:12.1.0.0' // Assets/CleverAdsSolutions/Editor/CASAndroidAppLovinDependencies.xml:4
-    implementation 'com.cleveradssolutions:bigo:4.4.0.0' // Assets/CleverAdsSolutions/Editor/CASAndroidBigoDependencies.xml:4
-    implementation 'com.cleveradssolutions:cas-promo:3.5.2' // Assets/CleverAdsSolutions/Editor/CASAndroidCrossPromotionDependencies.xml:4
-    implementation 'com.cleveradssolutions:cas-sdk:3.5.2' // Assets/CleverAdsSolutions/Editor/CASBaseDependencies.xml:4
-    implementation 'com.cleveradssolutions:chartboost:9.6.0.0' // Assets/CleverAdsSolutions/Editor/CASAndroidChartboostDependencies.xml:7
-    implementation 'com.cleveradssolutions:facebook:6.16.0.1' // Assets/CleverAdsSolutions/Editor/CASAndroidAudienceNetworkDependencies.xml:4
-    implementation 'com.cleveradssolutions:google:22.6.0.0' // Assets/CleverAdsSolutions/Editor/CASAndroidGoogleAdsDependencies.xml:4
-    implementation 'com.cleveradssolutions:hyprmx:6.2.3.0' // Assets/CleverAdsSolutions/Editor/CASAndroidHyprMXDependencies.xml:4
-    implementation 'com.cleveradssolutions:inmobi:10.6.2.1' // Assets/CleverAdsSolutions/Editor/CASAndroidInMobiDependencies.xml:4
-    implementation 'com.cleveradssolutions:ironsource:7.7.0.0' // Assets/CleverAdsSolutions/Editor/CASAndroidIronSourceDependencies.xml:7
-    implementation 'com.cleveradssolutions:kidoz:9.0.2.0' // Assets/CleverAdsSolutions/Editor/CASAndroidKidozDependencies.xml:4
-    implementation 'com.cleveradssolutions:mintegral:16.5.91.0' // Assets/CleverAdsSolutions/Editor/CASAndroidMintegralDependencies.xml:7
-    implementation 'com.cleveradssolutions:pangle:5.7.0.2' // Assets/CleverAdsSolutions/Editor/CASAndroidPangleDependencies.xml:7
+    implementation 'com.cleveradssolutions:adcolony:4.8.0.13' // Assets/CleverAdsSolutions/Editor/CASAndroidAdColonyDependencies.xml:4
+    implementation 'com.cleveradssolutions:applovin:11.11.3.1' // Assets/CleverAdsSolutions/Editor/CASAndroidAppLovinDependencies.xml:4
+    implementation 'com.cleveradssolutions:bigo:4.1.2.1' // Assets/CleverAdsSolutions/Editor/CASAndroidBigoDependencies.xml:4
+    implementation 'com.cleveradssolutions:cas-promo:3.3.2' // Assets/CleverAdsSolutions/Editor/CASAndroidCrossPromotionDependencies.xml:4
+    implementation 'com.cleveradssolutions:cas-sdk:3.3.2' // Assets/CleverAdsSolutions/Editor/CASBaseDependencies.xml:4
+    implementation 'com.cleveradssolutions:chartboost:9.5.0.0' // Assets/CleverAdsSolutions/Editor/CASAndroidChartboostDependencies.xml:7
+    implementation 'com.cleveradssolutions:facebook:6.16.0.0' // Assets/CleverAdsSolutions/Editor/CASAndroidAudienceNetworkDependencies.xml:4
+    implementation 'com.cleveradssolutions:google:22.3.0.1' // Assets/CleverAdsSolutions/Editor/CASAndroidGoogleAdsDependencies.xml:4
+    implementation 'com.cleveradssolutions:hyprmx:6.2.0.0' // Assets/CleverAdsSolutions/Editor/CASAndroidHyprMXDependencies.xml:4
+    implementation 'com.cleveradssolutions:inmobi:10.5.9.0' // Assets/CleverAdsSolutions/Editor/CASAndroidInMobiDependencies.xml:4
+    implementation 'com.cleveradssolutions:ironsource:7.5.1.2' // Assets/CleverAdsSolutions/Editor/CASAndroidIronSourceDependencies.xml:7
+    implementation 'com.cleveradssolutions:kidoz:8.9.9.1' // Assets/CleverAdsSolutions/Editor/CASAndroidKidozDependencies.xml:4
+    implementation 'com.cleveradssolutions:mintegral:16.5.31.0' // Assets/CleverAdsSolutions/Editor/CASAndroidMintegralDependencies.xml:7
+    implementation 'com.cleveradssolutions:pangle:5.5.0.5' // Assets/CleverAdsSolutions/Editor/CASAndroidPangleDependencies.xml:7
     implementation 'com.cleveradssolutions:smaato:22.0.2.1' // Assets/CleverAdsSolutions/Editor/CASAndroidSmaatoDependencies.xml:7
-    implementation 'com.cleveradssolutions:superawesome:9.3.0.0' // Assets/CleverAdsSolutions/Editor/CASAndroidSuperAwesomeDependencies.xml:7
-    implementation 'com.cleveradssolutions:unity:4.9.2.2' // Assets/CleverAdsSolutions/Editor/CASAndroidUnityAdsDependencies.xml:4
-    implementation 'com.cleveradssolutions:vungle:7.1.0.0' // Assets/CleverAdsSolutions/Editor/CASAndroidLiftoffMonetizeDependencies.xml:4
-    implementation 'com.cleveradssolutions:yandex:26.3.0.0' // Assets/CleverAdsSolutions/Editor/CASAndroidYandexAdsDependencies.xml:4
+    implementation 'com.cleveradssolutions:superawesome:9.1.0.3' // Assets/CleverAdsSolutions/Editor/CASAndroidSuperAwesomeDependencies.xml:7
+    implementation 'com.cleveradssolutions:unity:4.9.1.0' // Assets/CleverAdsSolutions/Editor/CASAndroidUnityAdsDependencies.xml:4
+    implementation 'com.cleveradssolutions:vungle:6.12.1.9' // Assets/CleverAdsSolutions/Editor/CASAndroidLiftoffMonetizeDependencies.xml:4
+    implementation 'com.cleveradssolutions:yandex:26.0.1.1' // Assets/CleverAdsSolutions/Editor/CASAndroidYandexAdsDependencies.xml:4
     implementation 'com.google.android.gms:play-services-appset:16.0.2' // Assets/GameAnalytics/Editor/Android/Dependencies.xml:4
     implementation 'com.google.android.gms:play-services-base:18.2.0' // Assets/Firebase/Editor/AppDependencies.xml:17
     implementation 'com.google.android.instantapps:instantapps:1.1.0' // Assets/GameAnalytics/Editor/Android/Dependencies.xml:3

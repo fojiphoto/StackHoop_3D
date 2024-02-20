@@ -4,6 +4,6 @@
     <repositories>
       <repository>https://aa-sdk.s3-eu-west-1.amazonaws.com/android_repo</repository>
     </repositories>
-    <androidPackage spec="com.cleveradssolutions:superawesome:9.3.0.0" version="9.3.0.0"/>
+    <androidPackage spec="com.cleveradssolutions:superawesome:9.1.0.3" version="9.1.0.3"/>
   </androidPackages>
 </dependencies>

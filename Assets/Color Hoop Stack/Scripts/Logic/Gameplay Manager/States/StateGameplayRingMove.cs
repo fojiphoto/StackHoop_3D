@@ -23,7 +23,7 @@ public class StateGameplayRingMove : StateGameplay
     public override void OnEnter()
     {
         base.OnEnter();
-
+        SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.MOVE], false);
         gameplayMgr.PushMapLevel();
         
             MoveRings(InputMgr.Instance.ringStackStart, InputMgr.Instance.ringStackEnd);
@@ -95,6 +95,7 @@ public class StateGameplayRingMove : StateGameplay
                 //move down
                 ringMoveSeq.Append(
                     ringMove.transform.DOMoveY(newY, (newRingYPos - newY) / gameplayMgr.ringDownSpeed).SetEase(Ease.Linear)
+                    
                     );
                 ringMoveSeq.AppendCallback(
                     () =>
@@ -104,7 +105,7 @@ public class StateGameplayRingMove : StateGameplay
                     }
                 );
 
-                ringMoveSeq.AppendCallback(() => SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.DROP], false));
+                ringMoveSeq.AppendCallback(() => SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.MOVE], false));
 
                 //jump
                 ringMoveSeq.Append(

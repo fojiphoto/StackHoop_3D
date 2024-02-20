@@ -2,7 +2,7 @@
 //  CASUCallback.m
 //  CASUnityPlugin
 //
-//  Copyright © 2024 CAS.AI. All rights reserved.
+//  Copyright © 2023 Clever Ads Solutions. All rights reserved.
 //
 
 #import "CASUCallback.h"

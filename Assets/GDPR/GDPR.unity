@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44402218, g: 0.49316543, b: 0.572232, a: 1}
+  m_IndirectSpecularColor: {r: 0.4440221, g: 0.49316514, b: 0.5722316, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -497,7 +497,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5331995032278557664, guid: 2be727fa351ce444b97616aac7147248, type: 3}
       propertyPath: PrivacyPolicy
-      value: https://cbgprivacypolicy.blogspot.com/2023/02/privacy-policy.html
+      value: https://orbitgamesglobal-privacy-policy.blogspot.com/
       objectReference: {fileID: 0}
     - target: {fileID: 5331995032278557665, guid: 2be727fa351ce444b97616aac7147248, type: 3}
       propertyPath: m_Pivot.x
@@ -629,7 +629,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5331995032344716721, guid: 2be727fa351ce444b97616aac7147248, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -3.9468
+      value: -3.9467773
       objectReference: {fileID: 0}
     - target: {fileID: 5331995032344716721, guid: 2be727fa351ce444b97616aac7147248, type: 3}
       propertyPath: m_AnchoredPosition.y

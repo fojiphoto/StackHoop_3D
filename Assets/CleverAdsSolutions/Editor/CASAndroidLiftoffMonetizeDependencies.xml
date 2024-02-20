@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <dependencies>
   <androidPackages>
-    <androidPackage spec="com.cleveradssolutions:vungle:7.1.0.0" version="7.1.0.0"/>
+    <androidPackage spec="com.cleveradssolutions:vungle:6.12.1.9" version="6.12.1.9"/>
   </androidPackages>
 </dependencies>

@@ -14,7 +14,7 @@ public class StateGameplayRingDown : StateGameplay
     public override void OnEnter()
     {
         base.OnEnter();
-
+        SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.UP], false);
         Ring ringMove = InputMgr.Instance.ringMove;
         RingStack ringStackEnd = InputMgr.Instance.ringStackEnd;
         Utils.Common.Log("place order = " + (ringStackEnd.ringStack.Count - 1));
@@ -30,11 +30,7 @@ public class StateGameplayRingDown : StateGameplay
             ()=> {
                 //ringMove.transform.GetComponent<Animator>().enabled=false;
                 gameplayMgr.CloseRingAnimator(ringMove);
-                }
-                 
-            
-           
-                
+                } 
             );
         Vector3 newPos = new Vector3(ringMove.transform.position.x, newY, ringMove.transform.position.z);
         seqRingDown.Append(
@@ -61,7 +57,7 @@ public class StateGameplayRingDown : StateGameplay
     public override void OnExit()
     {
         base.OnExit();
-
+        //SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.DOWN], false);
         if (InputMgr.Instance.isUndoMove)
         {
             InputMgr.Instance.isUndoMove = false;

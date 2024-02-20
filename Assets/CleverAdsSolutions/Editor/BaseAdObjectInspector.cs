@@ -1,4 +1,8 @@
-﻿//  Copyright © 2024 CAS.AI. All rights reserved.
+﻿//
+//  Clever Ads Solutions Unity Plugin
+//
+//  Copyright © 2023 CleverAdsSolutions. All rights reserved.
+//
 
 using UnityEngine;
 using UnityEditor;

@@ -4,6 +4,6 @@
     <repositories>
       <repository>https://artifact.bytedance.com/repository/pangle</repository>
     </repositories>
-    <androidPackage spec="com.cleveradssolutions:pangle:5.7.0.2" version="5.7.0.2"/>
+    <androidPackage spec="com.cleveradssolutions:pangle:5.5.0.5" version="5.5.0.5"/>
   </androidPackages>
 </dependencies>

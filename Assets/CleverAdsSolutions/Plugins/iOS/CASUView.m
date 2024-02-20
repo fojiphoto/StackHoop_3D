@@ -2,7 +2,7 @@
 //  CASUView.m
 //  CASUnityPlugin
 //
-//  Copyright © 2024 CAS.AI. All rights reserved.
+//  Copyright © 2023 Clever Ads Solutions. All rights reserved.
 //
 
 #import "CASUPluginUtil.h"
@@ -262,14 +262,6 @@ static const int AD_SIZE_LINE = 7;
     }
 
     view.frame = CGRectMake(horizontalPos, verticalPos, adSize.width, adSize.height);
-
-    extern bool _didResignActive;
-
-    if (_didResignActive) {
-        // We are in the middle of the shutdown sequence, and at this point unity runtime is already destroyed.
-        // We shall not call unity API, and definitely not script callbacks, so nothing to do here
-        return;
-    }
 
     if (_adRectCallback) {
         CGFloat scale = [UIScreen mainScreen].scale;

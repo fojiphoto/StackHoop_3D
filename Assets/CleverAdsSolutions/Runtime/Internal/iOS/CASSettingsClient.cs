@@ -1,4 +1,8 @@
-﻿//  Copyright © 2024 CAS.AI. All rights reserved.
+﻿//
+//  Clever Ads Solutions Unity Plugin
+//
+//  Copyright © 2023 CleverAdsSolutions. All rights reserved.
+//
 
 #if UNITY_IOS || (CASDeveloper && UNITY_EDITOR)
 using System;
@@ -8,13 +12,15 @@ namespace CAS.iOS
 {
     internal class CASSettingsClient : IAdsSettings, ITargetingOptions
     {
-        public bool analyticsCollectionEnabled { get; set; }
+        private bool _isDebugMode = false;
+        private bool _isMutedAdSounds = false;
+        private bool _allowInterstitialAdsWhenVideoCostAreLower = true;
+        private bool _trackLocationEnabled = false;
 
-        public int trialAdFreeInterval
-        {
-            get { return CASExterns.CASUGetTrialAdFreeInterval(); }
-            set { CASExterns.CASUSetTrialAdFreeInterval(value); }
-        }
+        private Gender _gender = Gender.Unknown;
+        private int _age = 0;
+
+        public bool analyticsCollectionEnabled { get; set; }
 
         public int bannerRefreshInterval
         {
@@ -39,31 +45,34 @@ namespace CAS.iOS
             get { return (CCPAStatus)CASExterns.CASUGetCCPAStatus(); }
             set { CASExterns.CASUSetCCPAStatus((int)value); }
         }
-        
         public Audience taggedAudience
         {
             get { return (Audience)CASExterns.CASUGetAudienceTagged(); }
             set { CASExterns.CASUSetAudienceTagged((int)value); }
         }
-
         public bool isDebugMode
         {
-            get { return CASExterns.CASUGetDebugMode(); }
-            set { CASExterns.CASUSetDebugMode(value); }
+            get { return _isDebugMode; }
+            set
+            {
+                _isDebugMode = value;
+                CASExterns.CASUSetDebugMode(value);
+            }
         }
-
         public bool isMutedAdSounds
         {
-            get { return CASExterns.CASUGetMuteAdSounds(); }
-            set { CASExterns.CASUSetMuteAdSounds(value); }
+            get { return _isMutedAdSounds; }
+            set
+            {
+                _isMutedAdSounds = value;
+                CASExterns.CASUSetMuteAdSoundsTo(value);
+            }
         }
-
         public LoadingManagerMode loadingMode
         {
             get { return (LoadingManagerMode)CASExterns.CASUGetLoadingMode(); }
             set { CASExterns.CASUSetLoadingWithMode((int)value); }
         }
-
         public bool iOSAppPauseOnBackground
         {
             get { return CASExterns.CASUGetiOSAppPauseOnBackground(); }
@@ -90,39 +99,42 @@ namespace CAS.iOS
 
         public bool allowInterstitialAdsWhenVideoCostAreLower
         {
-            get { return CASExterns.CASUGetInterstitialAdsWhenVideoCostAreLower(); }
-            set { CASExterns.CASUSetInterstitialAdsWhenVideoCostAreLower(value); }
+            get { return _allowInterstitialAdsWhenVideoCostAreLower; }
+            set
+            {
+                _allowInterstitialAdsWhenVideoCostAreLower = value;
+                CASExterns.CASUSetInterstitialAdsWhenVideoCostAreLower(value);
+            }
         }
 
         public bool trackLocationEnabled
         {
-            get { return CASExterns.CASUGetTrackLocationEnabled(); }
-            set { CASExterns.CASUSetTrackLocationEnabled(value); }
+            get { return _trackLocationEnabled; }
+            set
+            {
+                _trackLocationEnabled = value;
+                CASExterns.CASUSetTrackLocationEnabled(value);
+            }
         }
 
         public Gender gender
         {
-            get { return (Gender)CASExterns.CASUGetUserGender(); }
-            set { CASExterns.CASUSetUserGender((int)value); }
+            get { return _gender; }
+            set
+            {
+                _gender = value;
+                CASExterns.CASUSetUserGender((int)value);
+            }
         }
 
         public int age
         {
-            get { return CASExterns.CASUGetUserAge(); }
-            set { CASExterns.CASUSetUserAge(value); }
-        }
-
-        public string contentURL
-        {
-            get { return CASExterns.CASUGetContentURL(); }
-            set { CASExterns.CASUSetContentURL(value); }
-        }
-
-        public void SetKeywords(IList<string> keywords)
-        {
-            string[] tempArray = new string[keywords.Count];
-            keywords.CopyTo(tempArray, 0);
-            CASExterns.CASUSetKeywords(tempArray, keywords.Count);
+            get { return _age; }
+            set
+            {
+                _age = value;
+                CASExterns.CASUSetUserAge(value);
+            }
         }
     }
 }

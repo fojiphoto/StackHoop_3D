@@ -8,5 +8,8 @@ public enum SFXType
     FULL_STACK,
     BUTTON,
     CHEER,
-    FULL_ALL
+    FULL_ALL,
+    DOWN,
+    UP,
+    MOVE
 }

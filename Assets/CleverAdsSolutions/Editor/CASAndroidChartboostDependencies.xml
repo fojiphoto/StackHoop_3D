@@ -4,6 +4,6 @@
     <repositories>
       <repository>https://cboost.jfrog.io/artifactory/chartboost-ads/</repository>
     </repositories>
-    <androidPackage spec="com.cleveradssolutions:chartboost:9.6.0.0" version="9.6.0.0"/>
+    <androidPackage spec="com.cleveradssolutions:chartboost:9.5.0.0" version="9.5.0.0"/>
   </androidPackages>
 </dependencies>

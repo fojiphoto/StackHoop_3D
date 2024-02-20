@@ -80,8 +80,8 @@ public class GameplayMgr : Singleton<GameplayMgr>
     
     public void Start() {
         currentLevel = PlayerPrefs.GetInt("Levelnumber");
-         
-    DeactivateCapForAllRingStacks();
+       
+        DeactivateCapForAllRingStacks();
         DOTween.Init();
         //  foreach (RingStack ringStack in ringStackList)
         // {
@@ -115,10 +115,10 @@ public class GameplayMgr : Singleton<GameplayMgr>
 
     private void Update()
     {
+        //EnableLockINRing();
         stateMachine.StateHandleInput();
         stateMachine.StateLogicUpdate();
         EnableStackChildNail();
-        //EnableLockINRing();
         int currentLevel = GameplayMgr.Instance.currentLevel;
         if (currentLevel!=0 && currentLevel%5==0 && currentLevel<52)
         {
@@ -223,8 +223,6 @@ public class GameplayMgr : Singleton<GameplayMgr>
         {
             ringStackDistance.x *= 1.5f;
         }
-
-
         int ringStackPerColumn = (int)Mathf.Ceil((float)ringStackNumber/(float)ringStackPerRow);
         int stackLeft = ringStackNumber;
         Vector3 startPos = new Vector3(
@@ -253,6 +251,9 @@ public class GameplayMgr : Singleton<GameplayMgr>
         }
 
         EventDispatcher.Instance.PostEvent(EventID.ON_RING_STACK_NUMBER_CHANGE);
+        Debug.Log("ringstack rows  "+ ringStackPerColumn);
+        Debug.Log("ringstack perrows  "+ ringStackPerRow);
+        Debug.Log("ringstack number  "+ ringStackNumber);
     }
 
 #if UNITY_EDITOR
@@ -260,6 +261,7 @@ public class GameplayMgr : Singleton<GameplayMgr>
 #endif
     public void AddRingStack()
     {
+        
         if (ringStackList.Count < 20)
         {
             GameObject newRingStack = PoolerMgr.Instance.ringStackPooler.GetNextRingStack();
@@ -273,6 +275,11 @@ public class GameplayMgr : Singleton<GameplayMgr>
         else
         {
             Utils.Common.Log("Reached ring stack number limit!");
+           
+        }
+        if (ringStackList.Count == 20)
+        {
+            MoreStackButton.Instance.riseDisableButtonFlag = true;
         }
     }
 
@@ -306,6 +313,7 @@ public class GameplayMgr : Singleton<GameplayMgr>
     {
          DeactivateCapForAllRingStacks();
         currentLevel = level;
+       
         stateMachine.StateChange(stateGameplayEnd);
         stateMachine.StateChange(stateGameplayInit);
         PlayerPrefs.SetInt("Levelnumber",currentLevel);
@@ -612,8 +620,10 @@ public class GameplayMgr : Singleton<GameplayMgr>
         }
 
         int ringStackPerRow = stackRowListConfig.stackRowList[activeRingStacks.Count].maxStackInRow;
+        Utils.Common.Log("RingStack pr row before "+ringStackPerRow);
+        int ringStackPerColumn = (int)Mathf.Ceil((float)activeRingStacks.Count / (float)ringStackPerRow);
         SetUpRingStacksPosition(ringStackPerRow, activeRingStacks.Count);
-
+        Utils.Common.Log("RingStack pr row after " + ringStackPerRow);
         Utils.Common.Log("This is working");
     }
 }

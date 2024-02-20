@@ -13,7 +13,7 @@ public class StateGameplayEnd : StateGameplay
     public override void OnEnter()
     {
         base.OnEnter();
-
+        //gameplayMgr.EnableLockINRing();
         foreach (RingStack ringStack in gameplayMgr.ringStackList)
         {
             while (ringStack.ringStack.Count > 0)
@@ -27,7 +27,7 @@ public class StateGameplayEnd : StateGameplay
 
         gameplayMgr.ringStackList.Clear();
         gameplayMgr.mapDataStack.Clear();
-        //gameplayMgr.EnableLockINRing();
+       
         EventDispatcher.Instance.PostEvent(EventID.ON_DISABLED_TUTORIAL);
     }
 

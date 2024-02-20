@@ -1,23 +1,24 @@
 <dependencies>
   <packages>
-    <package>com.cleveradssolutions:applovin:12.1.0.0</package>
-    <package>com.cleveradssolutions:bigo:4.4.0.0</package>
-    <package>com.cleveradssolutions:cas-promo:3.5.2</package>
-    <package>com.cleveradssolutions:cas-sdk:3.5.2</package>
-    <package>com.cleveradssolutions:chartboost:9.6.0.0</package>
-    <package>com.cleveradssolutions:facebook:6.16.0.1</package>
-    <package>com.cleveradssolutions:google:22.6.0.0</package>
-    <package>com.cleveradssolutions:hyprmx:6.2.3.0</package>
-    <package>com.cleveradssolutions:inmobi:10.6.2.1</package>
-    <package>com.cleveradssolutions:ironsource:7.7.0.0</package>
-    <package>com.cleveradssolutions:kidoz:9.0.2.0</package>
-    <package>com.cleveradssolutions:mintegral:16.5.91.0</package>
-    <package>com.cleveradssolutions:pangle:5.7.0.2</package>
+    <package>com.cleveradssolutions:adcolony:4.8.0.13</package>
+    <package>com.cleveradssolutions:applovin:11.11.3.1</package>
+    <package>com.cleveradssolutions:bigo:4.1.2.1</package>
+    <package>com.cleveradssolutions:cas-promo:3.3.2</package>
+    <package>com.cleveradssolutions:cas-sdk:3.3.2</package>
+    <package>com.cleveradssolutions:chartboost:9.5.0.0</package>
+    <package>com.cleveradssolutions:facebook:6.16.0.0</package>
+    <package>com.cleveradssolutions:google:22.3.0.1</package>
+    <package>com.cleveradssolutions:hyprmx:6.2.0.0</package>
+    <package>com.cleveradssolutions:inmobi:10.5.9.0</package>
+    <package>com.cleveradssolutions:ironsource:7.5.1.2</package>
+    <package>com.cleveradssolutions:kidoz:8.9.9.1</package>
+    <package>com.cleveradssolutions:mintegral:16.5.31.0</package>
+    <package>com.cleveradssolutions:pangle:5.5.0.5</package>
     <package>com.cleveradssolutions:smaato:22.0.2.1</package>
-    <package>com.cleveradssolutions:superawesome:9.3.0.0</package>
-    <package>com.cleveradssolutions:unity:4.9.2.2</package>
-    <package>com.cleveradssolutions:vungle:7.1.0.0</package>
-    <package>com.cleveradssolutions:yandex:26.3.0.0</package>
+    <package>com.cleveradssolutions:superawesome:9.1.0.3</package>
+    <package>com.cleveradssolutions:unity:4.9.1.0</package>
+    <package>com.cleveradssolutions:vungle:6.12.1.9</package>
+    <package>com.cleveradssolutions:yandex:26.0.1.1</package>
     <package>com.google.android.gms:play-services-appset:16.0.2</package>
     <package>com.google.android.gms:play-services-base:18.2.0</package>
     <package>com.google.android.instantapps:instantapps:1.1.0</package>
@@ -34,7 +35,7 @@
   </files>
   <settings>
     <setting name="androidAbis" value="arm64-v8a,armeabi-v7a" />
-    <setting name="bundleId" value="com.og.nutsbolts.games" />
+    <setting name="bundleId" value="com.og.horseshoe" />
     <setting name="explodeAars" value="True" />
     <setting name="gradleBuildEnabled" value="True" />
     <setting name="gradlePropertiesTemplateEnabled" value="True" />

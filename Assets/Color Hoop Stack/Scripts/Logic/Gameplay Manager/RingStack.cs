@@ -64,10 +64,10 @@ public class RingStack : MonoBehaviour, IPointerClickHandler
 
     }
 
-    internal object Peek()
-    {
-        throw new NotImplementedException();
-    }
+    //internal object Peek()
+    //{
+    //    throw new NotImplementedException();
+    //}
 
     public bool IsStackFullSameColor()
     {

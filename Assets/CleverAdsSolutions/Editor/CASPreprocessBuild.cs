@@ -1,10 +1,18 @@
-﻿//  Copyright © 2024 CAS.AI. All rights reserved.
+﻿//
+//  Clever Ads Solutions Unity Plugin
+//
+//  Copyright © 2023 CleverAdsSolutions. All rights reserved.
+//
+
+//#define GenerateAndroidQuerriesForCASPromo
 
 #if UNITY_ANDROID || UNITY_IOS || CASDeveloper
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
+using System.Xml.Linq;
 using UnityEditor;
 using UnityEditor.Build;
 using UnityEngine;
@@ -23,6 +31,7 @@ namespace CAS.UEditor
     public class CASPreprocessBuild : IPreprocessBuild
 #endif
     {
+        private const string casTitle = "CAS Configure project";
         #region IPreprocessBuild
         public int callbackOrder { get { return -25000; } }
 
@@ -75,26 +84,26 @@ namespace CAS.UEditor
                     "to create and set settings for build.", target);
 
             var deps = DependencyManager.Create(target, Audience.Mixed, true);
-            if (deps == null)
-                Utils.StopBuildWithMessage("Dependency config is missing. Try re-importing the plugin.");
-
             if (!Utils.IsBatchMode())
             {
                 var newCASVersion = Utils.GetNewVersionOrNull(Utils.gitUnityRepo, MobileAds.wrapperVersion, false);
                 if (newCASVersion != null)
                     Debug.LogWarning(Utils.logTag + "There is a new version " + newCASVersion + " of the CAS Unity plugin available for update.");
 
-                if (deps.IsNewerVersionFound())
+                if (deps != null && deps.IsNewerVersionFound())
                     Utils.DialogOrCancelBuild("There is a new versions of the native dependencies available for update." +
-                        "Please use 'Assets > CleverAdsSolutions > Settings' menu to update.", target);
+                        "Please use 'Assets > CleverAdsSolutions >Settings' menu to update.", target);
             }
+
+            if (settings.managersCount == 0 || string.IsNullOrEmpty(settings.GetManagerId(0)))
+                StopBuildIDNotFound(target);
+
+            string admobAppId = UpdateRemoteSettingsAndGetAppId(settings, target, deps);
 
             RemoveDeprecatedAssets();
 
-            UpdateRemoteConfig(settings, target, deps);
-
             if (target == BuildTarget.Android)
-                ConfigureAndroid(settings, editorSettings);
+                ConfigureAndroid(settings, editorSettings, admobAppId);
             else if (target == BuildTarget.iOS)
                 ConfigureIOS();
 
@@ -108,11 +117,28 @@ namespace CAS.UEditor
         private static void RemoveDeprecatedAssets()
         {
 #if UNITY_ANDROID || CASDeveloper
-            // CASPlugin.androidlib migrate from Assets/Plugins to Assets/CleverAdsSolutions/Plugins
-            // with CAS 3.5.0 update.
-            string plguinInAssets = "Assets/" + Utils.androidLibFolderPath;
-            if (Directory.Exists(plguinInAssets))
-                AssetDatabase.DeleteAsset(plguinInAssets);
+            var androidRes = Path.GetDirectoryName(Utils.androidResSettingsPath);
+            if (Directory.Exists(androidRes))
+            {
+                var androidConfig = Directory.GetFiles(androidRes, "cas_settings*.json", SearchOption.TopDirectoryOnly);
+                var currentTime = DateTime.Now;
+                for (int i = 0; i < androidConfig.Length; i++)
+                {
+                    if (File.GetLastWriteTime(androidConfig[i]).AddHours(12) < currentTime)
+                    {
+                        File.Delete(androidConfig[i]);
+                        if (File.Exists(androidConfig[i] + ".meta"))
+                            File.Delete(androidConfig[i] + ".meta");
+                    }
+                }
+            }
+#endif
+#if UNITY_IOS || CASDeveloper
+            var iosConfigDeprecated = Directory.GetFiles("ProjectSettings", "ios_cas_settings*.json", SearchOption.TopDirectoryOnly);
+            for (int i = 0; i < iosConfigDeprecated.Length; i++)
+            {
+                File.Delete(iosConfigDeprecated[i]);
+            }
 #endif
         }
 
@@ -126,7 +152,8 @@ namespace CAS.UEditor
                         "Failing to do this step may result in undefined behavior of the plugin and doubled import of frameworks.");
             }
 
-
+            // Unity 2021.3 have minimum iOS version 12
+#if !UNITY_2021_3_OR_NEWER
             try
             {
                 var iosVersion = int.Parse(PlayerSettings.iOS.targetOSVersionString.Split('.')[0]);
@@ -142,9 +169,10 @@ namespace CAS.UEditor
                 Debug.LogWarning("Minimum deployment target check failed: " + e.ToString());
             }
 #endif
+#endif
         }
 
-        private static void ConfigureAndroid(CASInitSettings settings, CASEditorSettings editorSettings)
+        private static void ConfigureAndroid(CASInitSettings settings, CASEditorSettings editorSettings, string admobAppId)
         {
 #if UNITY_ANDROID || CASDeveloper
 
@@ -167,40 +195,49 @@ namespace CAS.UEditor
                 EditorUserBuildSettings.androidBuildSystem = AndroidBuildSystem.Gradle;
             }
 #endif
+
+            HashSet<string> promoAlias = new HashSet<string>();
+#if GenerateAndroidQuerriesForCASPromo
+            if (editorSettings.generateAndroidQuerriesForPromo)
+            {
+                for (int i = 0; i < settings.managersCount; i++)
+                    Utils.GetCrossPromoAlias(BuildTarget.Android, settings.GetManagerId(i), promoAlias);
+            }
+#endif
+
+            UpdateAndroidPluginManifest(admobAppId, promoAlias, editorSettings, settings.defaultAudienceTagged);
+
             CASPreprocessGradle.Configure(editorSettings);
 #endif
         }
 
-        private static void UpdateRemoteConfig(CASInitSettings settings, BuildTarget platform, DependencyManager deps)
+        private static string UpdateRemoteSettingsAndGetAppId(CASInitSettings settings, BuildTarget platform, DependencyManager deps)
         {
-            if (settings.managersCount == 0 || string.IsNullOrEmpty(settings.GetManagerId(0)))
-            {
-                Utils.StopBuildWithMessage("Settings not found manager ids for " + platform.ToString() +
-                    " platform. For a successful build, you need to specify at least one ID" +
-                    " that you use in the project. To test integration, you can use test mode with 'demo' manager id.", platform);
-            }
-
             string appId = null;
             string updateSettingsError = "";
-            bool appIdRequired = !settings.IsTestAdMode() && deps.Find(AdNetwork.GoogleAds).IsInstalled();
             for (int i = 0; i < settings.managersCount; i++)
             {
-                var casId = settings.GetManagerId(i);
-                if (casId == null || casId.Length < 5)
+                var managerId = settings.GetManagerId(i);
+                if (managerId == null || managerId.Length < 5)
                     continue;
                 try
                 {
-                    AdRemoteConfig data = DownloadRemoteSettings(casId, platform, appIdRequired);
-                    if (string.IsNullOrEmpty(appId))
-                        appId = data.admob_app_id;
+                    string newAppId = DownloadRemoteSettings(managerId, platform, settings, deps);
+                    if (!string.IsNullOrEmpty(appId) || string.IsNullOrEmpty(newAppId))
+                        continue;
+                    if (newAppId.Contains('~'))
+                    {
+                        appId = newAppId;
+                        continue;
+                    }
                 }
                 catch (Exception e)
                 {
                     updateSettingsError = e.Message;
                 }
             }
-            if (!appIdRequired || !string.IsNullOrEmpty(appId))
-                return;
+            if (!string.IsNullOrEmpty(appId) || settings.IsTestAdMode() || !deps.Find(AdNetwork.GoogleAds).IsInstalled())
+                return appId;
 
             const string title = "Update CAS remote settings";
             int dialogResponse = 0;
@@ -216,50 +253,152 @@ namespace CAS.UEditor
                     "Continue", "Cancel Build", "Select configuration");
 
             if (dialogResponse == 0)
-                return;
-
+            {
+                var cachePath = Path.GetFullPath(Utils.GetNativeSettingsPath(platform, targetId));
+                if (File.Exists(cachePath))
+                    return Utils.GetAdmobAppIdFromJson(File.ReadAllText(cachePath));
+                return null;
+            }
             if (dialogResponse == 1)
             {
-                Utils.StopBuildWithMessage("Build canceled");
-                return;
+                Utils.StopBuildWithMessage("Build canceled", BuildTarget.NoTarget);
+                return null;
             }
+            return Utils.SelectSettingsFileAndGetAppId(targetId, platform);
+        }
 
-            string openPath = "";
+        private static void UpdateAndroidPluginManifest(string admobAppId, HashSet<string> queries, CASEditorSettings settings, Audience audience)
+        {
+            const string metaAdmobApplicationID = "com.google.android.gms.ads.APPLICATION_ID";
+            const string metaAdmobDelayInit = "com.google.android.gms.ads.DELAY_APP_MEASUREMENT_INIT";
+
+            XNamespace ns = "http://schemas.android.com/apk/res/android";
+            XNamespace nsTools = "http://schemas.android.com/tools";
+            XName nameAttribute = ns + "name";
+            XName valueAttribute = ns + "value";
+
+            string manifestPath = Path.GetFullPath(Utils.androidLibManifestPath);
+            var needImport = !File.Exists(manifestPath);
+
+            CreateAndroidLibIfNedded();
+
+            if (string.IsNullOrEmpty(admobAppId))
+                admobAppId = Utils.androidAdmobSampleAppID;
+
             try
             {
-                var fileName = AdRemoteConfig.GetResourcesFileName(targetId);
-                openPath = EditorUtility.OpenFilePanelWithFilters(
-                   "Select " + fileName + " file for build", "", new[] { fileName, "json" });
-                if (!string.IsNullOrEmpty(openPath))
+                var document = new XDocument(
+                    new XDeclaration("1.0", "utf-8", null),
+                    new XComment("This file is automatically generated by CAS Unity plugin from `Assets > CleverAdsSolutions > Android Settings`"),
+                    new XComment("Do not modify this file. YOUR CHANGES WILL BE ERASED!"));
+                var elemManifest = new XElement("manifest",
+                    new XAttribute(XNamespace.Xmlns + "android", ns),
+                    new XAttribute(XNamespace.Xmlns + "tools", nsTools),
+                    new XAttribute("package", "com.cleversolutions.ads.unitycas"),
+                    new XAttribute(ns + "versionName", MobileAds.wrapperVersion),
+                    new XAttribute(ns + "versionCode", 1));
+                document.Add(elemManifest);
+
+                var delayInitState = settings.delayAppMeasurementGADInit ? "true" : "false";
+
+                var elemApplication = new XElement("application");
+
+                var elemAppIdMeta = new XElement("meta-data",
+                        new XAttribute(nameAttribute, metaAdmobApplicationID),
+                        new XAttribute(valueAttribute, admobAppId));
+                elemApplication.Add(elemAppIdMeta);
+
+                var elemDelayInitMeta = new XElement("meta-data",
+                        new XAttribute(nameAttribute, metaAdmobDelayInit),
+                        new XAttribute(valueAttribute, delayInitState));
+                elemApplication.Add(elemDelayInitMeta);
+
+                var elemUsesLibrary = new XElement("uses-library",
+                    new XAttribute(ns + "required", "false"),
+                    new XAttribute(nameAttribute, "org.apache.http.legacy"));
+                elemApplication.Add(elemUsesLibrary);
+                elemManifest.Add(elemApplication);
+
+                var elemInternetPermission = new XElement("uses-permission",
+                    new XAttribute(nameAttribute, "android.permission.INTERNET"));
+                elemManifest.Add(elemInternetPermission);
+
+                var elemNetworkPermission = new XElement("uses-permission",
+                    new XAttribute(nameAttribute, "android.permission.ACCESS_NETWORK_STATE"));
+                elemManifest.Add(elemNetworkPermission);
+
+                var elemWIFIPermission = new XElement("uses-permission",
+                    new XAttribute(nameAttribute, "android.permission.ACCESS_WIFI_STATE"));
+                elemManifest.Add(elemWIFIPermission);
+
+                var elemAdIDPermission = new XElement("uses-permission",
+                    new XAttribute(nameAttribute, "com.google.android.gms.permission.AD_ID"));
+                if (settings.isUseAdvertiserIdLimited(audience))
+                    elemAdIDPermission.SetAttributeValue(nsTools + "node", "remove");
+                elemManifest.Add(elemAdIDPermission);
+
+                if (queries.Count > 0)
                 {
-                    var config = AdRemoteConfig.ReadFromFile(openPath);
-                    if (config.IsValid(appIdRequired))
+                    var elemQueries = new XElement("queries");
+                    elemQueries.Add(new XComment("CAS Cross promotion"));
+                    foreach (var item in queries)
                     {
-                        config.Save(AdRemoteConfig.GetCachePath(platform, targetId));
-                        return;
+                        elemQueries.Add(new XElement("package",
+                            new XAttribute(nameAttribute, item)));
                     }
+                    elemManifest.Add(elemQueries);
                 }
+
+                // XDocument required absolute path
+                document.Save(manifestPath);
+                // But Unity not support absolute path
+#if !UNITY_2021_3_OR_NEWER
+                if (needImport)
+                    AssetDatabase.ImportAsset(Utils.androidLibManifestPath);
+#endif
             }
             catch (Exception e)
             {
                 Debug.LogException(e);
             }
-            Utils.StopBuildWithMessage("Open invalid config file: " + openPath);
-            return;
         }
 
-        private static AdRemoteConfig DownloadRemoteSettings(string casId, BuildTarget platform, bool appIdRequired)
+        private static void CreateAndroidLibIfNedded()
+        {
+            Utils.WriteToAsset(Utils.androidLibPropertiesPath, false,
+                "# This file is automatically generated by CAS Unity plugin.",
+                "# Do not modify this file -- YOUR CHANGES WILL BE ERASED!",
+                "android.library=true",
+                "target=android-31");
+
+            Utils.WriteToAsset(Utils.androidLibNetworkConfigPath, false,
+                "<?xml version=\"1.0\" encoding=\"utf-8\"?>",
+                "<network-security-config>",
+                "    <!-- The Meta AN SDK use 127.0.0.1 as a caching proxy to cache media files in the SDK -->",
+                "    <domain-config cleartextTrafficPermitted=\"true\">",
+                "        <domain includeSubdomains=\"true\">127.0.0.1</domain>",
+                "    </domain-config>",
+                "</network-security-config>");
+
+            if (!AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(Utils.androidLibFolderPath))
+                AssetDatabase.ImportAsset(Utils.androidLibFolderPath);
+        }
+
+        private static string DownloadRemoteSettings(string managerID, BuildTarget platform, CASInitSettings settings, DependencyManager deps)
         {
             const string title = "Update CAS remote configuration";
 
-            var cachePath = AdRemoteConfig.GetCachePath(platform, casId);
+            var editorSettings = CASEditorSettings.Load();
+
+            var cachePath = Utils.GetNativeSettingsPath(platform, managerID);
             try
             {
-                if (File.Exists(cachePath) && File.GetLastWriteTime(cachePath).AddHours(3) > DateTime.Now)
+                var fullPath = Path.GetFullPath(cachePath);
+                if (File.Exists(fullPath) && File.GetLastWriteTime(fullPath).AddHours(12) > DateTime.Now)
                 {
-                    var data = AdRemoteConfig.ReadFromFile(cachePath);
-                    if (data.IsValid(appIdRequired))
-                        return data;
+                    var content = File.ReadAllText(fullPath);
+                    var data = JsonUtility.FromJson<AdmobAppIdData>(content);
+                    return data.admob_app_id;
                 }
             }
             catch (Exception e)
@@ -269,28 +408,31 @@ namespace CAS.UEditor
 
             var urlBuilder = new StringBuilder("https://psvpromo.psvgamestudio.com/cas-settings.php?apply=config&platform=")
                 .Append(platform == BuildTarget.Android ? 0 : 1)
-                .Append("&bundle=").Append(UnityWebRequest.EscapeURL(casId));
+                .Append("&bundle=").Append(UnityWebRequest.EscapeURL(managerID));
 
             using (var request = new EditorWebRequest(urlBuilder.ToString())
                 .WithProgress(title)
                 .StartSync())
             {
                 if (request.responseCode == 204)
-                    throw new Exception("'" + casId + "' is not registered in CAS.");
+                    throw new Exception("'" + managerID + "' is not registered in CAS.");
 
                 var content = request.ReadContent();
                 if (string.IsNullOrEmpty(content))
-                    throw new Exception("Connect to server for '" + casId +
+                    throw new Exception("Connect to server for '" + managerID +
                         "' is failed with error: " + request.responseCode + " - " + request.error);
 
-                var data = AdRemoteConfig.ReadFromJson(content);
-                if (data.IsValid(appIdRequired))
-                {
-                    data.Save(cachePath);
-                    return data;
-                }
+                var data = JsonUtility.FromJson<AdmobAppIdData>(content);
+                Utils.WriteToAsset(cachePath, content);
+                return data.admob_app_id;
             }
-            throw new Exception("The configuration for '" + casId + "' is not valid, please contact support for additional information.");
+        }
+
+        private static void StopBuildIDNotFound(BuildTarget target)
+        {
+            Utils.StopBuildWithMessage("Settings not found manager ids for " + target.ToString() +
+                " platform. For a successful build, you need to specify at least one ID" +
+                " that you use in the project. To test integration, you can use test mode with 'demo' manager id.", target);
         }
     }
 }

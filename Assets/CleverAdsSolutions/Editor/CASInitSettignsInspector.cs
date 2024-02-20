@@ -1,4 +1,8 @@
-﻿//  Copyright © 2024 CAS.AI. All rights reserved.
+﻿//
+//  Clever Ads Solutions Unity Plugin
+//
+//  Copyright © 2023 CleverAdsSolutions. All rights reserved.
+//
 
 #pragma warning disable 649
 using System;
@@ -34,11 +38,11 @@ namespace CAS.UEditor
         private SerializedProperty autoCheckForUpdatesEnabledProp;
         private SerializedProperty buildPreprocessEnabledProp;
         private SerializedProperty delayAppMeasurementGADInitProp;
-        private SerializedProperty optimizeGADLoadingProp;
 #if !UNITY_2022_2_OR_NEWER
         private SerializedProperty updateGradlePluginVersionProp;
 #endif
         private SerializedProperty permissionAdIdProp;
+        private SerializedProperty mostPopularCountryOfUsersProp;
         private SerializedProperty attributionReportEndpointProp;
         private SerializedProperty userTrackingUsageDescriptionProp;
         private SerializedProperty includeAdDependencyVersionsProp;
@@ -82,8 +86,12 @@ namespace CAS.UEditor
             iOSLocationDescriptionFoldout = new AnimBool(false, Repaint);
             otherSettingsFoldout = new AnimBool(false, Repaint);
 
-            allowedPackageUpdate = Utils.IsPackageExist(Utils.packageName);
-            legacyUnityAdsPackageInstalled = Utils.IsPackageExist(Utils.legacyUnityAdsPackageName);
+            if (File.Exists(Utils.packageManifestPath))
+            {
+                var manifest = File.ReadAllText(Utils.packageManifestPath);
+                allowedPackageUpdate = Utils.IsPackageExist(Utils.packageName, manifest);
+                legacyUnityAdsPackageInstalled = Utils.IsPackageExist(Utils.legacyUnityAdsPackageName, manifest);
+            }
 
             dependencyManager = DependencyManager.Create(platform, (Audience)audienceTaggedProp.enumValueIndex, true);
 
@@ -131,13 +139,13 @@ namespace CAS.UEditor
             editorSettingsObj = new SerializedObject(CASEditorSettings.Load(true));
             autoCheckForUpdatesEnabledProp = editorSettingsObj.FindProperty("autoCheckForUpdatesEnabled");
             delayAppMeasurementGADInitProp = editorSettingsObj.FindProperty("delayAppMeasurementGADInit");
-            optimizeGADLoadingProp = editorSettingsObj.FindProperty("optimizeGADLoading");
             buildPreprocessEnabledProp = editorSettingsObj.FindProperty("buildPreprocessEnabled");
 #if !UNITY_2022_2_OR_NEWER
             updateGradlePluginVersionProp = editorSettingsObj.FindProperty("updateGradlePluginVersion");
 #endif
             permissionAdIdProp = editorSettingsObj.FindProperty("permissionAdId");
 
+            mostPopularCountryOfUsersProp = editorSettingsObj.FindProperty("mostPopularCountryOfUsers");
             attributionReportEndpointProp = editorSettingsObj.FindProperty("attributionReportEndpoint");
             includeAdDependencyVersionsProp = editorSettingsObj.FindProperty("includeAdDependencyVersions");
 
@@ -335,14 +343,21 @@ namespace CAS.UEditor
             OnLoadingModeGUI();
 
             debugModeProp.boolValue = EditorGUILayout.ToggleLeft(
-                "Verbose Debug logging", debugModeProp.boolValue);
-            if (debugModeProp.boolValue)
+                HelpStyles.GetContent("Verbose Debug logging", null,
+                   "The enabled Debug Mode will display a lot of useful information for debugging about the states of the sdk with tag CAS. " +
+                   "Disabling the Debug Mode may improve application performance."),
+                debugModeProp.boolValue);
+
+            buildPreprocessEnabledProp.boolValue = EditorGUILayout.ToggleLeft(
+                    "Build preprocess enabled",
+                    buildPreprocessEnabledProp.boolValue);
+
+            if (!buildPreprocessEnabledProp.boolValue)
             {
                 EditorGUI.indentLevel++;
-                EditorGUILayout.HelpBox(
-                    "The enabled Verbose Debug Mode will display a lot of useful information for debugging about the states of the sdk with tag 'CAS.AI'. " +
-                    "Enabled debug mode affects application performanc and should be disabled after debugging.",
-                    MessageType.Warning);
+                EditorGUILayout.HelpBox("Automatic configuration at build time is disabled.\n" +
+                    "You can use `Assets > CleverAdsSolutions > Configure project` to call configuration manually.",
+                    MessageType.None);
                 EditorGUI.indentLevel--;
             }
 
@@ -355,10 +370,6 @@ namespace CAS.UEditor
                        "for the current Gradle Wrapper version."),
                     updateGradlePluginVersionProp.boolValue);
 #endif
-                optimizeGADLoadingProp.boolValue = EditorGUILayout.ToggleLeft(
-                    HelpStyles.GetContent("Optimize Google Ad loading", null,
-                        "Google Ad loading tasks will be offloaded to a background thread"),
-                    optimizeGADLoadingProp.boolValue);
             }
             else
             {
@@ -384,29 +395,16 @@ namespace CAS.UEditor
                 }
             }
 
-            buildPreprocessEnabledProp.boolValue = EditorGUILayout.ToggleLeft(
-                    "Build preprocess enabled", buildPreprocessEnabledProp.boolValue);
-            if (!buildPreprocessEnabledProp.boolValue)
-            {
-                EditorGUI.indentLevel++;
-                EditorGUILayout.HelpBox("Automatic configuration at build time is disabled.\n" +
-                    "You must use `Assets > CleverAdsSolutions > Configure project` to call configuration manually.",
-                    MessageType.Warning);
-                EditorGUI.indentLevel--;
-            }
-
             autoCheckForUpdatesEnabledProp.boolValue = EditorGUILayout.ToggleLeft(
                 "Auto check for CAS updates enabled",
                 autoCheckForUpdatesEnabledProp.boolValue);
 
             delayAppMeasurementGADInitProp.boolValue = EditorGUILayout.ToggleLeft(
-                HelpStyles.GetContent("Delay measurement of the Ad SDK initialization", null,
-                    "By default, some Mediated Ads SDK initializes app measurement and begins sending user-level event data immediately when the app starts. " +
-                    "This can lead to prolonged app loading times and improper use of user data before obtaining their consent"),
+                "Delay measurement of the Ad SDK initialization",
                 delayAppMeasurementGADInitProp.boolValue);
 
             includeAdDependencyVersionsProp.boolValue = EditorGUILayout.ToggleLeft(
-                "Include Ads dependency versions",
+                "Include Ad dependency versions",
                 includeAdDependencyVersionsProp.boolValue);
 
             EditorGUILayout.EndFadeGroup();
@@ -421,11 +419,6 @@ namespace CAS.UEditor
             var enabled = userTrackingUsageDescriptionProp.arraySize > 0;
             iOSLocationDescriptionFoldout.target = GUILayout.Toggle(iOSLocationDescriptionFoldout.target,
                 "User Tracking Usage description: " + (enabled ? "Used" : "Not used"), EditorStyles.foldout);
-
-            if (!enabled && audienceTaggedProp.intValue != (int)Audience.Children)
-            {
-                EditorGUILayout.HelpBox("To use the AppTrackingTransparency framework: Configure NSUserTrackingUsageDescription to display a request to allow access to the device's advertising ID.", MessageType.Warning);
-            }
 
             if (EditorGUILayout.BeginFadeGroup(iOSLocationDescriptionFoldout.faded))
             {

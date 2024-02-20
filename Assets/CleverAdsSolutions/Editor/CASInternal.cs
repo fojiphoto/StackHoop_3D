@@ -1,4 +1,8 @@
-﻿//  Copyright © 2024 CAS.AI. All rights reserved.
+﻿//
+//  Clever Ads Solutions Unity Plugin
+//
+//  Copyright © 2023 CleverAdsSolutions. All rights reserved.
+//
 
 using System;
 using System.Collections.Generic;
@@ -34,11 +38,6 @@ namespace CAS.UEditor
         private AnimBool solutionsFoldout = null;
         private AnimBool advancedFoldout = null;
         private AnimBool otherFoldout = null;
-
-        internal BuildTarget buildTarget
-        {
-            get { return platform; }
-        }
 
         internal void Init(BuildTarget platform, bool deepInit = true)
         {
@@ -118,7 +117,7 @@ namespace CAS.UEditor
             EditorGUILayout.EndHorizontal();
         }
 
-        private void CheckDependencyUpdates()
+        private void CheckDependencyUpdates(BuildTarget platform)
         {
             bool updatesFound = false;
             for (int i = 0; !updatesFound && i < solutions.Length; i++)
@@ -132,7 +131,7 @@ namespace CAS.UEditor
                 if (HelpStyles.WarningWithButton("Found one or more updates for native dependencies.",
                     "Update all", MessageType.Error))
                 {
-                    UpdateDependencies();
+                    UpdateDependencies(platform);
                 }
             }
         }
@@ -146,7 +145,7 @@ namespace CAS.UEditor
                 otherFoldout = new AnimBool(false, mainWindow.Repaint);
             }
 
-            CheckDependencyUpdates();
+            CheckDependencyUpdates(platform);
 
             columnWidth = GUILayout.MaxWidth(EditorGUIUtility.currentViewWidth * 0.15f);
 

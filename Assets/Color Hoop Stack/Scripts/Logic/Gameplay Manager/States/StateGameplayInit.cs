@@ -20,7 +20,7 @@ public class StateGameplayInit : StateGameplay
         List<int> specialLevels = new List<int> { 8, 11, 13, 17, 23, 26, 31, 39, 41, 44, 47, 51 };
         if (specialLevels.Contains(gameplayMgr.currentLevel))
         {
-            gameplayMgr.EnableLockINRing();
+           gameplayMgr.EnableLockINRing();
         }
         
         //gameplayMgr.EnableLockINRing();
