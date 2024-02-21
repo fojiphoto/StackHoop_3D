@@ -370,6 +370,7 @@ public class GameplayMgr : Singleton<GameplayMgr>
         }
 
         ringTypeNumber = ringTypeList.Count;
+        Debug.Log("");
     }
 
     public void LoadAds(float seconds)

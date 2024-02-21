@@ -13,6 +13,7 @@ public class RingStack : MonoBehaviour, IPointerClickHandler
     public BoxCollider boxCol;
     [HideInInspector] public int number;//2
     public static RingStack ringStacks;
+   
 
    
 

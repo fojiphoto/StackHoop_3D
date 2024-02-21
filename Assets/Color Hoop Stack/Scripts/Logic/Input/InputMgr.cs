@@ -23,8 +23,8 @@ public class InputMgr : Singleton<InputMgr>
         if (GameplayMgr.Instance.stateMachine.CurrentState == GameplayMgr.Instance.stateGameplayIdle)
         {
             ringStackStart = ringStackTap;
-            if (ringStackStart.ringStack.Count > 0)
-            {
+            if (ringStackStart.ringStack.Count > 0 )
+            {   
                 ringMove = ringStackStart.ringStack.Peek();
                 //command up
                 Command newMove = new CommandRingUp(ringStackStart, ringMove, null, null);
@@ -35,6 +35,8 @@ public class InputMgr : Singleton<InputMgr>
         else if (GameplayMgr.Instance.stateMachine.CurrentState == GameplayMgr.Instance.stateGameplayRingReady)
         {
             ringStackEnd = ringStackTap;
+            Debug.Log("ringStackStart.number  " + ringStackStart.number);
+            Debug.Log("ringStackEnd.number  "+ ringStackEnd.number);
             if (ringStackEnd.number == ringStackStart.number)
             {
                 //command down
@@ -68,6 +70,7 @@ public class InputMgr : Singleton<InputMgr>
                             //Command up
                             RingStack ringStackReady = ringStackStart;
                             Ring ringReady = ringStackReady.ringStack.Peek();
+                           
                             ringStackStart = ringStackEnd;
                             ringMove = ringStackStart.ringStack.Peek();
 
