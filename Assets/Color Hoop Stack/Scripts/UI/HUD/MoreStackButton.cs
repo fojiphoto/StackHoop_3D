@@ -7,8 +7,8 @@ public class MoreStackButton : MonoBehaviour
 {
     [SerializeField]
     private Button button;
-    public bool riseEnableButtonFlag = true;
-    public bool riseDisableButtonFlag = false;
+    public bool riseEnableButtonFlag = false;
+    public bool riseDisableButtonFlag = true;
     private bool canUse = true;
     public static MoreStackButton Instance;
     private void Awake()
@@ -52,7 +52,7 @@ public class MoreStackButton : MonoBehaviour
             //Abdulrehman
              CASAds.instance.ShowRewarded(() => { CASAds.instance.rewardedTypeAd = CASAds.RewardType.RING_STACK; });
             //AdsManager.instance.ShowRewardedAd(()=>{AdsManager.instance.rewardedTypeAd=AdsManager.RewardType.RING_STACK;});
-            DisableButton();
+            //DisableButton();
         }
         else
         {
@@ -62,7 +62,7 @@ public class MoreStackButton : MonoBehaviour
             //AdsManager.instance.ShowRewardedAd(() => { AdsManager.instance.rewardedTypeAd = AdsManager.RewardType.RING_STACK; });
             canUse = false;
             SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.BUTTON], false);
-            DisableButton();
+           // DisableButton();
         }
     }
 
@@ -80,7 +80,7 @@ public class MoreStackButton : MonoBehaviour
         if (canUse)
         {
             riseEnableButtonFlag = false;
-            riseDisableButtonFlag = false;
+            riseDisableButtonFlag = true;
         }
     }
 }

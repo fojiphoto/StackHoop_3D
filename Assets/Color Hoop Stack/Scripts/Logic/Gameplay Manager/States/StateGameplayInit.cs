@@ -131,5 +131,7 @@ public class StateGameplayInit : StateGameplay
         {
             gameplayMgr.ringStackList[1].canControl = false;
         }
+
+       // CheckComplete.Instance.StartInit();
     }
 }

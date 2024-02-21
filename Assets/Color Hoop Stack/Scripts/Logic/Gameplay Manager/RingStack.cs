@@ -22,9 +22,6 @@ public class RingStack : MonoBehaviour, IPointerClickHandler
 
     private void Awake()
     {
-       
-        
-
         ringStack = new Stack<Ring>();
         if (ringStacks==null)
         {

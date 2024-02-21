@@ -307,11 +307,7 @@ public class StateGameplayRingMove : StateGameplay
             Transform cap= ringStack.transform.GetChild(2);
                 cap.gameObject.SetActive(false);
         }
-        if (!ringStack.gameObject.activeSelf)
-        {
-            // Rearrange the positions of the remaining active ring stacks
-            gameplayMgr.RearrangeActiveRingStacks();
-        }
+        
 
     }
 
@@ -337,12 +333,13 @@ public class StateGameplayRingMove : StateGameplay
                 float newY = ringAbove.transform.position.y - ringAbove.boxCol.size.z; // Adjust as needed
                 Vector3 newPosition = new Vector3(ringAbove.transform.position.x, newY, ringAbove.transform.position.z);
                 ringAbove.transform.DOMoveY(newY, 0.15f);  // Adjust the duration as needed
+                SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.POP], false);
             }
             
             yield return new WaitForSeconds(0.15f); // Adjust the delay as needed
             ringStack.canControl = true;
-            
-
+            gameplayMgr.PlayConfetti(ringStack);
+           
         }
        
        
@@ -351,6 +348,11 @@ public class StateGameplayRingMove : StateGameplay
         gameplayMgr.stackCompleteNumber++;
         if (gameplayMgr.CheckWinState())
         {
+           
+            ringStack.transform.DOMoveY(20, 1)
+                     .SetEase(Ease.Linear);
+            ringStack.transform.GetChild(14).gameObject.SetActive(true);
+            SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.ROCKET], false);
             gameplayMgr.TriggerCompleteLevelEffect(0f);
             stateMachine.StateChange(gameplayMgr.stateGameplayCompleteLevel);
         }
@@ -361,12 +363,26 @@ public class StateGameplayRingMove : StateGameplay
             Vector3 newPos = new Vector3(ringStack.transform.position.x, newRingYPos, ringStack.transform.position.z);
             SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.FULL_STACK], false);
             gameplayMgr.PlayConfetti(ringStack);
-            ringStack.transform.gameObject.SetActive(false);
+            // ringStack.transform.gameObject.SetActive(false);
+            Sequence ringMoveUP = DOTween.Sequence();
+            ringMoveUP.Append(
+                     ringStack.transform.DOMoveY(20, 1)
+                     .SetEase(Ease.Linear)
+                     );
+            ringStack.transform.GetChild(14).gameObject.SetActive(true);
+            SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.ROCKET], false);
+            //ringStack.transform.position+= new Vector3(0, 7.2f, 0);
+            //Debug.Log("pos" + ringStack.transform.position);
 
-            gameplayMgr.RearrangeActiveRingStacks();
+            //rearranging
+            //gameplayMgr.RearrangeActiveRingStacks();
 
 
         }
+        yield return new WaitForSeconds(1f);
+        ringStack.transform.GetChild(14).gameObject.SetActive(false);
+        ringStack.transform.gameObject.SetActive(false);
+        
 
     }
 

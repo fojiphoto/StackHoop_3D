@@ -45,7 +45,8 @@ public class SplashScene : MonoBehaviour
     }
 
     public void MainMenuOpen(){
-        PlayerPrefs.SetInt("Restart", 0); 
+        PlayerPrefs.SetInt("Restart", 0);
+        CASAds.instance.ShowInterstitial();
         SceneManager.LoadScene("MainScene");
         
         //loadScreen.SetActive(true);

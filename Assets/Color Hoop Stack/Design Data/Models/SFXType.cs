@@ -11,5 +11,7 @@ public enum SFXType
     FULL_ALL,
     DOWN,
     UP,
-    MOVE
+    MOVE,
+    POP,
+    ROCKET
 }

@@ -184,9 +184,10 @@ public class GameplayMgr : Singleton<GameplayMgr>
             {
                 //int ringCount = ringStack.ringStack.Count;
                 //Debug.Log($"Ring Stack {ringStack.number} has {ringCount} rings.");
-                Transform childObject = ringStack.transform.GetChild(13);
+                //ringstackheightdouble
+                Transform childObject = ringStack.transform.GetChild(12);
                 childObject.gameObject.SetActive(true);
-                Transform childObject1 = ringStack.transform.GetChild(14);
+                Transform childObject1 = ringStack.transform.GetChild(13);
                 childObject1.gameObject.SetActive(true);
             }
 
@@ -200,9 +201,10 @@ public class GameplayMgr : Singleton<GameplayMgr>
            int ringStackPerRow = stackRowListConfig.stackRowList[ringStackList.Count].maxStackInRow;
             foreach (RingStack ringStack in ringStackList)
             {
-                Transform childObject = ringStack.transform.GetChild(13);
+                //ringstackheightdouble
+                Transform childObject = ringStack.transform.GetChild(12);
                 childObject.gameObject.SetActive(false);
-                Transform childObject1 = ringStack.transform.GetChild(14);
+                Transform childObject1 = ringStack.transform.GetChild(13);
                 childObject1.gameObject.SetActive(false);
             }
             stackNumberMax = 4;
@@ -262,7 +264,7 @@ public class GameplayMgr : Singleton<GameplayMgr>
     public void AddRingStack()
     {
         
-        if (ringStackList.Count < 20)
+        if (ringStackList.Count < 20 )
         {
             GameObject newRingStack = PoolerMgr.Instance.ringStackPooler.GetNextRingStack();
             RingStack newRingStackComp = newRingStack.GetComponent<RingStack>();
@@ -279,8 +281,14 @@ public class GameplayMgr : Singleton<GameplayMgr>
         }
         if (ringStackList.Count == 20)
         {
+            //MoreStackButton.Instance.DisableButton();
             MoreStackButton.Instance.riseDisableButtonFlag = true;
+            MoreStackButton.Instance.riseEnableButtonFlag = false;
         }
+        
+        
+            
+        
     }
 
     public void ReArrangeStack()
@@ -418,7 +426,23 @@ public class GameplayMgr : Singleton<GameplayMgr>
             }
         }
         SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.FULL_ALL], false);
-         
+        foreach (RingStack ringstack1 in ringStackList)
+        {
+            if (ringstack1.transform.gameObject.activeSelf)
+            {
+                ringstack1.transform.DOMoveY(20, 1)
+                 .SetEase(Ease.Linear);
+                ringstack1.transform.GetChild(14).gameObject.SetActive(true);
+            }
+            StartCoroutine(closeFire(ringstack1));
+        }
+        
+
+    }
+    IEnumerator closeFire(RingStack ringstack)
+    {
+        yield return new WaitForSeconds(1);
+        ringstack.transform.GetChild(14).gameObject.SetActive(false);
     }
     public void CloseRingAnimator(Ring ring){
       StartCoroutine(CloseAnimatorWait(ring));
