@@ -8,13 +8,18 @@ public class MoreStackButton : MonoBehaviour
     [SerializeField]
     private Button button;
     public bool riseEnableButtonFlag = false;
-    public bool riseDisableButtonFlag = false;
+    public bool riseDisableButtonFlag = true;
     private bool canUse = true;
-
+    public static MoreStackButton Instance;
     private void Awake()
     {
+        if (Instance==null)
+        {
+            Instance = this;
+        }
         EventDispatcher.Instance.RegisterListener(EventID.ON_LOADED_REWARDED_AD, param => EnableButton());
         EventDispatcher.Instance.RegisterListener(EventID.ON_FAILED_LOAD_REWARDED_AD, param => DisableButton());
+
     }
 
     private void Update()
@@ -22,7 +27,7 @@ public class MoreStackButton : MonoBehaviour
         if (riseEnableButtonFlag)
         {
             button.interactable = true;
-            riseEnableButtonFlag = false;
+            riseEnableButtonFlag = true;
         }
 
         if (riseDisableButtonFlag)
@@ -30,6 +35,7 @@ public class MoreStackButton : MonoBehaviour
             button.interactable = false;
             riseDisableButtonFlag = false;
         }
+        
     }
 
     public void InitLevel()
@@ -46,7 +52,7 @@ public class MoreStackButton : MonoBehaviour
             //Abdulrehman
              CASAds.instance.ShowRewarded(() => { CASAds.instance.rewardedTypeAd = CASAds.RewardType.RING_STACK; });
             //AdsManager.instance.ShowRewardedAd(()=>{AdsManager.instance.rewardedTypeAd=AdsManager.RewardType.RING_STACK;});
-            DisableButton();
+            //DisableButton();
         }
         else
         {
@@ -56,7 +62,7 @@ public class MoreStackButton : MonoBehaviour
             //AdsManager.instance.ShowRewardedAd(() => { AdsManager.instance.rewardedTypeAd = AdsManager.RewardType.RING_STACK; });
             canUse = false;
             SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.BUTTON], false);
-            DisableButton();
+           // DisableButton();
         }
     }
 
