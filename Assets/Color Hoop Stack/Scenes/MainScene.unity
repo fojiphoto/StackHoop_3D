@@ -4204,6 +4204,10 @@ PrefabInstance:
       value: GameplayMgr
       objectReference: {fileID: 0}
     - target: {fileID: 8945599271463635285, guid: 84ab0c762a3a3054d9816165cf2f65fa, type: 3}
+      propertyPath: CubeIns
+      value: 
+      objectReference: {fileID: 8016053639515613160, guid: 409d891c445fd154fa8086a110c70e27, type: 3}
+    - target: {fileID: 8945599271463635285, guid: 84ab0c762a3a3054d9816165cf2f65fa, type: 3}
       propertyPath: ringUpSpeed
       value: 8
       objectReference: {fileID: 0}
@@ -4233,7 +4237,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8945599271463635285, guid: 84ab0c762a3a3054d9816165cf2f65fa, type: 3}
       propertyPath: ringStackDistance.x
-      value: 1.3
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84ab0c762a3a3054d9816165cf2f65fa, type: 3}

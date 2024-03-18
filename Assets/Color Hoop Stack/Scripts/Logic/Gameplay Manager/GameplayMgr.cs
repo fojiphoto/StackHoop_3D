@@ -9,6 +9,7 @@ using UnityEngine;
 
 public class GameplayMgr : Singleton<GameplayMgr>
 {
+    public GameObject CubeIns;
     [Header("Game Design Datas")]
     public RingColorConfig ringColorConfig;
     public LevelListConfig levelListConfig;
@@ -116,10 +117,26 @@ public class GameplayMgr : Singleton<GameplayMgr>
     private void Update()
     {
         //EnableLockINRing();
+        
         stateMachine.StateHandleInput();
         stateMachine.StateLogicUpdate();
         EnableStackChildNail();
         int currentLevel = GameplayMgr.Instance.currentLevel;
+        if (currentLevel==0)
+        {
+            ringStackDistance.x = 0.6f;
+        }
+        else if (currentLevel == 1)
+        {
+            ringStackDistance.x = 0.76f;
+        }
+        else
+        {
+            ringStackDistance.x = 1.2f;
+        }
+
+
+
         if (currentLevel!=0 && currentLevel%5==0 && currentLevel<52)
         {
             simpleLevel.SetActive(false);
@@ -225,6 +242,7 @@ public class GameplayMgr : Singleton<GameplayMgr>
         {
             ringStackDistance.x *= 1.5f;
         }
+       
         int ringStackPerColumn = (int)Mathf.Ceil((float)ringStackNumber/(float)ringStackPerRow);
         int stackLeft = ringStackNumber;
         Vector3 startPos = new Vector3(
@@ -233,7 +251,7 @@ public class GameplayMgr : Singleton<GameplayMgr>
             (float)(ringStackPerColumn - 1) / 2 * ringStackDistance.y);
 
         int ringStackListCurrent = 0;
-
+       
         for (int i = 0; i < ringStackPerColumn; i++)
         {
             if (stackLeft < ringStackPerRow)
@@ -245,13 +263,17 @@ public class GameplayMgr : Singleton<GameplayMgr>
                 stackLeft--;
                 if (ringStackListCurrent >= ringStackList.Count)
                     break;
+                
+                
             }
             if (ringStackListCurrent >= ringStackList.Count)
                 break;
+
+           
             //float stackSpacing = 1.2f;
             //startPos.x -= stackSpacing;
         }
-
+        
         EventDispatcher.Instance.PostEvent(EventID.ON_RING_STACK_NUMBER_CHANGE);
         Debug.Log("ringstack rows  "+ ringStackPerColumn);
         Debug.Log("ringstack perrows  "+ ringStackPerRow);
@@ -272,6 +294,8 @@ public class GameplayMgr : Singleton<GameplayMgr>
             newRingStackComp.number = ringStackList.Count - 1;
             int ringStackNumber = ringStackList.Count;
             int ringStackPerRow = stackRowListConfig.stackRowList[ringStackList.Count].maxStackInRow;
+            Debug.Log("RingStack number....." + ringStackNumber);
+            Debug.Log("RingStack in roww....." + ringStackPerRow);
             SetUpRingStacksPosition(ringStackPerRow, ringStackNumber);
         }
         else
