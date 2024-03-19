@@ -15,13 +15,13 @@ MonoBehaviour:
   sfxConfigDic:
     keys: 00000000010000000200000004000000030000000500000007000000060000000800000009000000
     values:
-    - {fileID: 8300000, guid: a8a6d7344e7146c4086fc63fd00386e6, type: 3}
+    - {fileID: 8300000, guid: df36750c59fc4db4d871e44112ac81eb, type: 3}
     - {fileID: 8300000, guid: b274545bf2590974bac383dc571262a0, type: 3}
     - {fileID: 8300000, guid: 766b83535b36bc647be49cbfb1965be6, type: 3}
     - {fileID: 8300000, guid: eae01b3d1ddaa0d4d81e5cd887a6322c, type: 3}
     - {fileID: 8300000, guid: 19fd7cc137ff4f44e9f453b5a5edc605, type: 3}
-    - {fileID: 8300000, guid: 7d76ea838e0ade743a548fe2b30689a2, type: 3}
-    - {fileID: 8300000, guid: 301fe49f6d2c63b41a2e443d81e082f7, type: 3}
-    - {fileID: 8300000, guid: 759042fed98e70d42ba1cf75273421ff, type: 3}
-    - {fileID: 8300000, guid: 56c65ab655c116242bc67616763ad9ba, type: 3}
+    - {fileID: 8300000, guid: f1fce01825f8300469a7815125264f1b, type: 3}
+    - {fileID: 8300000, guid: d9230d244cb34264da4555def36e468d, type: 3}
+    - {fileID: 8300000, guid: f1fce01825f8300469a7815125264f1b, type: 3}
+    - {fileID: 8300000, guid: 8d9e8891c3d225c4e96df9c0b95adcee, type: 3}
     - {fileID: 8300000, guid: 6e4906259b4ec694587b991badbe6c14, type: 3}

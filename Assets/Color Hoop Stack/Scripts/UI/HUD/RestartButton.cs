@@ -16,6 +16,7 @@ public class RestartButton : MonoBehaviour
         }
         else
         {
+
             GameplayMgr.Instance.GoToLevel(GameplayMgr.Instance.currentLevel);
             PlayerPrefs.SetInt("Restart", 0);
         }

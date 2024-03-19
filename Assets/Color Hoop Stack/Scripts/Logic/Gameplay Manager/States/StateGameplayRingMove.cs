@@ -209,7 +209,12 @@ public class StateGameplayRingMove : StateGameplay
                     }
                 );
 
-                ringMoveSeq.AppendCallback(() => SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.DROP], false));
+                ringMoveSeq.AppendCallback(() => {
+                    SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.DROP], false);
+                    Transform particle = ringMove.transform.GetChild(4);
+                    particle.gameObject.GetComponent<ParticleSystem>().Play();
+                }
+                );
 
                 //jump
                 ringMoveSeq.Append(
@@ -317,7 +322,8 @@ public class StateGameplayRingMove : StateGameplay
         ringsToRemove.Reverse();  // Reverse the order to start removing from the bottom
 
         int ringCount = ringsToRemove.Count;
-
+        ringStack.transform.GetChild(8).GetChild(1).GetComponent<Animator>().enabled=true;
+        yield return new WaitForSeconds(1);
         //ringStackList = new List<RingStack>();
         for (int i = 0; i < ringCount; i++)
         {
@@ -337,22 +343,24 @@ public class StateGameplayRingMove : StateGameplay
             }
             
             yield return new WaitForSeconds(0.15f); // Adjust the delay as needed
-            ringStack.canControl = true;
+            //ringStack.canControl = true;
             gameplayMgr.PlayConfetti(ringStack);
-           
+            
+
+
         }
-       
-       
-       
+
+
+
 
         gameplayMgr.stackCompleteNumber++;
         if (gameplayMgr.CheckWinState())
         {
-           
-            ringStack.transform.DOMoveY(20, 1)
-                     .SetEase(Ease.Linear);
-            ringStack.transform.GetChild(14).gameObject.SetActive(true);
-            SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.ROCKET], false);
+             //moving up at the end
+            //ringStack.transform.DOMoveY(20, 1)
+            //         .SetEase(Ease.Linear);
+            //ringStack.transform.GetChild(14).gameObject.SetActive(true);
+           // SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.ROCKET], false);
             gameplayMgr.TriggerCompleteLevelEffect(0f);
             stateMachine.StateChange(gameplayMgr.stateGameplayCompleteLevel);
         }
@@ -364,13 +372,17 @@ public class StateGameplayRingMove : StateGameplay
             SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.FULL_STACK], false);
             gameplayMgr.PlayConfetti(ringStack);
             // ringStack.transform.gameObject.SetActive(false);
-            Sequence ringMoveUP = DOTween.Sequence();
-            ringMoveUP.Append(
-                     ringStack.transform.DOMoveY(20, 1)
-                     .SetEase(Ease.Linear)
-                     );
-            ringStack.transform.GetChild(14).gameObject.SetActive(true);
-            SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.ROCKET], false);
+            
+            // for moving up objects at end
+
+            //Sequence ringMoveUP = DOTween.Sequence();
+            //ringMoveUP.Append(
+            //         ringStack.transform.DOMoveY(20, 1)
+            //         .SetEase(Ease.Linear)
+            //         );
+            //ringStack.transform.GetChild(14).gameObject.SetActive(true);
+
+           // SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.ROCKET], false);
             //ringStack.transform.position+= new Vector3(0, 7.2f, 0);
             //Debug.Log("pos" + ringStack.transform.position);
 
@@ -380,9 +392,15 @@ public class StateGameplayRingMove : StateGameplay
 
         }
         yield return new WaitForSeconds(1f);
-        ringStack.transform.GetChild(14).gameObject.SetActive(false);
-        ringStack.transform.gameObject.SetActive(false);
-        
+        ringStack.transform.GetChild(8).GetChild(1).GetComponent<Animator>().enabled = true;
+
+        ringStack.transform.GetChild(8).GetChild(1).GetComponent<Animator>().Play("New Animation 1");
+        yield return new WaitForSeconds(1f);
+        ringStack.transform.GetChild(8).GetChild(1).GetComponent<Animator>().enabled = false;
+        //for deactivate ringstack at end
+        //ringStack.transform.GetChild(14).gameObject.SetActive(false);
+        //ringStack.transform.gameObject.SetActive(false);
+
 
     }
 
@@ -393,8 +411,8 @@ public class StateGameplayRingMove : StateGameplay
     private void DeactivateRing(Ring ring)
     {
         // Deactivate or set the ring to inactive state
-        Transform particle = ring.transform.GetChild(2).GetChild(0);
-        particle.gameObject.GetComponent<ParticleSystem>().Play();
+        //Transform particle = ring.transform.GetChild(2).GetChild(0);
+        //particle.gameObject.GetComponent<ParticleSystem>().Play();
         ring.gameObject.SetActive(false);
         
         //ring.transform.SetParent(null);

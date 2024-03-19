@@ -90,7 +90,21 @@ public class GameplayMgr : Singleton<GameplayMgr>
         //         Transform cap= ringStack.transform.GetChild(2);
         //         cap.gameObject.SetActive(false);
         // }
-       
+
+        int currentLevell = GameplayMgr.Instance.currentLevel;
+        if (currentLevell == 0)
+        {
+            ringStackDistance.x = 0.6f;
+        }
+        else if (currentLevell == 1)
+        {
+            ringStackDistance.x = 0.76f;
+        }
+        else
+        {
+            ringStackDistance.x = 1.2f;
+        }
+
     }
 
     public void Init()
@@ -202,10 +216,12 @@ public class GameplayMgr : Singleton<GameplayMgr>
                 //int ringCount = ringStack.ringStack.Count;
                 //Debug.Log($"Ring Stack {ringStack.number} has {ringCount} rings.");
                 //ringstackheightdouble
-                Transform childObject = ringStack.transform.GetChild(12);
-                childObject.gameObject.SetActive(true);
-                Transform childObject1 = ringStack.transform.GetChild(13);
-                childObject1.gameObject.SetActive(true);
+
+                //long nail for special level
+                //Transform childObject = ringStack.transform.GetChild(12);
+                //childObject.gameObject.SetActive(true);
+                //Transform childObject1 = ringStack.transform.GetChild(13);
+                //childObject1.gameObject.SetActive(true);
             }
 
             // Set maxStackInRow to 8
@@ -450,16 +466,17 @@ public class GameplayMgr : Singleton<GameplayMgr>
             }
         }
         SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.FULL_ALL], false);
-        foreach (RingStack ringstack1 in ringStackList)
-        {
-            if (ringstack1.transform.gameObject.activeSelf)
-            {
-                ringstack1.transform.DOMoveY(20, 1)
-                 .SetEase(Ease.Linear);
-                ringstack1.transform.GetChild(14).gameObject.SetActive(true);
-            }
-            StartCoroutine(closeFire(ringstack1));
-        }
+        //moving up ate the end
+        //foreach (RingStack ringstack1 in ringStackList)
+        //{
+        //    if (ringstack1.transform.gameObject.activeSelf)
+        //    {
+        //        ringstack1.transform.DOMoveY(20, 1)
+        //         .SetEase(Ease.Linear);
+        //        ringstack1.transform.GetChild(14).gameObject.SetActive(true);
+        //    }
+        //    StartCoroutine(closeFire(ringstack1));
+        //}
         
 
     }
