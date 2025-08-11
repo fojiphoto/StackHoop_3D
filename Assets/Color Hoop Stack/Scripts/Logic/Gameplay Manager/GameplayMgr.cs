@@ -180,15 +180,16 @@ public class GameplayMgr : Singleton<GameplayMgr>
     public void EarnReward()
     {
         //Abdul Rehman
-        if (CASAds.instance.rewardedTypeAd == CASAds.RewardType.RING_STACK)
+        if (AdsManager.instance.rewardedTypeAd == AdsManager.RewardType.RING_STACK)
         {
             stateMachine.StateChange(stateGameplayAddStack);
         }
-        else if (CASAds.instance.rewardedTypeAd == CASAds.RewardType.UNDO)
+        else if (AdsManager.instance.rewardedTypeAd == AdsManager.RewardType.UNDO)
         {
             UndoLevel();
             undoTime--;
         }
+        //Jafer
     }
 
 #if UNITY_EDITOR
@@ -381,7 +382,9 @@ public class GameplayMgr : Singleton<GameplayMgr>
         yield return new WaitForSeconds(seconds);
         //nadeem
         //abdul Rehman
-        CASAds.instance.ShowBanner(CAS.AdPosition.BottomCenter);
+        //CASAds.instance.ShowBanner(CAS.AdPosition.BottomCenter);
+        AdsManager.instance.ShowBanner();
+        //Jafer
         //GoogleAdMobController.Instance.RequestBannerAd();
         //GoogleAdMobController.Instance.RequestAndLoadInterstitialAd();
         //GoogleAdMobController.Instance.RequestAndLoadRewardedAd();

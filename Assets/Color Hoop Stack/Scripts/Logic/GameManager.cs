@@ -50,12 +50,17 @@ public class GameManager : Singleton<GameManager>
     public void ShowBannerAd(){
         //abdul Rehman
         //AdsManager.instance.ShowBanner();
-        CASAds.instance.ShowBanner(CAS.AdPosition.BottomCenter);
+        AdsManager.instance.ShowBanner();
+        //Jafer
+        // CASAds.instance.ShowBanner(CAS.AdPosition.BottomCenter);
     }
     public void RevokeConcent()
     {
-        CASAds.instance?.HideBanner();
-        CASAds.instance?.HideMrecBanner();
+        //Jafer
+        AdsManager.instance.HideBanner();
+        AdsManager.instance.HideMRec();
+        //  CASAds.instance?.HideBanner();
+        //CASAds.instance?.HideMrecBanner();
         PlayerPrefs.SetInt("GDPR", 0);
         Application.LoadLevel("GDPR");
     }

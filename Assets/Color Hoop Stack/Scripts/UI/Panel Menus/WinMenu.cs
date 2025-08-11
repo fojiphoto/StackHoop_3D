@@ -12,7 +12,10 @@ public class WinMenu : MonoBehaviour
 
     private void OnEnable()
     {
-        CASAds.instance.ShowMrecBanner(CAS.AdPosition.TopCenter);
+
+        // CASAds.instance.ShowMrecBanner(CAS.AdPosition.TopCenter);
+        AdsManager.instance.ShowMRec();
+        //Jafer
         StartCoroutine(PlayFireWorkAfter(lFirework, 0f));
         StartCoroutine(PlayFireWorkAfter(rFirework, 0f));
         StartCoroutine(ResetFireWorkAfter(rFirework, fireworkTime));
@@ -25,11 +28,15 @@ public class WinMenu : MonoBehaviour
     {
         backgroundPanel.gameObject.SetActive(false);
         GameplayMgr.Instance.GoToLevel(GameplayMgr.Instance.currentLevel);
-        CASAds.instance.HideMrecBanner();
+        //  CASAds.instance.HideMrecBanner();
+        AdsManager.instance.HideMRec();
+        //Jafer
     }
 
     public void PlayEndAnimation()
     {
+
+        AdsManager.instance.ShowInterstitialWithoutConditions("Win Menu", null);
         lFirework.Stop(true);
         rFirework.Stop(true);
         animator.Play("Win Menu End Anim");

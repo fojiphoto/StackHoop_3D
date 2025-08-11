@@ -67,10 +67,15 @@ public GameObject RingStackObj;
                 }
                 else if (GameplayMgr.Instance.undoTime < 1)
                 {
-                    CASAds.instance.ShowRewarded(() =>
+                    //CASAds.instance.ShowRewarded(() =>
+                    //{
+                    //    CASAds.instance.rewardedTypeAd = CASAds.RewardType.UNDO;
+                    //});
+                    AdsManager.instance.ShowRewardedAd(() =>
                     {
-                        CASAds.instance.rewardedTypeAd = CASAds.RewardType.UNDO;
+                        AdsManager.instance.rewardedTypeAd = AdsManager.RewardType.UNDO;
                     });
+                    //Jafer
                 }
 
                 GameplayMgr.Instance.UndoLevel();

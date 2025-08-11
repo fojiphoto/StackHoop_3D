@@ -50,7 +50,10 @@ public class MoreStackButton : MonoBehaviour
             GameplayMgr.Instance.stateMachine.StateChange(GameplayMgr.Instance.stateGameplayAddStack);
             EventDispatcher.Instance.PostEvent(EventID.ON_DISABLED_TUTORIAL);
             //Abdulrehman
-             CASAds.instance.ShowRewarded(() => { CASAds.instance.rewardedTypeAd = CASAds.RewardType.RING_STACK; });
+            //CASAds.instance.ShowRewarded(() => { CASAds.instance.rewardedTypeAd = CASAds.RewardType.RING_STACK; });
+
+            AdsManager.instance.ShowRewardedAd(() => { AdsManager.instance.rewardedTypeAd = AdsManager.RewardType.RING_STACK; });
+            //Jafer
             //AdsManager.instance.ShowRewardedAd(()=>{AdsManager.instance.rewardedTypeAd=AdsManager.RewardType.RING_STACK;});
             //DisableButton();
         }
@@ -58,7 +61,10 @@ public class MoreStackButton : MonoBehaviour
         {
             //nadeem
             // abdul Rehman
-            CASAds.instance.ShowRewarded(() => { CASAds.instance.rewardedTypeAd = CASAds.RewardType.RING_STACK; });
+            //CASAds.instance.ShowRewarded(() => { CASAds.instance.rewardedTypeAd = CASAds.RewardType.RING_STACK; });
+            AdsManager.instance.ShowRewardedAd(() => {
+                AdsManager.instance.rewardedTypeAd = AdsManager.RewardType.RING_STACK; });
+            //Jafer
             //AdsManager.instance.ShowRewardedAd(() => { AdsManager.instance.rewardedTypeAd = AdsManager.RewardType.RING_STACK; });
             canUse = false;
             SoundsMgr.Instance.PlaySFX(SoundsMgr.Instance.sfxListConfig.sfxConfigDic[SFXType.BUTTON], false);

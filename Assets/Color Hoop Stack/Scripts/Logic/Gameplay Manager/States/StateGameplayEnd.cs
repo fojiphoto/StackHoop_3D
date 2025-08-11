@@ -50,7 +50,9 @@ public class StateGameplayEnd : StateGameplay
 
         //Abdul Rehman
         //AdsManager.instance.ShowInterstitialWithoutConditions();
-        CASAds.instance.ShowInterstitial();
-    
+        //  CASAds.instance.ShowInterstitial();
+       // AdsManager.instance.ShowInterstitialWithoutConditions("Exit", null);
+        //Jafer
+
     }
 }
