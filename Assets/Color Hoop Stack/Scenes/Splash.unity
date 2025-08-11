@@ -958,7 +958,6 @@ GameObject:
   - component: {fileID: 903771788}
   - component: {fileID: 903771787}
   - component: {fileID: 903771786}
-  - component: {fileID: 903771789}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1040,18 +1039,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &903771789
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 903771785}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14d169dd5a4f850448453dabf0495ddb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &975959934
 GameObject:
   m_ObjectHideFlags: 0
@@ -1579,7 +1566,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1638857086}
-  - component: {fileID: 1638857085}
   m_Layer: 0
   m_Name: Firebase
   m_TagString: Untagged
@@ -1587,18 +1573,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1638857085
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1638857084}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2623c5ff29681d4e83474a0be7c8428, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1638857086
 Transform:
   m_ObjectHideFlags: 0
@@ -1649,7 +1623,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 127
+    m_Bits: 4294967295
 --- !u!114 &1720587867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1753,7 +1727,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 127
+    m_Bits: 4294967295
 --- !u!114 &1819713441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2200,7 +2174,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
-  m_ActiveFontFeatures: 00000000
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1

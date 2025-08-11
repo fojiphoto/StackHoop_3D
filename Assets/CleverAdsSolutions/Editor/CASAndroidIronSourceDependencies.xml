@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<dependencies>
-  <androidPackages>
-    <repositories>
-      <repository>https://android-sdk.is.com/</repository>
-    </repositories>
-    <androidPackage spec="com.cleveradssolutions:ironsource:7.7.0.0" version="7.7.0.0"/>
-  </androidPackages>
-</dependencies>
