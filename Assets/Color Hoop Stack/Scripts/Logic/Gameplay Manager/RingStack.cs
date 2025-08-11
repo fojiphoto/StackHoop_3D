@@ -64,17 +64,19 @@ public class RingStack : MonoBehaviour, IPointerClickHandler
 
     public bool IsStackFullSameColor()
     {
-        if(ringStack!=null & ringStack.Peek().ringType != RingType.NONE){
-        RingType firstRingType = ringStack.Peek().ringType;
-        foreach (Ring ring in ringStack)
+        if (ringStack != null && ringStack.Count > 0 && ringStack.Peek().ringType != RingType.NONE)
         {
-            if (!(ring.ringType == firstRingType))
-                return false;
-        }
+            RingType firstRingType = ringStack.Peek().ringType;
+            foreach (Ring ring in ringStack)
+            {
+                if (!(ring.ringType == firstRingType))
+                    return false;
+            }
 
-        if (ringStack.Count < GameplayMgr.Instance.stackNumberMax)
-            return false;
+            if (ringStack.Count < GameplayMgr.Instance.stackNumberMax)
+                return false;
         }
         return true;
     }
+
 }
