@@ -43,7 +43,7 @@ public class SplashScene : MonoBehaviour
     }
     public void MoreGames()
     {
-        string moreGames = "https://play.google.com/store/apps/developer?id=Orbit+Games+Global&hl=en_US&gl=CN";
+        string moreGames = "https://play.google.com/store/apps/developer?id=Factorial+Studio";
         Application.OpenURL(moreGames);
     }
 }

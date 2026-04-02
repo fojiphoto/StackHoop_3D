@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -52,7 +52,9 @@ public class MoreStackButton : MonoBehaviour
             //Abdulrehman
             //CASAds.instance.ShowRewarded(() => { CASAds.instance.rewardedTypeAd = CASAds.RewardType.RING_STACK; });
 
-            AdsManager.instance.ShowRewardedAd(() => { AdsManager.instance.rewardedTypeAd = AdsManager.RewardType.RING_STACK; });
+           // AdsManager.instance.ShowRewardedAd(() => { 
+                AdsManager.instance.rewardedTypeAd = AdsManager.RewardType.RING_STACK; 
+           // });
             //Jafer
             //AdsManager.instance.ShowRewardedAd(()=>{AdsManager.instance.rewardedTypeAd=AdsManager.RewardType.RING_STACK;});
             //DisableButton();

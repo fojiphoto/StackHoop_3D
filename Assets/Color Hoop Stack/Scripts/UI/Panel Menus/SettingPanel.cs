@@ -22,7 +22,7 @@ public class SettingPanel : MenuPanel
     }
     public void openUrl()
     {
-        Application.OpenURL("https://orbitgamesglobal-privacy-policy.blogspot.com/");
+        Application.OpenURL("https://factorialstudio.com/privacy-policy-of-nuts-bolts-nut-puzzle-game/");
     }
     public void SaveSetting()
     {

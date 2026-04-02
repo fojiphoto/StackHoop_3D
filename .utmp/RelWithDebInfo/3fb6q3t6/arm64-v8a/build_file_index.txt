@@ -1,0 +1,2 @@
+I:\_HyperCasual\StackHoop_3D\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\CMakeLists.txt
+I:\_HyperCasual\StackHoop_3D\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\CMakeLists.txt

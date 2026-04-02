@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f78192cec1344d83a177ac5e6139ab3, type: 3}
   m_Name: Settings
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameAnalyticsSDK.Setup.Settings
   TotalMessagesSubmitted: 0
   TotalMessagesFailed: 0
   DesignMessagesSubmitted: 0
@@ -30,7 +30,7 @@ MonoBehaviour:
   secretKey:
   - decae913e548711ffb4f24e6c729d0687dedeec7
   Build:
-  - 1.3
+  - 1.5
   SelectedPlatformOrganization:
   - 
   SelectedPlatformStudio:
@@ -45,7 +45,7 @@ MonoBehaviour:
   Changes: 
   SignUpOpen: 1
   StudioName: Factorial Studio
-  GameName: Nuts And Bolts
+  GameName: Nuts and Bolts Puzzle Sorting
   OrganizationName: 
   OrganizationIdentifier: 
   EmailGA: 
@@ -85,8 +85,8 @@ MonoBehaviour:
   SubmitErrors: 1
   NativeErrorReporting: 0
   MaxErrorCount: 10
-  SubmitFpsAverage: 1
-  SubmitFpsCritical: 1
+  SubmitFpsAverage: 0
+  SubmitFpsCritical: 0
   IncludeGooglePlay: 1
   FpsCriticalThreshold: 20
   FpsCirticalSubmitInterval: 1
@@ -96,9 +96,3 @@ MonoBehaviour:
   CustomDimensions03FoldOut: 0
   ResourceItemTypesFoldOut: 0
   ResourceCurrenciesFoldOut: 0
-  EnableMemoryHistogram: 0
-  EnableHealthEvent: 0
-  EnableFPSHistogram: 0
-  EnableSDKInitEvent: 0
-  EnableHardwareTracking: 0
-  EnableMemoryTracking: 0

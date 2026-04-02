@@ -1,0 +1,5 @@
+I:/_HyperCasual/StackHoop_3D/.utmp/RelWithDebInfo/3fb6q3t6/armeabi-v7a/CMakeFiles/edit_cache.dir
+I:/_HyperCasual/StackHoop_3D/.utmp/RelWithDebInfo/3fb6q3t6/armeabi-v7a/CMakeFiles/rebuild_cache.dir
+I:/_HyperCasual/StackHoop_3D/.utmp/RelWithDebInfo/3fb6q3t6/armeabi-v7a/GameActivity/CMakeFiles/game.dir
+I:/_HyperCasual/StackHoop_3D/.utmp/RelWithDebInfo/3fb6q3t6/armeabi-v7a/GameActivity/CMakeFiles/edit_cache.dir
+I:/_HyperCasual/StackHoop_3D/.utmp/RelWithDebInfo/3fb6q3t6/armeabi-v7a/GameActivity/CMakeFiles/rebuild_cache.dir

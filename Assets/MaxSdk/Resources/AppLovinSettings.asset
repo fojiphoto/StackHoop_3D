@@ -11,10 +11,10 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ebc0ba1b5ef6b4a6b9dd53d7eadfea16, type: 3}
   m_Name: AppLovinSettings
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: MaxSdk.Scripts.IntegrationManager.Editor::AppLovinSettings
   qualityServiceEnabled: 1
   sdkKey: TecxGz9HeSi_iQ5CGuTRWRFTDHtMM_TKk19s1icUkcuQLyS1FNVZ8Kp_McP2XmsoOIqrW7KHyl1Q5itk7RJVnT
   customGradleVersionUrl: 
   customGradleToolsVersion: 
-  adMobAndroidAppId: ca-app-pub-8035849541939283~9403803998
+  adMobAndroidAppId: ca-app-pub-8035849541939283~7954921453
   adMobIosAppId: 
