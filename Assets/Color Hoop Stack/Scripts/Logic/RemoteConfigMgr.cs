@@ -16,6 +16,7 @@ public class RemoteConfigMgr : Singleton<RemoteConfigMgr>
 
     private void Awake()
     {
+        /*
         Firebase.FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task => {
             var dependencyStatus = task.Result;
             if (dependencyStatus == Firebase.DependencyStatus.Available)
@@ -32,9 +33,12 @@ public class RemoteConfigMgr : Singleton<RemoteConfigMgr>
                   "Could not resolve all Firebase dependencies: {0}", dependencyStatus));
                 // Firebase Unity SDK is not safe to use here.
                 isDoneInitRemoteConfig = true;
+                Debug.Log("RemoteConfigMgr: Posting ON_LOAD_SERVICE_DONE (Failure path)");
                 EventDispatcher.Instance.PostEvent(EventID.ON_LOAD_SERVICE_DONE);
             }
         });
+        */
+        isDoneInitRemoteConfig = true;
     }
 
     // Initialize remote config, and set the default values.
@@ -70,14 +74,18 @@ public class RemoteConfigMgr : Singleton<RemoteConfigMgr>
 #endif
     public Task FetchDataAsync()
     {
-        Debug.Log("Fetching data...");
+        Debug.Log("Fetching data... (Bypassed)");
+        /*
         System.Threading.Tasks.Task fetchTask =
         Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.FetchAsync(TimeSpan.Zero);
         return fetchTask.ContinueWithOnMainThread(FetchComplete);
+        */
+        return Task.CompletedTask;
     }
 
     private void FetchComplete(Task obj)
     {
+        Debug.Log("RemoteConfigMgr: FetchComplete called");
         var info = Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.Info;
         switch (info.LastFetchStatus)
         {
@@ -107,6 +115,7 @@ public class RemoteConfigMgr : Singleton<RemoteConfigMgr>
                 break;
         }
         isDoneInitRemoteConfig = true;
+        Debug.Log("RemoteConfigMgr: Posting ON_LOAD_SERVICE_DONE");
         EventDispatcher.Instance.PostEvent(EventID.ON_LOAD_SERVICE_DONE);
     }
 }

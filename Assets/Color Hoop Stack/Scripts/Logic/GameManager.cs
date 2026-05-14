@@ -33,11 +33,20 @@ public class GameManager : Singleton<GameManager>
 #endif
     }
 
+    private void Start()
+    {
+        CheckServicesLoad();
+    }
+
+    private bool isGameplayInitStarted = false;
+
     private void CheckServicesLoad()
     {
-        if (RemoteConfigMgr.Instance.isDoneInitRemoteConfig &&
-            CASAds.instance.isDoneCASInit)
+        // Bypassing service checks as requested by user
+        if (!isGameplayInitStarted)
         {
+            Debug.Log("CheckServicesLoad: Starting GameplayMgr.Init() (Bypassing services)");
+            isGameplayInitStarted = true;
             GameplayMgr.Instance.Init();
         }
     }

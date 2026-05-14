@@ -72,6 +72,7 @@ public class GameplayMgr : Singleton<GameplayMgr>
 
     public void Init()
     {
+        Debug.Log("GameplayMgr: Init called");
         FileHandler fileHandler = new FileHandler();
         if (!fileHandler.IsFileExist(fileHandler.settingFilePath))
         {
@@ -92,8 +93,11 @@ public class GameplayMgr : Singleton<GameplayMgr>
 
     private void Update()
     {
-        stateMachine.StateHandleInput(); 
-        stateMachine.StateLogicUpdate();
+        if (stateMachine.CurrentState != null)
+        {
+            stateMachine.StateHandleInput();
+            stateMachine.StateLogicUpdate();
+        }
     }
 
 #if UNITY_EDITOR
@@ -285,7 +289,7 @@ public class GameplayMgr : Singleton<GameplayMgr>
     public IEnumerator LoadAdsAfter(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        CASAds.instance.ShowBanner(CAS.AdPosition.BottomCenter);
+        //CASAds.instance.ShowBanner(CAS.AdPosition.BottomCenter);
         //GoogleAdMobController.Instance.RequestBannerAd();
         //GoogleAdMobController.Instance.RequestAndLoadInterstitialAd();
         //GoogleAdMobController.Instance.RequestAndLoadRewardedAd();

@@ -14,6 +14,7 @@ public class SoundsMgr : Singleton<SoundsMgr>
     private void Awake()
     {
         Instance = this;
+        transform.SetParent(null);
         DontDestroyOnLoad(this.gameObject);
     }
 

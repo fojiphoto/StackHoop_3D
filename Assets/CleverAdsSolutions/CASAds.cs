@@ -33,11 +33,13 @@ public class CASAds : MonoBehaviour
 
     private void Init()
     {
+        Debug.Log("CASAds: Init (Bypassed)");
+        /*
         _manager = MobileAds.BuildManager()
             .WithInitListener(CreateAdView)
             // Call Initialize method in any case to get IMediationManager instance
             .Initialize();
-        isDoneCASInit = true;
+        
         _manager.OnRewardedAdCompleted += _lastAction;
 
        // AdmobGA_Helper.GA_Log(AdmobGAEvents.Initialized);
@@ -50,21 +52,27 @@ public class CASAds : MonoBehaviour
         {
             Debug.Log(ex.Message);
         }
-
+        */
+        isDoneCASInit = true;
+        Debug.Log("CASAds: Posting ON_LOAD_SERVICE_DONE");
+        EventDispatcher.Instance.PostEvent(EventID.ON_LOAD_SERVICE_DONE);
     }
 
     private void CreateAdView(bool success, string error)
     {
+        /*
         _lastAdView = _manager.GetAdView(AdSize.Banner);
         _lastMrecAdView = _manager.GetAdView(AdSize.MediumRectangle);
         _lastAdView.SetActive(false);
         _lastMrecAdView.SetActive(false);
+        */
 
         //AdmobGA_Helper.GA_Log(AdmobGAEvents.RequestBannerAd);
     }
  
     public void ShowBanner(AdPosition position)
     {
+        /*
         if (_lastAdView == null)
         {
             CreateAdView(true, ""); 
@@ -75,6 +83,7 @@ public class CASAds : MonoBehaviour
             _lastAdView.position = position;
             _lastAdView.SetActive(true);
         }
+        */
 
         //AdmobGA_Helper.GA_Log(AdmobGAEvents.BannerAdDisplayed);
         try
@@ -89,6 +98,7 @@ public class CASAds : MonoBehaviour
 
     public void ShowMrecBanner(AdPosition position)
     {
+        /*
         if (_lastMrecAdView == null)
         {
             CreateAdView(true, "");
@@ -99,6 +109,7 @@ public class CASAds : MonoBehaviour
             _lastMrecAdView.position = position;
             _lastMrecAdView.SetActive(true);
         }
+        */
        // AdmobGA_Helper.GA_Log(AdmobGAEvents.ShowMREC);
 
         try
@@ -132,7 +143,7 @@ public class CASAds : MonoBehaviour
 
     public void ShowInterstitial()
     {
-        _manager?.ShowAd( AdType.Interstitial );
+        // _manager?.ShowAd( AdType.Interstitial );
         //AdmobGA_Helper.GA_Log(AdmobGAEvents.ShowInterstitialAd);
 
         try
@@ -147,6 +158,7 @@ public class CASAds : MonoBehaviour
 
     public void ShowRewarded( Action complete )
     {
+        /*
         if ( _manager == null )
             return;
         
@@ -158,6 +170,10 @@ public class CASAds : MonoBehaviour
         _lastAction = complete;
         _manager.OnRewardedAdCompleted += _lastAction;
         _manager?.ShowAd(AdType.Rewarded);
+        */
+        
+        // Immediately reward for testing/bypass
+        complete?.Invoke();
 
         //AdmobGA_Helper.GA_Log(AdmobGAEvents.ShowRewardedAd);
         try
